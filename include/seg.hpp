@@ -18,6 +18,7 @@ struct Single {};
 struct Left {};
 struct Right {};
 struct Both {};
+struct Fold {};
 
 template <char ID,
           class ViewL = Identity,
@@ -35,14 +36,9 @@ struct Placeholder {
   constexpr explicit Placeholder(ViewL left, ViewR right)
     : left(std::move(left)), right(std::move(right)) {}
 
-  template <class Value>
-  constexpr auto operator()(Value &&value) const {
-    return impl(Mode(), value);
-  }
-
-  template <class ValueL, class ValueR>
-  constexpr auto operator()(ValueL &&valueL, ValueR &&valueR) const {
-    return Impl()(std::forward<ValueL>(valueL), std::forward<ValueR>(valueR));
+  template <class... Values>
+  constexpr auto operator()(Values &&... values) const {
+    return impl(Mode(), std::forward<Values>(values)...);
   }
 
  private:
@@ -64,6 +60,11 @@ struct Placeholder {
   template <class Value>
   constexpr auto impl(Both, Value &&value) const {
     return Impl()(left(std::forward<Value>(value)), right(value));
+  }
+
+  template <class... Values>
+  constexpr auto impl(Fold, Values &&... values) const {
+    return Impl()(std::forward<Values>(values)...);
   }
 
   ViewL const left;
@@ -110,12 +111,12 @@ struct Placeholder {
                   Placeholder<IDL, RestL...>,                                  \
                   Placeholder<IDR, RestR...>,                                  \
                   std::FUNC<>,                                                 \
-                  Both> {                                                      \
+                  Fold> {                                                      \
     return Placeholder<'\0',                                                   \
                        Placeholder<IDL, RestL...>,                             \
                        Placeholder<IDR, RestR...>,                             \
                        std::FUNC<>,                                            \
-                       Both>(std::move(viewL), std::move(viewR));              \
+                       Fold>(std::move(viewL), std::move(viewR));              \
   }
 
 OPERATION( +  , plus          );
