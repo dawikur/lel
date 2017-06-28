@@ -3,7 +3,6 @@
 #ifndef INCLUDE_SEG_HPP_
 #define INCLUDE_SEG_HPP_
 
-#include <cstddef>
 #include <functional>
 
 namespace Seg {
@@ -37,46 +36,38 @@ struct Placeholder {
     : left(std::move(left)), right(std::move(right)) {}
 
   template <class Value>
-  constexpr auto operator()(Value const &value) const {
+  constexpr auto operator()(Value &&value) const {
     return impl(Mode(), value);
+  }
+
+  template <class ValueL, class ValueR>
+  constexpr auto operator()(ValueL &&valueL, ValueR &&valueR) const {
+    return Impl()(std::forward<ValueL>(valueL), std::forward<ValueR>(valueR));
   }
 
  private:
   template <class Value>
-  constexpr auto impl(Single, Value const &value) const {
-    return Impl()(left(value));
+  constexpr auto impl(Single, Value &&value) const {
+    return Impl()(left(std::forward<Value>(value)));
   }
 
   template <class Value>
-  constexpr auto impl(Left, Value const &value) const {
-    return Impl()(left(value), right);
+  constexpr auto impl(Left, Value &&value) const {
+    return Impl()(left(std::forward<Value>(value)), right);
   }
 
   template <class Value>
-  constexpr auto impl(Right, Value const &value) const {
-    return Impl()(left, right(value));
+  constexpr auto impl(Right, Value &&value) const {
+    return Impl()(left, right(std::forward<Value>(value)));
   }
 
   template <class Value>
-  constexpr auto impl(Both, Value const &value) const {
-    return Impl()(left(value), right(value));
+  constexpr auto impl(Both, Value &&value) const {
+    return Impl()(left(std::forward<Value>(value)), right(value));
   }
 
   ViewL const left;
   ViewR const right;
-
-  constexpr auto begin() const {
-    placeholder_cannot_be_used_as_a_sequence_you_need_a_view<void>();
-  }
-
-  constexpr auto end() const {
-    placeholder_cannot_be_used_as_a_sequence_you_need_a_view<void>();
-  }
-
- private:
-  template <class>
-  constexpr static void
-    placeholder_cannot_be_used_as_a_sequence_you_need_a_view() = delete;
 };
 
 #define OPERATION(MARK, FUNC)                                                  \
@@ -109,6 +100,20 @@ struct Placeholder {
     return Placeholder<ID,                                                     \
                        Placeholder<ID, RestL...>,                              \
                        Placeholder<ID, RestR...>,                              \
+                       std::FUNC<>,                                            \
+                       Both>(std::move(viewL), std::move(viewR));              \
+  }                                                                            \
+  template <char IDL, class... RestL, char IDR, class... RestR>                \
+  constexpr auto operator MARK(Placeholder<IDL, RestL...> viewL,               \
+                               Placeholder<IDR, RestR...> viewR)               \
+    ->Placeholder<'\0',                                                        \
+                  Placeholder<IDL, RestL...>,                                  \
+                  Placeholder<IDR, RestR...>,                                  \
+                  std::FUNC<>,                                                 \
+                  Both> {                                                      \
+    return Placeholder<'\0',                                                   \
+                       Placeholder<IDL, RestL...>,                             \
+                       Placeholder<IDR, RestR...>,                             \
                        std::FUNC<>,                                            \
                        Both>(std::move(viewL), std::move(viewR));              \
   }

@@ -1,6 +1,6 @@
 set(seg_test_SOURCES
+  double_placeholders.cpp
   meta.cpp
-  multiple_placeholders.cpp
   nested_single_placeholder.cpp
   single_placeholder.cpp
 )
