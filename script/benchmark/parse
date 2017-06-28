@@ -1,0 +1,63 @@
+#!/usr/bin/python
+
+import json
+import sys
+
+
+def load_json(in_file):
+    with open(in_file) as file_json:
+        return json.load(file_json)["benchmarks"]
+
+
+def parse_json(benchmarks):
+    parsed_data = {}
+
+    for benchmark in benchmarks:
+        name, count = benchmark["name"].split("/")
+        fixture, name = name.split("__")
+
+        value = benchmark["real_time"]
+
+        name = name.replace('_', ' ')
+        name = name.replace("<st", 'st')
+        name = name.replace(">>", '>')
+        name = name.replace("<Value>", '')
+
+        count = str(count)
+        if count.endswith("k"):
+            count = int(count[:-1]) * 1024
+        else:
+            count = int(count)
+
+        if fixture not in parsed_data:
+            parsed_data[fixture] = {}
+
+        if name not in parsed_data[fixture]:
+            parsed_data[fixture][name] = {}
+
+        parsed_data[fixture][name][count] = value
+
+    return parsed_data
+
+
+def print_data(all_data):
+    for fixture, data in sorted(all_data.items()):
+        with open(fixture, "w") as output:
+            print(fixture)
+            for name, entry in sorted(data.items()):
+                output.write('"' + name + '"\n')
+                for count, value in sorted(entry.items()):
+                    output.write(str(count) + " " + str(value) + '\n')
+                output.write("\n")
+                output.write("\n")
+
+
+def main():
+    input_file = sys.argv[1]
+    benchmarks = load_json(input_file)
+    data = parse_json(benchmarks)
+    print_data(data)
+
+
+if __name__ == "__main__":
+    main()

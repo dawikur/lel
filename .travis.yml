@@ -1,0 +1,61 @@
+---
+
+sudo: false
+
+language: generic
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+      - llvm-toolchain-precise-3.6
+      - llvm-toolchain-precise-3.7
+      - llvm-toolchain-precise-3.8
+      - llvm-toolchain-precise-3.9
+    packages:
+      - cppcheck
+      - g++-5
+      - g++-6
+      - clang-3.6
+      - clang-3.7
+      - clang-3.8
+      - clang-3.9
+
+env:
+  - CC=gcc-5 CXX=g++-5
+  - CC=gcc-6 CXX=g++-6
+  - CC=clang-3.6 CXX=clang++-3.6
+  - CC=clang-3.7 CXX=clang++-3.7
+  - CC=clang-3.8 CXX=clang++-3.8
+  - CC=clang-3.9 CXX=clang++-3.9
+
+matrix:
+  include:
+    - env: Coverage CC=gcc-6 CXX=g++-6
+      install:
+        - pip install --user codecov
+
+      script:
+        - cmake .. -DCOVERAGE=ON
+        - cmake --build .
+        - ctest -VV
+
+      after_success:
+        - cd ..
+        - codecov --gcov-exec gcov-6
+
+    - env: CppCheck
+      before_script: true
+      script: cppcheck --enable=all -Iinclude -Itest include test
+
+before_script:
+  - mkdir build
+  - cd build
+
+script:
+  - cmake .. -DTESTS=ON
+  - cmake --build .
+  - ctest -VV
+
+notifications:
+  email: false

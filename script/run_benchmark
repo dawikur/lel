@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
+
+fileJson=$(mktemp)
+
+echo "Start"
+
+echo "Temporary file: ${fileJson}"
+
+echo "Mkdir"
+  if [ ! -d build ]; then
+    mkdir build || exit 1
+  fi
+
+echo "Building..."; (
+  cd build || exit 1
+  cmake .. -G'Unix Makefiles' -DCMAKE_BUILD_TYPE=Release -DBENCHMARK=ON || exit 1
+  cmake --build . || exit 1
+) || exit 1; echo "Builded"
+
+echo "Running..."
+  ./build/test/benchmark/segela_benchmark --benchmark_format=json > "${fileJson}"
+echo "Tests done"
+
+echo "Parsing Json"
+  files=$(./script/benchmark/parse "${fileJson}")
+echo "Json Parsed"
+
+echo "Generating PNG"
+  for file in ${files}; do
+    echo "> ${file}"
+    plot_title="${file}" data_file="${file}" ./script/benchmark/plot > "res/benchmark/${file}.png"
+    rm -v "${file}"
+  done
+echo "PNG generated"
+
+echo "Copy json file"
+cp "${fileJson}" "res/benchmark/data"
+
+echo "Stop"
+

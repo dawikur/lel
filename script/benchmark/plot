@@ -1,0 +1,21 @@
+#!/usr/bin/gnuplot
+
+reset
+set terminal png size 800,480
+
+plot_title=system("echo $plot_title")
+data_file=system("echo $data_file")
+
+set title plot_title
+set xlabel "#elements"
+set ylabel "time [ns]"
+
+set key reverse Left outside
+set grid
+
+set style data linespoints
+set logscale xy
+
+plot for [IDX=0:2] \
+  data_file index IDX using 1:2 title columnheader(1)
+

@@ -1,0 +1,280 @@
+#!/usr/bin/env python
+
+# Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
+
+from __future__ import print_function
+
+import argparse
+import datetime
+import os
+import re
+import sys
+
+
+INCLUDE_FUSE_PATTERN = r'#include "(segela/[\w/]*.hpp)"'
+INCLUDE_SYSTEM_PATTERN = r'#include <\w*>'
+INCLUDE_OTHER_PATTERN = r'#include [\w"<>/.]*'
+COPYRIGHT_PATTERN = r'// Copyright \d{4}, Dawid Kurek, <dawikur@gmail.com>'
+GUARD_PATTERN = r'#\w* [ /]{0,4}INCLUDE_SEGELA_\w*HPP_'
+
+NAMESPACE_BEGIN_PATTERN = r'namespace (\w*) {'
+NAMESPACE_END_PATTERN = r'}  // namespace (\w*)'
+
+INCLUDE_FUSE_REGEX = re.compile(INCLUDE_FUSE_PATTERN)
+INCLUDE_SYSTEM_REGEX = re.compile(INCLUDE_SYSTEM_PATTERN)
+INCLUDE_OTHER_REGEX = re.compile(INCLUDE_OTHER_PATTERN)
+COPYRIGHT_REGEX = re.compile(COPYRIGHT_PATTERN)
+GUARD_REGEX = re.compile(GUARD_PATTERN)
+
+NAMESPACE_BEGIN_REGEX = re.compile(NAMESPACE_BEGIN_PATTERN)
+NAMESPACE_END_REGEX = re.compile(NAMESPACE_END_PATTERN)
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description='Fuse all headers into single one.')
+    parser.add_argument('-i', '--include',
+                        default='include',
+                        help='Relative path to headers')
+    parser.add_argument('-o', '--output',
+                        default='include',
+                        help='Relative path to output directory')
+    parser.add_argument('-n', '--name',
+                        default='sgl.hpp',
+                        help='Destination filename')
+
+    parser.add_argument('-f', '--force',
+                        default=False,
+                        action='store_true',
+                        help='Override output file if exists')
+
+    parser.add_argument('--header_guard',
+                        default='SEGELA_FUSED_{}_',
+                        help='Format string to create header guard')
+
+    group_combine = parser.add_mutually_exclusive_group()
+    group_combine.add_argument('--combine',
+                               dest='combine',
+                               action='store_true',
+                               help='Combine headers and namespaces')
+    group_combine.add_argument('--no-combine',
+                               dest='combine',
+                               action='store_false',
+                               help='Do NOT combine headers and namespaces')
+    group_combine.set_defaults(combine=True)
+
+    return parser.parse_args()
+
+
+def check_preconditions(filepath, force):
+    if os.path.isfile(filepath):
+        if force:
+            print('File "{}" exists, overriding.\n'.format(filepath))
+        else:
+            print('File "{}" exists, use "--force" to override.\n'
+                  .format(filepath), file=sys.stderr)
+            sys.exit(1)
+    else:
+        print('File "{}" does not exist.\n'.format(filepath))
+
+
+def check_postconditions(result):
+    if not result:
+        print('Result in None, something went wrong.\n', file=sys.stderr)
+
+
+class Parser(object):
+    class Result(object):
+        def __init__(self, include_system, include_other, lines):
+            self.include_system = include_system
+            self.include_other = include_other
+            self.lines = lines
+
+    def __init__(self, include, combine):
+        self.include = include
+        self.combine = combine
+        self.indentation = 0
+        self.parsed = set([])
+
+        self.include_system = set([])
+        self.include_other = set([])
+        self.lines = []
+
+    def run(self, filename):
+        filepath = os.path.join(self.include, filename)
+
+        if filepath not in self.parsed:
+            print(
+                '{}{}'.format((self.indentation) * '| ' + '+ ', filename)
+            )
+
+            self.parsed.add(filepath)
+            self.indentation += 1
+            with open(filepath, 'r') as header:
+                self._file(header)
+            self.indentation -= 1
+
+        return Parser.Result(
+            self.include_system, self.include_other, self.lines
+        )
+
+    def _file(self, header):
+        for line in header:
+            include_fuse_match = INCLUDE_FUSE_REGEX.match(line)
+            if include_fuse_match:
+                subfile = include_fuse_match.group(1)
+                self.run(subfile)
+                continue
+
+            if INCLUDE_SYSTEM_REGEX.match(line):
+                if self.combine:
+                    self.include_system.add(line)
+                    continue
+
+            if INCLUDE_OTHER_REGEX.match(line):
+                if self.combine:
+                    self.include_other.add(line)
+                    continue
+
+            if COPYRIGHT_REGEX.match(line):
+                continue
+
+            if GUARD_REGEX.match(line):
+                continue
+
+            self.lines.append(line)
+
+
+class Processor(object):
+    def __init__(self, combine):
+        self.combine = combine
+
+    def run(self, result):
+        result.include_system = \
+            Processor._sort_headers(result.include_system)
+        result.include_other = \
+            Processor._sort_headers(result.include_other)
+
+        if self.combine:
+            result.lines = \
+                Processor._merge_namespaces(result.lines)
+
+        result.lines = \
+            Processor._remove_multiple_empty_lines(result.lines)
+
+        return result
+
+    @staticmethod
+    def _sort_headers(headers):
+        headers = list(headers)
+        headers.sort()
+        return headers
+
+    @staticmethod
+    def _merge_namespaces(lines):
+        result = ['']
+
+        is_empty = False
+        for line in lines:
+            if line == '\n':
+                is_empty = True
+                continue
+
+            namespace_begin = NAMESPACE_BEGIN_REGEX.match(line)
+            namespace_end = NAMESPACE_END_REGEX.match(result[-1])
+
+            if   (namespace_begin
+              and namespace_end
+              and namespace_begin.group(1) == namespace_end.group(1)):
+                result.pop()
+                is_empty = False
+                continue
+
+            if is_empty:
+                result.append('\n')
+            is_empty = False
+            result.append(line)
+
+        if is_empty:
+            result.append('\n')
+        return result
+
+    @staticmethod
+    def _remove_multiple_empty_lines(lines):
+        result = []
+
+        is_empty = False
+        for line in lines:
+            if line == '\n' and is_empty:
+                continue
+
+            result.append(line)
+            is_empty = line == '\n'
+
+        return result
+
+
+class Writer(object):
+    def __init__(self, filepath):
+        self.output = open(filepath, "w")
+
+    def run(self, name, header_guard, result):
+        header_guard = header_guard.format(name.replace('.', '_').upper())
+
+        self._header()
+        self._header_guard_begin(header_guard)
+
+        self._includes(result.include_system)
+        self._includes(result.include_other)
+        self._lines(result.lines)
+
+        self._header_guard_end(header_guard)
+
+    def _header(self):
+        date = datetime.datetime.now()
+
+        self.output.write('/* Copyright {}, Dawid Kurek, <dawikur@gmail.com>\n'
+                          .format(date.year))
+        self.output.write(' *\n')
+        self.output.write(' * File autogenerated.\n')
+        self.output.write(' *   repo:    https://github.com/dawikur/segela\n')
+        self.output.write(' *   date:    {}\n'.format(date))
+        self.output.write(' *   command: {}\n'.format(' '.join(sys.argv)))
+        self.output.write(' */\n')
+        self.output.write('\n')
+
+    def _header_guard_begin(self, header_guard):
+        self.output.write('#ifndef {}\n'.format(header_guard))
+        self.output.write('#define {}\n'.format(header_guard))
+        self.output.write('\n')
+
+    def _header_guard_end(self, header_guard):
+        self.output.write('#endif  // {}'.format(header_guard))
+
+    def _includes(self, includes):
+        for include in includes:
+            self.output.write(include)
+        if includes:
+            self.output.write('\n')
+
+    def _lines(self, lines):
+        for line in lines:
+            self.output.write(line)
+
+
+def main():
+    args = parse_args()
+
+    filepath = os.path.join(args.output, args.name)
+    check_preconditions(filepath, args.force)
+
+    result = Parser(args.include, args.combine).run('segela.hpp')
+    result = Processor(args.combine).run(result)
+
+    check_postconditions(result)
+
+    Writer(filepath).run(args.name, args.header_guard, result)
+
+
+if __name__ == '__main__':
+    main()

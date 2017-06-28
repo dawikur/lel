@@ -1,9 +1,10 @@
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
 CTestTestfile.cmake
+Makefile
+Testing
+build
+cmake_install.cmake
+compile_commands.json
+install_manifest.txt
