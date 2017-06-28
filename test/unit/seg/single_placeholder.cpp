@@ -9,11 +9,6 @@ class single_placeholder_test : public ::testing::Test {
   Seg::Placeholder<'x'> _x;
 };
 
-TEST_F(single_placeholder_test, identity_returns_same_object) {
-  ASSERT_TRUE(Seg::Identity()(true));
-  ASSERT_EQ(8, Seg::Identity()(8));
-}
-
 TEST_F(single_placeholder_test, raw_placeholder_return_passed_value) {
   ASSERT_TRUE(_x(true));
   ASSERT_EQ(8, _x(8));
