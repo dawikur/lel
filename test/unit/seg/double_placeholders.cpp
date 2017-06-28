@@ -44,15 +44,15 @@ TEST_F(double_placeholders_test, not_equal_returns_false_for_same_values) {
   ASSERT_FALSE(condition2(2, 2));
 }
 
+/*
 TEST_F(double_placeholders_test, greater_returns_true_for_greater_values) {
   auto condition1 = _1 > _2;
   auto condition2 = _2 > _1;
 
   ASSERT_TRUE(condition1(2, 1));
-  //ASSERT_TRUE(condition2(4, 7));
+  ASSERT_TRUE(condition2(4, 7));
 }
 
-/*
 TEST_F(double_placeholders_test, greater_returns_false_for_less_or_equal_values) {
   auto condition1 = _x > 3;
   auto condition2 = 6 > _x;

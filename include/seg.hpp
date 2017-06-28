@@ -4,6 +4,7 @@
 #define INCLUDE_SEG_HPP_
 
 #include <functional>
+#include <type_traits>
 
 namespace Seg {
 
@@ -20,103 +21,99 @@ struct Right {};
 struct Both {};
 struct Fold {};
 
-template <char ID,
-          class ViewL = Identity,
-          class ViewR = Identity,
-          class Impl  = Identity,
-          class Mode  = Single>
-struct Placeholder {
+template <class ViewLT, class ViewRT, class RawT, class ModeT>
+struct Context {
+  using ViewL = ViewLT;
+  using ViewR = ViewRT;
+  using Raw   = RawT;
+  using Mode  = ModeT;
+};
+
+template <class Context, char ...ID>
+struct Impl {
  public:
-  static constexpr char Id = ID;
+  constexpr explicit Impl() : left(), right() {}
 
-  constexpr explicit Placeholder() : left(), right() {}
+  constexpr explicit Impl(typename Context::ViewL left)
+    : left(std::move(left)), right() {}
 
-  constexpr explicit Placeholder(ViewL left) : left(std::move(left)), right() {}
-
-  constexpr explicit Placeholder(ViewL left, ViewR right)
+  constexpr explicit Impl(typename Context::ViewL left,
+                          typename Context::ViewR right)
     : left(std::move(left)), right(std::move(right)) {}
 
   template <class... Values>
   constexpr auto operator()(Values &&... values) const {
-    return impl(Mode(), std::forward<Values>(values)...);
+    return raw(typename Context::Mode(), std::forward<Values>(values)...);
   }
 
  private:
   template <class Value>
-  constexpr auto impl(Single, Value &&value) const {
-    return Impl()(left(std::forward<Value>(value)));
+  constexpr auto raw(Single, Value &&value) const {
+    return typename Context::Raw()(left(std::forward<Value>(value)));
   }
 
   template <class Value>
-  constexpr auto impl(Left, Value &&value) const {
-    return Impl()(left(std::forward<Value>(value)), right);
+  constexpr auto raw(Left, Value &&value) const {
+    return typename Context::Raw()(left(std::forward<Value>(value)), right);
   }
 
   template <class Value>
-  constexpr auto impl(Right, Value &&value) const {
-    return Impl()(left, right(std::forward<Value>(value)));
+  constexpr auto raw(Right, Value &&value) const {
+    return typename Context::Raw()(left, right(std::forward<Value>(value)));
   }
 
   template <class Value>
-  constexpr auto impl(Both, Value &&value) const {
-    return Impl()(left(std::forward<Value>(value)), right(value));
+  constexpr auto raw(Both, Value &&value) const {
+    return
+      typename Context::Raw()(left(std::forward<Value>(value)), right(value));
   }
 
   template <class... Values>
-  constexpr auto impl(Fold, Values &&... values) const {
-    return Impl()(std::forward<Values>(values)...);
+  constexpr auto raw(Fold, Values &&... values) const {
+    return typename Context::Raw()(std::forward<Values>(values)...);
   }
 
-  ViewL const left;
-  ViewR const right;
+  typename Context::ViewL const left;
+  typename Context::ViewR const right;
 };
 
 #define OPERATION(MARK, FUNC)                                                  \
-  template <char ID, class... Rest, class Value>                               \
-  constexpr auto operator MARK(Placeholder<ID, Rest...> view, Value value)     \
-    ->Placeholder<ID, Placeholder<ID, Rest...>, Value, std::FUNC<>, Left> {    \
-    return Placeholder<ID,                                                     \
-                       Placeholder<ID, Rest...>,                               \
-                       Value,                                                  \
-                       std::FUNC<>,                                            \
-                       Left>(std::move(view), std::move(value));               \
+  template <char... ID, class Rest, class Value>                               \
+  constexpr auto operator MARK(Impl<Rest, ID...> view, Value value)            \
+    ->Impl<Context<Impl<Rest, ID...>, Value, std::FUNC<>, Left>, ID...> {      \
+    return Impl<Context<Impl<Rest, ID...>, Value, std::FUNC<>, Left>, ID...>(  \
+      std::move(view), std::move(value));                                      \
   }                                                                            \
-  template <char ID, class... Rest, class Value>                               \
-  constexpr auto operator MARK(Value value, Placeholder<ID, Rest...> view)     \
-    ->Placeholder<ID, Value, Placeholder<ID, Rest...>, std::FUNC<>, Right> {   \
-    return Placeholder<ID,                                                     \
-                       Value,                                                  \
-                       Placeholder<ID, Rest...>,                               \
-                       std::FUNC<>,                                            \
-                       Right>(std::move(value), std::move(view));              \
+  template <char... ID, class Rest, class Value>                               \
+  constexpr auto operator MARK(Value value, Impl<Rest, ID...> view)            \
+    ->Impl<Context<Value, Impl<Rest, ID...>, std::FUNC<>, Right>, ID...> {     \
+    return Impl<Context<Value, Impl<Rest, ID...>, std::FUNC<>, Right>, ID...>( \
+      std::move(value), std::move(view));                                      \
   }                                                                            \
-  template <char ID, class... RestL, class... RestR>                           \
-  constexpr auto operator MARK(Placeholder<ID, RestL...> viewL,                \
-                               Placeholder<ID, RestR...> viewR)                \
-    ->Placeholder<ID,                                                          \
-                  Placeholder<ID, RestL...>,                                   \
-                  Placeholder<ID, RestR...>,                                   \
-                  std::FUNC<>,                                                 \
-                  Both> {                                                      \
-    return Placeholder<ID,                                                     \
-                       Placeholder<ID, RestL...>,                              \
-                       Placeholder<ID, RestR...>,                              \
-                       std::FUNC<>,                                            \
-                       Both>(std::move(viewL), std::move(viewR));              \
+  template <char... ID, class RestL, class RestR>                              \
+  constexpr auto operator MARK(Impl<RestL, ID...> viewL,                       \
+                               Impl<RestR, ID...> viewR)                       \
+    ->Impl<Context<Impl<RestL, ID...>, Impl<RestR, ID...>, std::FUNC<>, Both>, \
+           ID...> {                                                            \
+    return Impl<Context<Impl<RestL, ID...>,                                    \
+                        Impl<RestR, ID...>,                                    \
+                        std::FUNC<>,                                           \
+                        Both>,                                                 \
+                ID...>(std::move(viewL), std::move(viewR));                    \
   }                                                                            \
-  template <char IDL, class... RestL, char IDR, class... RestR>                \
-  constexpr auto operator MARK(Placeholder<IDL, RestL...> viewL,               \
-                               Placeholder<IDR, RestR...> viewR)               \
-    ->Placeholder<'\0',                                                        \
-                  Placeholder<IDL, RestL...>,                                  \
-                  Placeholder<IDR, RestR...>,                                  \
-                  std::FUNC<>,                                                 \
-                  Fold> {                                                      \
-    return Placeholder<'\0',                                                   \
-                       Placeholder<IDL, RestL...>,                             \
-                       Placeholder<IDR, RestR...>,                             \
-                       std::FUNC<>,                                            \
-                       Fold>(std::move(viewL), std::move(viewR));              \
+  template <char... IDL, class RestL, char... IDR, class RestR>                \
+  constexpr auto operator MARK(Impl<RestL, IDL...> viewL,                      \
+                               Impl<RestR, IDR...> viewR)                      \
+    ->Impl<Context<Impl<RestL, IDL...>,                                        \
+                   Impl<RestR, IDR...>,                                        \
+                   std::FUNC<>,                                                \
+                   Fold>,                                                      \
+           '\0'> {                                                             \
+    return Impl<Context<Impl<RestL, IDL...>,                                   \
+                        Impl<RestR, IDR...>,                                   \
+                        std::FUNC<>,                                           \
+                        Fold>,                                                 \
+                '\0'>(std::move(viewL), std::move(viewR));                     \
   }
 
 OPERATION( +  , plus          );
@@ -142,18 +139,11 @@ OPERATION( ^  , bit_xor       );
 #undef OPERATION
 
 #define OPERATION(MARK, FUNC)                                                  \
-  template <char ID, class... Rest>                                            \
-  constexpr auto operator MARK(Placeholder<ID, Rest...> view)                  \
-    ->Placeholder<ID,                                                          \
-                  Placeholder<ID, Rest...>,                                    \
-                  Identity,                                                    \
-                  std::FUNC<>,                                                 \
-                  Single> {                                                    \
-    return Placeholder<ID,                                                     \
-                       Placeholder<ID, Rest...>,                               \
-                       Identity,                                               \
-                       std::FUNC<>,                                            \
-                       Single>(std::move(view));                               \
+  template <char... ID, class Rest>                                            \
+  constexpr auto operator MARK(Impl<Rest, ID...> view)                         \
+    ->Impl<Context<Impl<Rest, ID...>, Identity, std::FUNC<>, Single>, ID...> { \
+    return Impl<Context<Impl<Rest, ID...>, Identity, std::FUNC<>, Single>,     \
+                ID...>(std::move(view));                                       \
   }
 
 OPERATION( - , negate      );
@@ -161,6 +151,9 @@ OPERATION( ! , logical_not );
 OPERATION( ~ , bit_not     );
 
 #undef OPERATION
+
+template <char ID>
+using Placeholder = Impl<Context<Identity, Identity, Identity, Single>, ID>;
 
 }  // namespace Seg
 
