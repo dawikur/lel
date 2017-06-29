@@ -7,4 +7,5 @@ Testing
 build
 cmake_install.cmake
 compile_commands.json
+include/seg.h
 install_manifest.txt

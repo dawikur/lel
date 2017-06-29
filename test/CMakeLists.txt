@@ -1,4 +1,5 @@
 if(TESTS)
+  add_subdirectory(blackbox)
   add_subdirectory(unit)
 endif()
 

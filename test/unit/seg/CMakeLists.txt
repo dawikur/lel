@@ -1,8 +1,7 @@
 set(seg_test_SOURCES
-  double_placeholders.cpp
-  meta.cpp
-  nested_single_placeholder.cpp
-  single_placeholder.cpp
+  impl.cpp
+  operation.cpp
+  utils.cpp
 )
 
 add_executable(seg_test ${seg_test_SOURCES})
