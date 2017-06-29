@@ -1,7 +1,7 @@
 set(seg_test_SOURCES
   impl.cpp
   operation.cpp
-  utils.cpp
+  utility.cpp
 )
 
 add_executable(seg_test ${seg_test_SOURCES})

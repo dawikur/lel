@@ -36,10 +36,10 @@ def parse_args():
                         default='include',
                         help='Relative path to headers')
     parser.add_argument('-o', '--output',
-                        default='include',
+                        default='build',
                         help='Relative path to output directory')
     parser.add_argument('-n', '--name',
-                        default='seg.h',
+                        default='seg.hpp',
                         help='Destination filename')
 
     parser.add_argument('-f', '--force',
@@ -182,9 +182,9 @@ class Processor(object):
             namespace_begin = NAMESPACE_BEGIN_REGEX.match(line)
             namespace_end = NAMESPACE_END_REGEX.match(result[-1])
 
-            if   (namespace_begin
-              and namespace_end
-              and namespace_begin.group(1) == namespace_end.group(1)):
+            if (namespace_begin
+                    and namespace_end
+                    and namespace_begin.group(1) == namespace_end.group(1)):
                 result.pop()
                 is_empty = False
                 continue
@@ -271,6 +271,11 @@ def main():
     result = Processor(args.combine).run(result)
 
     check_postconditions(result)
+
+    try:
+        os.stat(args.output)
+    except OSError:
+        os.mkdir(args.output)
 
     Writer(filepath).run(args.name, args.header_guard, result)
 

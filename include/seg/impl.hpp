@@ -5,7 +5,7 @@
 
 #include <utility>
 
-#include "seg/utils.hpp"
+#include "seg/utility.hpp"
 
 namespace Seg {
 
@@ -41,7 +41,7 @@ struct Impl {
   template <class Value>
   constexpr auto call(Both, Value &&value) const {
     return
-      typename Context::Func()(left(std::forward<Value>(value)), right(value));
+      typename Context::Func()(left(value), right(value));
   }
 
   template <class... Values>

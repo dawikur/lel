@@ -1,7 +1,7 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_SEG_UTILS_HPP_
-#define INCLUDE_SEG_UTILS_HPP_
+#ifndef INCLUDE_SEG_UTILITY_HPP_
+#define INCLUDE_SEG_UTILITY_HPP_
 
 namespace Seg {
 
@@ -26,6 +26,9 @@ struct Context {
   using Mode  = ModeT;
 };
 
+template <class Type, Type Token>
+struct Box {};
+
 }  // namespace Seg
 
-#endif  // INCLUDE_SEG_UTILS_HPP_
+#endif  // INCLUDE_SEG_UTILITY_HPP_
