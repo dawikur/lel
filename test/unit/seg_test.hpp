@@ -12,7 +12,7 @@
 template <typename T1, typename T2>
 ::testing::AssertionResult AssertSameType(const char *T1_str,
                                           const char *T2_str,
-                                          const T1 * /*T1_*/,
+                                          const T1 & /*T1_*/,
                                           const T2 & /*T2_*/) {
   if (std::is_same<T1, T2>::value)
     return ::testing::AssertionSuccess();
@@ -32,7 +32,7 @@ template <typename T1, typename T2>
 }
 
 #define ASSERT_TYPE(T1, T2)                                                    \
-  ASSERT_PRED_FORMAT2(AssertSameType, (T1 *)nullptr, T2);
+  ASSERT_PRED_FORMAT2(AssertSameType, T1, T2);
 
 template <class Type>
 void Unused(Type const&) {}
