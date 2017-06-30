@@ -6,6 +6,7 @@
 #include <utility>
 
 #include "seg/utility.hpp"
+#include "seg/variadic.hpp"
 
 namespace Seg {
 
@@ -43,8 +44,8 @@ struct Impl<Context, Box<char, IDs...>> {
 
   template <class Value>
   constexpr auto call(Both, Value &&value) const {
-    return
-      typename Context::Func()(left(value), right(value));
+    return typename Context::Func()(left(Variadic().Get<0>(value)),
+                                    right(Variadic().Get<0>(value)));
   }
 
   template <class... Values>
@@ -52,7 +53,8 @@ struct Impl<Context, Box<char, IDs...>> {
     // TODO: 2017-06-29: slice;
     // values should be split into two sections and passed to left and right
     // Than Fold could be merged with Both
-    return typename Context::Func()(std::forward<Values>(values)...);
+    return typename Context::Func()(left(Variadic().Get<0>(values...)),
+                                    right(Variadic().Get<1>(values...)));
   }
 
   typename Context::ViewL const left;

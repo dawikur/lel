@@ -28,11 +28,17 @@ struct Context {
 
 template <class Type, Type... Tokens>
 struct Box {
-  using Unique = Box<Type, Tokens...>;
+  template <class>
+  struct Merge;
+
+  template <Type... NewTokens>
+  struct Merge<Box<Type, NewTokens...>> {
+    using Result = Box<Type, Tokens...>;
+  };
 };
 
 template <class Left, class Right>
-using Merge = Left;
+using Merge = typename Left::template Merge<Right>::Result;
 
 }  // namespace Seg
 
