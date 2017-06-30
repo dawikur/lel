@@ -1,7 +1,7 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_SEG_UTILITY_HPP_
-#define INCLUDE_SEG_UTILITY_HPP_
+#ifndef INCLUDE_SEG_CONTEXT_HPP_
+#define INCLUDE_SEG_CONTEXT_HPP_
 
 namespace Seg {
 
@@ -26,20 +26,6 @@ struct Context {
   using Mode  = ModeT;
 };
 
-template <class Type, Type... Tokens>
-struct Box {
-  template <class>
-  struct Merge;
-
-  template <Type... NewTokens>
-  struct Merge<Box<Type, NewTokens...>> {
-    using Result = Box<Type, Tokens...>;
-  };
-};
-
-template <class Left, class Right>
-using Merge = typename Left::template Merge<Right>::Result;
-
 }  // namespace Seg
 
-#endif  // INCLUDE_SEG_UTILITY_HPP_
+#endif  // INCLUDE_SEG_CONTEXT_HPP_

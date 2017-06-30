@@ -1,7 +1,8 @@
 set(seg_test_SOURCES
+  box.cpp
+  context.cpp
   impl.cpp
   operation.cpp
-  utility.cpp
   variadic.cpp
 )
 

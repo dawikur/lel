@@ -5,7 +5,7 @@
 
 #include <utility>
 
-#include "seg/utility.hpp"
+#include "seg/context.hpp"
 #include "seg/variadic.hpp"
 
 namespace Seg {

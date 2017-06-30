@@ -5,7 +5,7 @@
 
 #include <utility>
 
-#include "seg/utility.hpp"
+#include "seg/box.hpp"
 
 namespace Seg {
 
