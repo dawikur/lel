@@ -9,8 +9,11 @@
 
 namespace Seg {
 
-template <class Context, char ...ID>
-struct Impl {
+template <class Context, class IDs>
+struct Impl;
+
+template <class Context, char... IDs>
+struct Impl<Context, Box<char, IDs...>> {
  public:
   constexpr Impl() : left(), right() {}
 

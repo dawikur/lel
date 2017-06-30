@@ -8,7 +8,8 @@
 namespace Seg {
 
 template <char ID>
-using Placeholder = Impl<Context<Identity, Identity, Identity, Single>, ID>;
+using Placeholder
+  = Impl<Context<Identity, Identity, Identity, Single>, Box<char, ID>>;
 
 }  // namespace Seg
 

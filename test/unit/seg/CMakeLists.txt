@@ -2,6 +2,7 @@ set(seg_test_SOURCES
   impl.cpp
   operation.cpp
   utility.cpp
+  variadic.cpp
 )
 
 add_executable(seg_test ${seg_test_SOURCES})

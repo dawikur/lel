@@ -26,8 +26,13 @@ struct Context {
   using Mode  = ModeT;
 };
 
-template <class Type, Type Token>
-struct Box {};
+template <class Type, Type... Tokens>
+struct Box {
+  using Unique = Box<Type, Tokens...>;
+};
+
+template <class Left, class Right>
+using Merge = Left;
 
 }  // namespace Seg
 
