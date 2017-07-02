@@ -13,13 +13,16 @@ struct Box {
   template <Type... Values>
   using Self = Box<Type, Values...>;
 
+  template <int Index, Type Token, Type... Tail>
+  struct IndexOfImpl;
+
   template <class Merged, class Left, class Right>
   struct MergeImpl;
 
   template <class Merged, class Left, class Right, bool Condition>
   struct MergeCondition;
 
-  template <class Merged, Type Last, class Left, class Right>
+  template <class Merged, Type Current, class Left, class Right>
   struct MergeUnique;
 
  public:
@@ -32,7 +35,40 @@ struct Box {
       typename MergeImpl<Self<>, Self<Tokens...>, Self<NewTokens...>>::Result;
   };
 
+  template <Type Token>
+  static constexpr int IndexOf() {
+    return IndexOfImpl<0, Token, Tokens...>::Result::value;
+  }
+
  private:
+  template <int Index, Type Token, Type Head, Type... Tail>
+  struct IndexOfImpl<Index, Token, Head, Tail...>
+    : public IndexOfImpl<Index + 1, Token, Tail...> {};
+
+  template <int Index, Type Token, Type... Tail>
+  struct IndexOfImpl<Index, Token, Token, Tail...> {
+    using Result = std::integral_constant<int, Index>;
+  };
+
+  // Finish: only left
+  template <Type... Merged, Type HeadL, Type... TailL>
+  struct MergeImpl<Self<Merged...>, Self<HeadL, TailL...>, Self<>> {
+    using Result = Self<Merged..., HeadL, TailL...>;
+  };
+
+  // Finish: only right
+  template <Type... Merged, Type HeadR, Type... TailR>
+  struct MergeImpl<Self<Merged...>, Self<>, Self<HeadR, TailR...>> {
+    using Result = Self<Merged..., HeadR, TailR...>;
+  };
+
+  // Finish: nothing left to do
+  template <Type... Merged>
+  struct MergeImpl<Self<Merged...>, Self<>, Self<>> {
+    using Result = Self<Merged...>;
+  };
+
+  // Compare first elements from Left and Right
   template <Type... Merged,
             Type HeadL,
             Type... TailL,
@@ -46,21 +82,7 @@ struct Box {
                             Self<HeadR, TailR...>,
                             (HeadL < HeadR)> {};
 
-  template <Type... Merged, Type HeadL, Type... TailL>
-  struct MergeImpl<Self<Merged...>, Self<HeadL, TailL...>, Self<>> {
-    using Result = Self<Merged..., HeadL, TailL...>;
-  };
-
-  template <Type... Merged, Type HeadR, Type... TailR>
-  struct MergeImpl<Self<Merged...>, Self<>, Self<HeadR, TailR...>> {
-    using Result = Self<Merged..., HeadR, TailR...>;
-  };
-
-  template <Type... Merged>
-  struct MergeImpl<Self<Merged...>, Self<>, Self<>> {
-    using Result = Self<Merged...>;
-  };
-
+  // Left is lower
   template <Type... Merged,
             Type HeadL,
             Type... TailL,
@@ -74,6 +96,7 @@ struct Box {
                                                     Self<HeadL, TailL...>,
                                                     Self<TailR...>> {};
 
+  // Right is lower
   template <Type... Merged,
             Type HeadL,
             Type... TailL,
@@ -87,27 +110,31 @@ struct Box {
                                                    Self<TailL...>,
                                                    Self<HeadR, TailR...>> {};
 
-  template <Type... Merged, Type Last, Type... Left, Type... Right>
+  // Current element is still in Left and Right queue
+  template <Type... Merged, Type Current, Type... Left, Type... Right>
   struct MergeUnique<Self<Merged...>,
-                     Last,
-                     Self<Last, Left...>,
-                     Self<Last, Right...>>
-    : public MergeUnique<Self<Merged...>, Last, Self<Left...>, Self<Right...>> {
+                     Current,
+                     Self<Current, Left...>,
+                     Self<Current, Right...>>
+    : public MergeUnique<Self<Merged...>, Current, Self<Left...>, Self<Right...>> {
   };
 
-  template <Type... Merged, Type Last, Type... Left, Type... Right>
-  struct MergeUnique<Self<Merged...>, Last, Self<Last, Left...>, Self<Right...>>
-    : public MergeUnique<Self<Merged...>, Last, Self<Left...>, Self<Right...>> {
+  // Current element is still in Left queue
+  template <Type... Merged, Type Current, Type... Left, Type... Right>
+  struct MergeUnique<Self<Merged...>, Current, Self<Current, Left...>, Self<Right...>>
+    : public MergeUnique<Self<Merged...>, Current, Self<Left...>, Self<Right...>> {
   };
 
-  template <Type... Merged, Type Last, Type... Left, Type... Right>
-  struct MergeUnique<Self<Merged...>, Last, Self<Left...>, Self<Last, Right...>>
-    : public MergeUnique<Self<Merged...>, Last, Self<Left...>, Self<Right...>> {
+  // Current element is still in Right queue
+  template <Type... Merged, Type Current, Type... Left, Type... Right>
+  struct MergeUnique<Self<Merged...>, Current, Self<Left...>, Self<Current, Right...>>
+    : public MergeUnique<Self<Merged...>, Current, Self<Left...>, Self<Right...>> {
   };
 
-  template <Type... Merged, Type Last, Type... Left, Type... Right>
-  struct MergeUnique<Self<Merged...>, Last, Self<Left...>, Self<Right...>>
-    : public MergeImpl<Self<Merged..., Last>, Self<Left...>, Self<Right...>> {};
+  // Current element is already uqnique
+  template <Type... Merged, Type Current, Type... Left, Type... Right>
+  struct MergeUnique<Self<Merged...>, Current, Self<Left...>, Self<Right...>>
+    : public MergeImpl<Self<Merged..., Current>, Self<Left...>, Self<Right...>> {};
 };
 
 template <class Left, class Right>
