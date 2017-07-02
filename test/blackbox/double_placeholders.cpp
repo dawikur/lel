@@ -8,6 +8,7 @@ class double_placeholders_test : public ::testing::Test {
  protected:
   Seg::Placeholder<'1'> _1;
   Seg::Placeholder<'2'> _2;
+  Seg::Placeholder<'3'> _3;
   Seg::Placeholder<'x'> _x;
   Seg::Placeholder<'y'> _y;
 };
@@ -124,16 +125,13 @@ TEST_F(double_placeholders_test, plus_adds_values) {
   ASSERT_EQ(4, operation2(1, 3));
 }
 
-/*
- * TODO: 2017-06-29
 TEST_F(double_placeholders_test, minus_removes_values) {
-  auto operation1 = _x - 2;
-  auto operation2 = 3 - _x;
+  auto operation1 = _1 - _2;
+  auto operation2 = _2 - _1;
 
-  ASSERT_EQ(3, operation1(_y));
-  ASSERT_EQ(2, operation2(1));
+  ASSERT_EQ(3, operation1(7, 4));
+  ASSERT_EQ(-2, operation2(5, 3));
 }
-*/
 
 TEST_F(double_placeholders_test, multplies_increases_values) {
   auto operation1 = _x * _y;
@@ -143,24 +141,21 @@ TEST_F(double_placeholders_test, multplies_increases_values) {
   ASSERT_EQ(3, operation2(3, 1));
 }
 
-/*
- * TODO: 2017-06-29
 TEST_F(double_placeholders_test, divies_returns_proper_value) {
-  auto operation1 = _x / 2;
-  auto operation2 = 4 / _x;
+  auto operation1 = _1 / _2;
+  auto operation2 = _2 / _1;
 
-  ASSERT_EQ(2, operation1(4));
-  ASSERT_EQ(2, operation2(2));
+  ASSERT_DOUBLE_EQ(2.5, operation1(5, 2.0));
+  ASSERT_EQ(0.5, operation2(8.0, 4));
 }
 
 TEST_F(double_placeholders_test, modulus_returns_modulo) {
-  auto operation1 = _x % 3;
-  auto operation2 = _y % _x;
+  auto operation1 = _1 % _2;
+  auto operation2 = _3 % _1;
 
-  ASSERT_EQ(2, operation1(_y));
-  ASSERT_EQ(2, operation2(3));
+  ASSERT_EQ(2, operation1(8, 3));
+  ASSERT_EQ(2, operation2(5, 7));
 }
-*/
 
 TEST_F(double_placeholders_test, logical_and) {
   auto and1 = _x && _y;
