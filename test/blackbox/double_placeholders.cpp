@@ -49,8 +49,7 @@ TEST_F(double_placeholders_test, greater_returns_true_for_greater_values) {
   auto condition2 = _2 > _1;
 
   ASSERT_TRUE(condition1(2, 1));
-  // TODO: 2017-06-29
-  //ASSERT_TRUE(condition2(4, 7));
+  ASSERT_TRUE(condition2(4, 7));
 }
 
 TEST_F(double_placeholders_test, greater_returns_false_for_less_or_equal_values) {
@@ -60,8 +59,7 @@ TEST_F(double_placeholders_test, greater_returns_false_for_less_or_equal_values)
   ASSERT_FALSE(condition1(2, 2));
   ASSERT_FALSE(condition1(2, 3));
   ASSERT_FALSE(condition2(2, 2));
-  // TODO: 2017-06-29
-  //ASSERT_FALSE(condition2(3, 2));
+  ASSERT_FALSE(condition2(3, 2));
 }
 
 TEST_F(double_placeholders_test, less_returns_true_for_less_values) {
@@ -69,8 +67,7 @@ TEST_F(double_placeholders_test, less_returns_true_for_less_values) {
   auto condition2 = _2 < _1;
 
   ASSERT_TRUE(condition1(3, 4));
-  // TODO: 2017-06-29
-  //ASSERT_TRUE(condition2(4, 3));
+  ASSERT_TRUE(condition2(4, 3));
 }
 
 TEST_F(double_placeholders_test, less_returns_false_for_greater_or_equal_values) {
@@ -80,8 +77,7 @@ TEST_F(double_placeholders_test, less_returns_false_for_greater_or_equal_values)
   ASSERT_FALSE(condition1(4, 4));
   ASSERT_FALSE(condition1(4, 3));
   ASSERT_FALSE(condition2(4, 4));
-  // TODO: 2017-06-29
-  //ASSERT_FALSE(condition2(3, 4));
+  ASSERT_FALSE(condition2(3, 4));
 }
 
 TEST_F(double_placeholders_test, greater_eq_returns_true_for_greater_or_equal_values) {
@@ -91,8 +87,7 @@ TEST_F(double_placeholders_test, greater_eq_returns_true_for_greater_or_equal_va
   ASSERT_TRUE(condition1(2, 2));
   ASSERT_TRUE(condition1(2, 1));
   ASSERT_TRUE(condition2(2, 2));
-  // TODO: 2017-06-29
-  //ASSERT_TRUE(condition2(1, 2));
+  ASSERT_TRUE(condition2(1, 2));
 }
 
 TEST_F(double_placeholders_test, greater_eq_returns_false_for_less_values) {
@@ -100,7 +95,7 @@ TEST_F(double_placeholders_test, greater_eq_returns_false_for_less_values) {
   auto condition2 = _2 >= _1;
 
   ASSERT_FALSE(condition1(2, 4));
-  //ASSERT_FALSE(condition2(4, 2));
+  ASSERT_FALSE(condition2(4, 2));
 }
 
 TEST_F(double_placeholders_test, less_eq_returns_true_for_less_or_equal_values) {
@@ -110,8 +105,7 @@ TEST_F(double_placeholders_test, less_eq_returns_true_for_less_or_equal_values) 
   ASSERT_TRUE(condition1(2, 2));
   ASSERT_TRUE(condition1(1, 2));
   ASSERT_TRUE(condition2(2, 2));
-  // TODO: 2017-06-29
-  //ASSERT_TRUE(condition2(2, 1));
+  ASSERT_TRUE(condition2(2, 1));
 }
 
 TEST_F(double_placeholders_test, less_eq_returns_false_for_greater_values) {
@@ -119,8 +113,7 @@ TEST_F(double_placeholders_test, less_eq_returns_false_for_greater_values) {
   auto condition2 = _2 <= _1;
 
   ASSERT_FALSE(condition1(2, 1));
-  // TODO: 2017-06-29
-  //ASSERT_FALSE(condition2(1, 2));
+  ASSERT_FALSE(condition2(1, 2));
 }
 
 TEST_F(double_placeholders_test, plus_adds_values) {

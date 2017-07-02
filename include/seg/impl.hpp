@@ -50,15 +50,28 @@ struct Impl<Context, Box<char, IDs...>> {
 
   template <class... Values>
   constexpr auto call(Fold, Values &&... values) const {
-    // TODO: 2017-06-29: slice;
-    // values should be split into two sections and passed to left and right
-    // Than Fold could be merged with Both
-    return typename Context::Func()(left(Variadic().Get<0>(values...)),
-                                    right(Variadic().Get<1>(values...)));
+    return typename Context::Func()(left.slice(Box<char, IDs...>(), values...),
+                                    right.slice(Box<char, IDs...>(), values...));
+  }
+
+  template <char... Slice, class... Values>
+  constexpr auto slice(Box<char, Slice...>, Values &&... values) const {
+    using Indexes = typename Box<char, Slice...>::template IndexesOf<IDs...>;
+
+    return slice(Indexes(), std::forward<Values>(values)...);
+  }
+
+  template <int... Indexes, class... Values>
+  constexpr auto slice(Box<int, Indexes...>, Values &&... values) const {
+    return call(typename Context::Mode(),
+                Variadic().Get<Indexes>(values...)...);
   }
 
   typename Context::ViewL const left;
   typename Context::ViewR const right;
+
+  template <class ContextF, class IDsF>
+  friend struct Impl;
 };
 
 }  // namespace Seg

@@ -16,6 +16,9 @@ struct Box {
   template <int Index, Type Token, Type... Tail>
   struct IndexOfImpl;
 
+  template <Type... NewTokens>
+  struct IndexesOfImpl;
+
   template <class Merged, class Left, class Right>
   struct MergeImpl;
 
@@ -40,6 +43,9 @@ struct Box {
     return IndexOfImpl<0, Token, Tokens...>::Result::value;
   }
 
+  template <Type... NewTokens>
+  using IndexesOf = typename IndexesOfImpl<NewTokens...>::Result;
+
  private:
   template <int Index, Type Token, Type Head, Type... Tail>
   struct IndexOfImpl<Index, Token, Head, Tail...>
@@ -48,6 +54,11 @@ struct Box {
   template <int Index, Type Token, Type... Tail>
   struct IndexOfImpl<Index, Token, Token, Tail...> {
     using Result = std::integral_constant<int, Index>;
+  };
+
+  template <Type... NewTokens>
+  struct IndexesOfImpl {
+    using Result = Box<int, IndexOf<NewTokens>()...>;
   };
 
   // Finish: only left

@@ -20,6 +20,18 @@ TEST_F(box_test, index_of_not_first_value) {
   ASSERT_EQ(4, (Box<1, 3, 4, 7, 9, 10>::IndexOf<9>()));
 }
 
+TEST_F(box_test, indexes_of_returns_empty_list_on_empty_input) {
+  ASSERT_TYPE((Box<>()), (Box<1, 2, 3, 4>::IndexesOf<>()));
+}
+
+TEST_F(box_test, indexes_returns_one_element_for_one_input) {
+  ASSERT_TYPE((Box<2>()), (Box<3, 8, 9>::IndexesOf<9>()));
+}
+
+TEST_F(box_test, indexes_return_multiple_values) {
+  ASSERT_TYPE((Box<2, 4>()), (Box<3, 8, 9, 12, 15>::IndexesOf<9, 15>()));
+}
+
 TEST_F(box_test, non_empty_merge_empty_gives_non_empty) {
   ASSERT_TYPE((Box<1, 2>()), (Seg::Merge<Box<1, 2>, Box<>>()));
 }
