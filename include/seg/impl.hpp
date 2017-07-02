@@ -26,6 +26,11 @@ struct Impl<Context, Box<char, IDs...>> {
     return call(typename Context::Mode(), std::forward<Values>(values)...);
   }
 
+  // () function call
+  // [] subscript
+  // . -> member access
+  // .* ->* pointer to member
+
  private:
   template <class Value>
   constexpr auto call(Single, Value &&value) const {

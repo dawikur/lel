@@ -9,7 +9,15 @@
 
 namespace Seg {
 
-#define STD(FUNC) std::FUNC<>
+#define OPERATION_STD(MARK, FUNC) OPERATION(MARK, std::FUNC<>)
+#define OPERATION_SEG(MARK, FUNC)                                              \
+  struct __##FUNC {                                                            \
+    template <class Left, class Right>                                         \
+    constexpr auto operator()(Left &&left, Right &&right) const {              \
+      return std::forward<Left>(left) MARK std::forward<Right>(right);         \
+    }                                                                          \
+  };                                                                           \
+  OPERATION(MARK, __##FUNC)
 
 #define OPERATION(MARK, FUNC)                                                  \
   template <class Rest, class IDs, class Value>                                \
@@ -34,49 +42,39 @@ namespace Seg {
     return {std::move(viewL), std::move(viewR)};                               \
   }
 
-OPERATION( +  , STD(plus)          );
-OPERATION( -  , STD(minus)         );
-OPERATION( *  , STD(multiplies)    );
-OPERATION( /  , STD(divides)       );
-OPERATION( %  , STD(modulus)       );
+OPERATION_STD( +  , plus          );
+OPERATION_STD( -  , minus         );
+OPERATION_STD( *  , multiplies    );
+OPERATION_STD( /  , divides       );
+OPERATION_STD( %  , modulus       );
 
-OPERATION( == , STD(equal_to)      );
-OPERATION( != , STD(not_equal_to)  );
-OPERATION( >  , STD(greater)       );
-OPERATION( <  , STD(less)          );
-OPERATION( >= , STD(greater_equal) );
-OPERATION( <= , STD(less_equal)    );
+OPERATION_STD( == , equal_to      );
+OPERATION_STD( != , not_equal_to  );
+OPERATION_STD( >  , greater       );
+OPERATION_STD( <  , less          );
+OPERATION_STD( >= , greater_equal );
+OPERATION_STD( <= , less_equal    );
 
-OPERATION( && , STD(logical_and)   );
-OPERATION( || , STD(logical_or)    );
+OPERATION_STD( && , logical_and   );
+OPERATION_STD( || , logical_or    );
 
-OPERATION( &  , STD(bit_and)       );
-OPERATION( |  , STD(bit_or)        );
-OPERATION( ^  , STD(bit_xor)       );
+OPERATION_STD( &  , bit_and       );
+OPERATION_STD( |  , bit_or        );
+OPERATION_STD( ^  , bit_xor       );
 
-#undef OPERATION
-
-// ++/-- postfix increment/decrement
-// () function call
-// [] subscript
-// . -> member access
-
-// ++/+--prefix increment/decrement
-// * indirection
-// & address of
-// sizeof
-
-// .* ->* pointer to member
-
-// << >> bitwise left shft and right shift
+OPERATION_SEG( << , ShiftLeft     );
+OPERATION_SEG( >> , ShiftRight    );
 
 // =
 // += -=
 // *= /= %/
 // <<= >>=
 // &= ^= |=
-//
+
 // , ??
+
+#undef OPERATION
+#undef OPERATION_SEG
 
 #define OPERATION(MARK, FUNC)                                                  \
   template <class Rest, class IDs>                                             \
@@ -85,15 +83,22 @@ OPERATION( ^  , STD(bit_xor)       );
     return {std::move(view), Identity{}};                                      \
   }
 
-OPERATION( + , Identity );
+// ++/-- postfix increment/decrement
+// ++/+--prefix increment/decrement
 
-OPERATION( - , STD(negate)      );
-OPERATION( ! , STD(logical_not) );
-OPERATION( ~ , STD(bit_not)     );
+// * indirection
+// & address of
+// sizeof
+
+OPERATION_STD( - , negate      );
+OPERATION_STD( ! , logical_not );
+OPERATION_STD( ~ , bit_not     );
+
+OPERATION( + , Identity );
 
 #undef OPERATION
 
-#undef STD
+#undef OPERATION_STD
 
 }  // namespace Seg
 
