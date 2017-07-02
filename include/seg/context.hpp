@@ -3,12 +3,14 @@
 #ifndef INCLUDE_SEG_CONTEXT_HPP_
 #define INCLUDE_SEG_CONTEXT_HPP_
 
+#include <utility>
+
 namespace Seg {
 
 struct Identity {
   template <class Type>
-  constexpr auto operator()(Type const &value) const {
-    return value;
+  constexpr auto operator()(Type &&value) const {
+    return std::forward<Type>(value);
   }
 };
 
