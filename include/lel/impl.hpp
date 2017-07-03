@@ -35,17 +35,18 @@ struct Impl<Context, Box<char, IDs...>> {
   // .* ->* pointer to member
 
   template <class Value>
-  constexpr decltype(auto) operator[](Value value) const
-    -> Impl<Lel::Context<Impl<Context, MyIDs>, Value, Subscript, Left>, MyIDs> {
-    return {*this, std::move(value)};
+  constexpr decltype(auto) operator[](Value value) const {
+    return Impl<Lel::Context<Impl<Context, MyIDs>, Value, Subscript, Left>,
+                MyIDs>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
-  constexpr decltype(auto) operator[](Impl<RestV, IDV> viewV)
-    -> Impl<Lel::
-              Context<Impl<Context, MyIDs>, Impl<RestV, IDV>, Subscript, Fold>,
-            Merge<MyIDs, IDV>> {
-    return {*this, std::move(viewV)};
+  constexpr decltype(auto) operator[](Impl<RestV, IDV> viewV) const {
+    return Impl<Lel::Context<Impl<Context, MyIDs>,
+                             Impl<RestV, IDV>,
+                             Subscript,
+                             Fold>,
+                Merge<MyIDs, IDV>>{*this, std::move(viewV)};
   }
 
  private:

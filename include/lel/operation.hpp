@@ -21,21 +21,20 @@ namespace Lel {
 
 #define OPERATION(MARK, FUNC)                                                  \
   template <class Rest, class IDs, class Value>                                \
-  constexpr decltype(auto) operator MARK(Impl<Rest, IDs> view, Value value)    \
-    ->Impl<Context<Impl<Rest, IDs>, Value, FUNC, Left>, IDs> {                 \
-    return {std::move(view), std::move(value)};                                \
+  constexpr decltype(auto) operator MARK(Impl<Rest, IDs> view, Value value) {  \
+    return Impl<Context<Impl<Rest, IDs>, Value, FUNC, Left>, IDs>{             \
+      std::move(view), std::move(value)};                                      \
   }                                                                            \
   template <class Rest, class IDs, class Value>                                \
-  constexpr decltype(auto) operator MARK(Value value, Impl<Rest, IDs> view)    \
-    ->Impl<Context<Value, Impl<Rest, IDs>, FUNC, Right>, IDs> {                \
-    return {std::move(value), std::move(view)};                                \
+  constexpr decltype(auto) operator MARK(Value value, Impl<Rest, IDs> view) {  \
+    return Impl<Context<Value, Impl<Rest, IDs>, FUNC, Right>, IDs>{            \
+      std::move(value), std::move(view)};                                      \
   }                                                                            \
   template <class RestL, class IDL, class RestR, class IDR>                    \
   constexpr decltype(auto) operator MARK(Impl<RestL, IDL> viewL,               \
-                                         Impl<RestR, IDR> viewR)               \
-    ->Impl<Context<Impl<RestL, IDL>, Impl<RestR, IDR>, FUNC, Fold>,            \
-           Merge<IDL, IDR>> {                                                  \
-    return {std::move(viewL), std::move(viewR)};                               \
+                                         Impl<RestR, IDR> viewR) {             \
+    return Impl<Context<Impl<RestL, IDL>, Impl<RestR, IDR>, FUNC, Fold>,       \
+                Merge<IDL, IDR>>{std::move(viewL), std::move(viewR)};          \
   }
 
 OPERATION_STD( +  , plus          )
@@ -83,9 +82,9 @@ OPERATION_LEL( >> , ShiftRight    )
 
 #define OPERATION(MARK, FUNC)                                                  \
   template <class Rest, class IDs>                                             \
-  constexpr decltype(auto) operator MARK(Impl<Rest, IDs> view)                 \
-    ->Impl<Context<Impl<Rest, IDs>, Identity, FUNC, Single>, IDs> {            \
-    return {std::move(view), Identity{}};                                      \
+  constexpr decltype(auto) operator MARK(Impl<Rest, IDs> view) {               \
+    return Impl<Context<Impl<Rest, IDs>, Identity, FUNC, Single>, IDs>{        \
+      std::move(view), Identity{}};                                            \
   }
 
 // ++/-- postfix increment/decrement
