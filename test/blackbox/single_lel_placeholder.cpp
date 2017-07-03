@@ -7,6 +7,7 @@
 class single_lel_placeholder_test : public ::testing::Test {
  protected:
   Lel::Placeholder<'x'> _x;
+  Lel::Placeholder<'y'> _y;
 };
 
 TEST_F(single_lel_placeholder_test, subscription_on_array) {
@@ -48,4 +49,12 @@ TEST_F(single_lel_placeholder_test, indirection_on_pointer) {
   int value = 5;
 
   ASSERT_EQ(5, get(&value));
+}
+
+TEST_F(single_lel_placeholder_test, indirection_of_unique_ptr) {
+  auto get = *_x;
+
+  auto ptr = std::make_unique<int>(5);
+
+  ASSERT_EQ(5, get(ptr));
 }

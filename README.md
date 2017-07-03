@@ -1,6 +1,7 @@
 # lel
 
 > Lambda Expression Library
+> > Single header (after fusing) library with no external dependencies.
 
 [![Language][Language-img]][Language-url]
 [![Release][Release-img]][Release-url]
@@ -45,24 +46,36 @@ Shorted, right? And, for me, much cleaner.
 
 ## Boost Lambda Library?
 
-The same concept but this one uses a little bit newer C++. LeL also does not
-constrain maximum number of arguments to 3. 255 will be enough? Single header
-(after fusing) library with no external dependencies.
+Yes, the same concept but this one uses a little bit newer C++.
+LeL also does not constrain maximum number of arguments to 3.
 
-# Example
+# Examples
 
 ```cpp
 
+// simple
 auto plus_one = _x + 1;
 auto multiply = _x * _y;
 auto is_less  = _1 < _2;
 
+// more arguments
 auto compute_something = 1 + _x * 3 - _y * _y + _x * _z;
 
+// make own placeholders
 auto first_arg  = Lel::Placeholder<'1'>();
 auto second_arg = Lel::Placeholder<'2'>();
 
 auto not_equal = first_arg != second_arg;
+
+// some more... complex...
+
+auto sum = *((*_x)[_1]) + **(_y[_2]);
+
+auto x = std::make_unique<std::vector<std::unique_ptr<int>>>();
+std::unique_ptr<std::vector<std::unique_ptr<int>>> x = ...;
+std::vector<std::unique_ptr<std::unique_ptr<int>>> y = ...;
+
+ASSERT_EQ(3 + 9, sum(2, 3, x, y));
 ```
 
 ---

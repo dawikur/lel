@@ -9,14 +9,14 @@ namespace Lel {
 
 struct Identity {
   template <class Type>
-  constexpr auto operator()(Type &&value) const {
+  constexpr decltype(auto) operator()(Type &&value) const {
     return std::forward<Type>(value);
   }
 };
 
 struct Subscript {
   template <class Left, class Right>
-  constexpr auto operator()(Left &&left, Right &&right) const {
+  constexpr decltype(auto) operator()(Left &&left, Right &&right) const {
     return std::forward<Left>(left)[std::forward<Right>(right)];
   }
 };
@@ -24,7 +24,6 @@ struct Subscript {
 struct Single {};
 struct Left {};
 struct Right {};
-struct Both {};
 struct Fold {};
 
 template <class ViewLT, class ViewRT, class FuncT, class ModeT>

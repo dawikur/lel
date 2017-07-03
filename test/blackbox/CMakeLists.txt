@@ -1,6 +1,9 @@
 set(blackbox_test_SOURCES
+  double_lel_placeholders.cpp
   double_std_placeholders.cpp
+  nested_double_lel_placeholder.cpp
   nested_double_std_placeholder.cpp
+  nested_single_lel_placeholder.cpp
   nested_single_std_placeholder.cpp
   single_lel_placeholder.cpp
   single_std_placeholder.cpp

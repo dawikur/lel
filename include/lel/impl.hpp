@@ -15,6 +15,8 @@ struct Impl;
 
 template <class Context, char... IDs>
 struct Impl<Context, Box<char, IDs...>> {
+  using MyIDs = Box<char, IDs...>;
+
  public:
   constexpr Impl() : left(), right() {}
 
@@ -22,7 +24,9 @@ struct Impl<Context, Box<char, IDs...>> {
     : left(std::move(left)), right(std::move(right)) {}
 
   template <class... Values>
-  constexpr auto operator()(Values &&... values) const {
+  constexpr decltype(auto) operator()(Values &&... values) const {
+    static_assert(sizeof...(IDs) == sizeof...(values),
+                  "Incorrect number of arguments");
     return call(typename Context::Mode(), std::forward<Values>(values)...);
   }
 
@@ -31,43 +35,44 @@ struct Impl<Context, Box<char, IDs...>> {
   // .* ->* pointer to member
 
   template <class Value>
-  constexpr auto operator[](Value value) const
-    -> Impl<::Lel::
-              Context<Impl<Context, Box<char, IDs...>>, Value, Subscript, Left>,
-            Box<char, IDs...>> {
+  constexpr decltype(auto) operator[](Value value) const
+    -> Impl<Lel::Context<Impl<Context, MyIDs>, Value, Subscript, Left>, MyIDs> {
     return {*this, std::move(value)};
+  }
+
+  template <class RestV, class IDV>
+  constexpr decltype(auto) operator[](Impl<RestV, IDV> viewV)
+    -> Impl<Lel::
+              Context<Impl<Context, MyIDs>, Impl<RestV, IDV>, Subscript, Fold>,
+            Merge<MyIDs, IDV>> {
+    return {*this, std::move(viewV)};
   }
 
  private:
   template <class Value>
-  constexpr auto call(Single, Value &&value) const {
+  constexpr decltype(auto) call(Single, Value &&value) const {
     return typename Context::Func()(left(std::forward<Value>(value)));
   }
 
   template <class Value>
-  constexpr auto call(Left, Value &&value) const {
+  constexpr decltype(auto) call(Left, Value &&value) const {
     return typename Context::Func()(left(std::forward<Value>(value)), right);
   }
 
   template <class Value>
-  constexpr auto call(Right, Value &&value) const {
+  constexpr decltype(auto) call(Right, Value &&value) const {
     return typename Context::Func()(left, right(std::forward<Value>(value)));
   }
 
-  template <class Value>
-  constexpr auto call(Both, Value &&value) const {
-    return typename Context::Func()(left(Variadic().Get<0>(value)),
-                                    right(Variadic().Get<0>(value)));
-  }
-
   template <class... Values>
-  constexpr auto call(Fold, Values &&... values) const {
-    return typename Context::Func()(left.slice(Box<char, IDs...>(), values...),
-                                    right.slice(Box<char, IDs...>(), values...));
+  constexpr decltype(auto) call(Fold, Values &&... values) const {
+    return typename Context::Func()(left.slice(MyIDs(), values...),
+                                    right.slice(MyIDs(), values...));
   }
 
   template <char... Slice, class... Values>
-  constexpr auto slice(Box<char, Slice...>, Values &&... values) const {
+  constexpr decltype(auto) slice(Box<char, Slice...>,
+                                 Values &&... values) const {
     using Indexes = typename Box<char, Slice...>::template IndexesOf<IDs...>;
 
     return slice(Indexes(), std::forward<Values>(values)...);

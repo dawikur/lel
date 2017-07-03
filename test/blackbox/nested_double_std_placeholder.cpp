@@ -22,4 +22,3 @@ TEST_F(nested_double_std_placeholder_test, can_be_used_multiple_times) {
 
   ASSERT_EQ(1 + 2 * 3 - 4 * 4 + 2 * 6, value(2, 4, 6));
 }
-

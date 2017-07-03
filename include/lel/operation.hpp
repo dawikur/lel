@@ -13,7 +13,7 @@ namespace Lel {
 #define OPERATION_LEL(MARK, FUNC)                                              \
   struct __##FUNC {                                                            \
     template <class Left, class Right>                                         \
-    constexpr auto operator()(Left &&left, Right &&right) const {              \
+    constexpr decltype(auto) operator()(Left &&left, Right &&right) const {    \
       return std::forward<Left>(left) MARK std::forward<Right>(right);         \
     }                                                                          \
   };                                                                           \
@@ -21,22 +21,18 @@ namespace Lel {
 
 #define OPERATION(MARK, FUNC)                                                  \
   template <class Rest, class IDs, class Value>                                \
-  constexpr auto operator MARK(Impl<Rest, IDs> view, Value value)              \
+  constexpr decltype(auto) operator MARK(Impl<Rest, IDs> view, Value value)    \
     ->Impl<Context<Impl<Rest, IDs>, Value, FUNC, Left>, IDs> {                 \
     return {std::move(view), std::move(value)};                                \
   }                                                                            \
   template <class Rest, class IDs, class Value>                                \
-  constexpr auto operator MARK(Value value, Impl<Rest, IDs> view)              \
+  constexpr decltype(auto) operator MARK(Value value, Impl<Rest, IDs> view)    \
     ->Impl<Context<Value, Impl<Rest, IDs>, FUNC, Right>, IDs> {                \
     return {std::move(value), std::move(view)};                                \
   }                                                                            \
-  template <class RestL, class RestR, class IDs>                               \
-  constexpr auto operator MARK(Impl<RestL, IDs> viewL, Impl<RestR, IDs> viewR) \
-    ->Impl<Context<Impl<RestL, IDs>, Impl<RestR, IDs>, FUNC, Both>, IDs> {     \
-    return {std::move(viewL), std::move(viewR)};                               \
-  }                                                                            \
   template <class RestL, class IDL, class RestR, class IDR>                    \
-  constexpr auto operator MARK(Impl<RestL, IDL> viewL, Impl<RestR, IDR> viewR) \
+  constexpr decltype(auto) operator MARK(Impl<RestL, IDL> viewL,               \
+                                         Impl<RestR, IDR> viewR)               \
     ->Impl<Context<Impl<RestL, IDL>, Impl<RestR, IDR>, FUNC, Fold>,            \
            Merge<IDL, IDR>> {                                                  \
     return {std::move(viewL), std::move(viewR)};                               \
@@ -79,7 +75,7 @@ OPERATION_LEL( >> , ShiftRight    )
 #define OPERATION_LEL(MARK, FUNC)                                              \
   struct __##FUNC {                                                            \
     template <class Value>                                                     \
-    constexpr auto operator()(Value &&value) const {                           \
+    constexpr decltype(auto) operator()(Value &&value) const {                 \
       return MARK std::forward<Value>(value);                                  \
     }                                                                          \
   };                                                                           \
@@ -87,7 +83,7 @@ OPERATION_LEL( >> , ShiftRight    )
 
 #define OPERATION(MARK, FUNC)                                                  \
   template <class Rest, class IDs>                                             \
-  constexpr auto operator MARK(Impl<Rest, IDs> view)                           \
+  constexpr decltype(auto) operator MARK(Impl<Rest, IDs> view)                 \
     ->Impl<Context<Impl<Rest, IDs>, Identity, FUNC, Single>, IDs> {            \
     return {std::move(view), Identity{}};                                      \
   }
