@@ -27,9 +27,16 @@ struct Impl<Context, Box<char, IDs...>> {
   }
 
   // () function call
-  // [] subscript
   // . -> member access
   // .* ->* pointer to member
+
+  template <class Value>
+  constexpr auto operator[](Value value) const
+    -> Impl<::Lel::
+              Context<Impl<Context, Box<char, IDs...>>, Value, Subscript, Left>,
+            Box<char, IDs...>> {
+    return {*this, std::move(value)};
+  }
 
  private:
   template <class Value>

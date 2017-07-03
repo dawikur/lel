@@ -9,15 +9,21 @@ class single_lel_placeholder_test : public ::testing::Test {
   Lel::Placeholder<'x'> _x;
 };
 
-/*
-TEST_F(single_lel_placeholder_test, subscriptin) {
+TEST_F(single_lel_placeholder_test, subscription_on_array) {
   auto value = _x[3];
 
   int array[5] = {2, 4, 5, 7, 3};
 
-  ASSERT_EQ(8, value(array));
+  ASSERT_EQ(array[3], value(array));
 }
-*/
+
+TEST_F(single_lel_placeholder_test, subscriptino_on_vector) {
+  auto value = _x[4];
+
+  std::vector<int> vec{0, 3, 6, 9, 12, 15};
+
+  ASSERT_EQ(vec[4], value(vec));
+}
 
 TEST_F(single_lel_placeholder_test, shift_left) {
   auto value1 = _x << 2;

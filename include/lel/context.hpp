@@ -14,6 +14,13 @@ struct Identity {
   }
 };
 
+struct Subscript {
+  template <class Left, class Right>
+  constexpr auto operator()(Left &&left, Right &&right) const {
+    return std::forward<Left>(left)[std::forward<Right>(right)];
+  }
+};
+
 struct Single {};
 struct Left {};
 struct Right {};
