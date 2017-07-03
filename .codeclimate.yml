@@ -1,6 +1,11 @@
 ---
 
 engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - python
   fixme:
     enabled: true
   markdownlint:
@@ -8,6 +13,8 @@ engines:
     checks:
       MD013:
         enabled: false
+  pep8:
+    enabled: true
 ratings:
   paths:
     - "**"
