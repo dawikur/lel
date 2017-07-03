@@ -1,13 +1,13 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_SEG_VARIADIC_HPP_
-#define INCLUDE_SEG_VARIADIC_HPP_
+#ifndef INCLUDE_LEL_VARIADIC_HPP_
+#define INCLUDE_LEL_VARIADIC_HPP_
 
 #include <utility>
 
-#include "seg/box.hpp"
+#include "lel/box.hpp"
 
-namespace Seg {
+namespace Lel {
 
 struct Variadic {
 
@@ -30,6 +30,6 @@ struct Variadic {
   }
 };
 
-}  // namespace Seg
+}  // namespace Lel
 
-#endif  // INCLUDE_SEG_VARIADIC_HPP_
+#endif  // INCLUDE_LEL_VARIADIC_HPP_

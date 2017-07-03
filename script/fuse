@@ -10,11 +10,11 @@ import os
 import re
 import sys
 
-INCLUDE_FUSE_PATTERN = r'#include "(seg/[\w/]*.hpp)"'
+INCLUDE_FUSE_PATTERN = r'#include "(lel/[\w/]*.hpp)"'
 INCLUDE_SYSTEM_PATTERN = r'#include <\w*>'
 INCLUDE_OTHER_PATTERN = r'#include [\w"<>/.]*'
 COPYRIGHT_PATTERN = r'// Copyright \d{4}, Dawid Kurek, <dawikur@gmail.com>'
-GUARD_PATTERN = r'#\w* [ /]{0,4}INCLUDE_SEG_\w*HPP_'
+GUARD_PATTERN = r'#\w* [ /]{0,4}INCLUDE_LEL_\w*HPP_'
 
 NAMESPACE_BEGIN_PATTERN = r'namespace (\w*) {'
 NAMESPACE_END_PATTERN = r'}  // namespace (\w*)'
@@ -39,7 +39,7 @@ def parse_args():
                         default='build',
                         help='Relative path to output directory')
     parser.add_argument('-n', '--name',
-                        default='seg.hpp',
+                        default='lel.hpp',
                         help='Destination filename')
 
     parser.add_argument('-f', '--force',
@@ -48,7 +48,7 @@ def parse_args():
                         help='Override output file if exists')
 
     parser.add_argument('--header_guard',
-                        default='SEG_FUSED_{}_',
+                        default='LEL_FUSED_{}_',
                         help='Format string to create header guard')
 
     group_combine = parser.add_mutually_exclusive_group()
@@ -267,7 +267,7 @@ def main():
     filepath = os.path.join(args.output, args.name)
     check_preconditions(filepath, args.force)
 
-    result = Parser(args.include, args.combine).run('seg.hpp')
+    result = Parser(args.include, args.combine).run('lel.hpp')
     result = Processor(args.combine).run(result)
 
     check_postconditions(result)

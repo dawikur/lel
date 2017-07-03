@@ -1,11 +1,11 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_SEG_BOX_HPP_
-#define INCLUDE_SEG_BOX_HPP_
+#ifndef INCLUDE_LEL_BOX_HPP_
+#define INCLUDE_LEL_BOX_HPP_
 
 #include <type_traits>
 
-namespace Seg {
+namespace Lel {
 
 template <class Type, Type... Tokens>
 struct Box {
@@ -151,6 +151,6 @@ struct Box {
 template <class Left, class Right>
 using Merge = typename Left::template Merge<Right>::Result;
 
-}  // namespace Seg
+}  // namespace Lel
 
-#endif  // INCLUDE_SEG_BOX_HPP_
+#endif  // INCLUDE_LEL_BOX_HPP_

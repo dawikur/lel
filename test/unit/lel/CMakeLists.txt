@@ -1,0 +1,16 @@
+set(lel_test_SOURCES
+  box.cpp
+  context.cpp
+  impl.cpp
+  operation.cpp
+  variadic.cpp
+)
+
+add_executable(lel_test ${lel_test_SOURCES})
+target_link_libraries(lel_test gtest)
+
+if(UNIX)
+  target_link_libraries(lel_test pthread gcov)
+endif()
+
+add_test(lel lel_test --gtest_color=yes)

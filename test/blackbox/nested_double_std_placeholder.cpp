@@ -1,14 +1,14 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#include "seg.hpp"
+#include "lel.hpp"
 
 #include "gtest/gtest.h"
 
 class nested_double_std_placeholder_test : public ::testing::Test {
  protected:
-  Seg::Placeholder<'x'> _x;
-  Seg::Placeholder<'y'> _y;
-  Seg::Placeholder<'z'> _z;
+  Lel::Placeholder<'x'> _x;
+  Lel::Placeholder<'y'> _y;
+  Lel::Placeholder<'z'> _z;
 };
 
 TEST_F(nested_double_std_placeholder_test, can_use_multiple_std_placeholders) {

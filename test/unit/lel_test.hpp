@@ -1,13 +1,13 @@
 // Copyright 2016, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef TEST_UNIT_SEG_TEST_HPP_
-#define TEST_UNIT_SEG_TEST_HPP_
+#ifndef TEST_UNIT_LEL_TEST_HPP_
+#define TEST_UNIT_LEL_TEST_HPP_
 
 #include "gtest/gtest.h"
 
-#ifdef SEG_HAS_BOOST
+#ifdef LEL_HAS_BOOST
 # include <boost/core/demangle.hpp>
-#endif  // SEG_HAS_BOOST
+#endif  // LEL_HAS_BOOST
 
 template <typename T1, typename T2>
 ::testing::AssertionResult AssertSameType(const char *T1_str,
@@ -20,14 +20,14 @@ template <typename T1, typename T2>
   return ::testing::AssertionFailure()
          << "Types incorrect: " << T1_str << " , " << T2_str
          << "\n       Expected: " << typeid(T1).name()
-#ifdef SEG_HAS_BOOST
+#ifdef LEL_HAS_BOOST
          << "\n       Which is: " << boost::core::demangle(typeid(T1).name())
-#endif  // SEG_HAS_BOOST
+#endif  // LEL_HAS_BOOST
          << std::endl
          << "\n         Actual: " << typeid(T2).name()
-#ifdef SEG_HAS_BOOST
+#ifdef LEL_HAS_BOOST
          << "\n       Which is: " << boost::core::demangle(typeid(T2).name())
-#endif  // SEG_HAS_BOOST
+#endif  // LEL_HAS_BOOST
          << std::endl;
 }
 
@@ -37,5 +37,5 @@ template <typename T1, typename T2>
 template <class Type>
 void Unused(Type const&) {}
 
-#endif  // TEST_UNIT_SEG_TEST_HPP_
+#endif  // TEST_UNIT_LEL_TEST_HPP_
 

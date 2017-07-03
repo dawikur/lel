@@ -1,16 +1,16 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_SEG_OPERATION_HPP_
-#define INCLUDE_SEG_OPERATION_HPP_
+#ifndef INCLUDE_LEL_OPERATION_HPP_
+#define INCLUDE_LEL_OPERATION_HPP_
 
 #include <functional>
 
-#include "seg/impl.hpp"
+#include "lel/impl.hpp"
 
-namespace Seg {
+namespace Lel {
 
 #define OPERATION_STD(MARK, FUNC) OPERATION(MARK, std::FUNC<>)
-#define OPERATION_SEG(MARK, FUNC)                                              \
+#define OPERATION_LEL(MARK, FUNC)                                              \
   struct __##FUNC {                                                            \
     template <class Left, class Right>                                         \
     constexpr auto operator()(Left &&left, Right &&right) const {              \
@@ -62,8 +62,8 @@ OPERATION_STD( &  , bit_and       );
 OPERATION_STD( |  , bit_or        );
 OPERATION_STD( ^  , bit_xor       );
 
-OPERATION_SEG( << , ShiftLeft     );
-OPERATION_SEG( >> , ShiftRight    );
+OPERATION_LEL( << , ShiftLeft     );
+OPERATION_LEL( >> , ShiftRight    );
 
 // =
 // += -=
@@ -74,7 +74,7 @@ OPERATION_SEG( >> , ShiftRight    );
 // , ??
 
 #undef OPERATION
-#undef OPERATION_SEG
+#undef OPERATION_LEL
 
 #define OPERATION(MARK, FUNC)                                                  \
   template <class Rest, class IDs>                                             \
@@ -100,6 +100,6 @@ OPERATION( + , Identity );
 
 #undef OPERATION_STD
 
-}  // namespace Seg
+}  // namespace Lel
 
-#endif  // INCLUDE_SEG_OPERATION_HPP_
+#endif  // INCLUDE_LEL_OPERATION_HPP_

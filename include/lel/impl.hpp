@@ -1,14 +1,14 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_SEG_IMPL_HPP_
-#define INCLUDE_SEG_IMPL_HPP_
+#ifndef INCLUDE_LEL_IMPL_HPP_
+#define INCLUDE_LEL_IMPL_HPP_
 
 #include <utility>
 
-#include "seg/context.hpp"
-#include "seg/variadic.hpp"
+#include "lel/context.hpp"
+#include "lel/variadic.hpp"
 
-namespace Seg {
+namespace Lel {
 
 template <class Context, class IDs>
 struct Impl;
@@ -79,6 +79,6 @@ struct Impl<Context, Box<char, IDs...>> {
   friend struct Impl;
 };
 
-}  // namespace Seg
+}  // namespace Lel
 
-#endif  // INCLUDE_SEG_IMPL_HPP_
+#endif  // INCLUDE_LEL_IMPL_HPP_

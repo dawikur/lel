@@ -1,16 +1,16 @@
 // Copyright 2007, Dawid Kurek, <dawikur@gmail.com>
 
-#include "seg.hpp"
+#include "lel.hpp"
 
 #include "gtest/gtest.h"
 
 class double_std_placeholders_test : public ::testing::Test {
  protected:
-  Seg::Placeholder<'1'> _1;
-  Seg::Placeholder<'2'> _2;
-  Seg::Placeholder<'3'> _3;
-  Seg::Placeholder<'x'> _x;
-  Seg::Placeholder<'y'> _y;
+  Lel::Placeholder<'1'> _1;
+  Lel::Placeholder<'2'> _2;
+  Lel::Placeholder<'3'> _3;
+  Lel::Placeholder<'x'> _x;
+  Lel::Placeholder<'y'> _y;
 };
 
 TEST_F(double_std_placeholders_test, equal_returns_true_for_same_values) {

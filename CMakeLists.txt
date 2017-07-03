@@ -7,7 +7,7 @@ option(BENCHMARK "Build also benchmarks" OFF)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-project(Segela C CXX)
+project(Lel C CXX)
 
 if(UNIX)
   set(warnings "-Wall -Wextra -Werror -Wpedantic")

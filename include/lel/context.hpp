@@ -1,11 +1,11 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_SEG_CONTEXT_HPP_
-#define INCLUDE_SEG_CONTEXT_HPP_
+#ifndef INCLUDE_LEL_CONTEXT_HPP_
+#define INCLUDE_LEL_CONTEXT_HPP_
 
 #include <utility>
 
-namespace Seg {
+namespace Lel {
 
 struct Identity {
   template <class Type>
@@ -28,6 +28,6 @@ struct Context {
   using Mode  = ModeT;
 };
 
-}  // namespace Seg
+}  // namespace Lel
 
-#endif  // INCLUDE_SEG_CONTEXT_HPP_
+#endif  // INCLUDE_LEL_CONTEXT_HPP_

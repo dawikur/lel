@@ -1,12 +1,12 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#include "seg.hpp"
+#include "lel.hpp"
 
 #include "gtest/gtest.h"
 
 class nested_single_std_placeholder_test : public ::testing::Test {
  protected:
-  Seg::Placeholder<'x'> _x;
+  Lel::Placeholder<'x'> _x;
 };
 
 
