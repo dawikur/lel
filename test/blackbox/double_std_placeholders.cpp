@@ -6,11 +6,11 @@
 
 class double_std_placeholders_test : public ::testing::Test {
  protected:
-  Lel::Placeholder<'1'> _1;
-  Lel::Placeholder<'2'> _2;
-  Lel::Placeholder<'3'> _3;
-  Lel::Placeholder<'x'> _x;
-  Lel::Placeholder<'y'> _y;
+  LeL::Placeholder<'1'> _1;
+  LeL::Placeholder<'2'> _2;
+  LeL::Placeholder<'3'> _3;
+  LeL::Placeholder<'x'> _x;
+  LeL::Placeholder<'y'> _y;
 };
 
 TEST_F(double_std_placeholders_test, equal_returns_true_for_same_values) {

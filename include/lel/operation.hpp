@@ -7,7 +7,7 @@
 
 #include "lel/impl.hpp"
 
-namespace Lel {
+namespace LeL {
 
 #define OPERATION_STD(MARK, FUNC) OPERATION(MARK, std::FUNC<>)
 #define OPERATION_LEL(MARK, FUNC)                                              \
@@ -107,6 +107,6 @@ OPERATION_LEL( * , Indirection )
 #undef OPERATION_LEL
 #undef OPERATION_STD
 
-}  // namespace Lel
+}  // namespace LeL
 
 #endif  // INCLUDE_LEL_OPERATION_HPP_

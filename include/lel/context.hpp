@@ -5,7 +5,7 @@
 
 #include <utility>
 
-namespace Lel {
+namespace LeL {
 
 struct Identity {
   template <class Type>
@@ -34,6 +34,6 @@ struct Context {
   using Mode  = ModeT;
 };
 
-}  // namespace Lel
+}  // namespace LeL
 
 #endif  // INCLUDE_LEL_CONTEXT_HPP_

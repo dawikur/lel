@@ -6,7 +6,7 @@
 
 class single_std_placeholder_test : public ::testing::Test {
  protected:
-  Lel::Placeholder<'x'> _x;
+  LeL::Placeholder<'x'> _x;
 };
 
 TEST_F(single_std_placeholder_test, raw_placeholder_return_passed_value) {

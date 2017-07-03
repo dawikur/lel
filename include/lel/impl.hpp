@@ -8,7 +8,7 @@
 #include "lel/context.hpp"
 #include "lel/variadic.hpp"
 
-namespace Lel {
+namespace LeL {
 
 template <class Context, class IDs>
 struct Impl;
@@ -36,13 +36,13 @@ struct Impl<Context, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator[](Value value) const {
-    return Impl<Lel::Context<Impl<Context, MyIDs>, Value, Subscript, Left>,
+    return Impl<LeL::Context<Impl<Context, MyIDs>, Value, Subscript, Left>,
                 MyIDs>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator[](Impl<RestV, IDV> viewV) const {
-    return Impl<Lel::Context<Impl<Context, MyIDs>,
+    return Impl<LeL::Context<Impl<Context, MyIDs>,
                              Impl<RestV, IDV>,
                              Subscript,
                              Fold>,
@@ -92,6 +92,6 @@ struct Impl<Context, Box<char, IDs...>> {
   friend struct Impl;
 };
 
-}  // namespace Lel
+}  // namespace LeL
 
 #endif  // INCLUDE_LEL_IMPL_HPP_

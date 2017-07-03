@@ -5,7 +5,7 @@
 
 #include "lel/operation.hpp"
 
-namespace Lel {
+namespace LeL {
 
 template <char ID>
 using Placeholder
@@ -80,6 +80,6 @@ static constexpr Placeholder<'z'> const _z;
 
 }  // namespace Placeholders
 
-}  // namespace Lel
+}  // namespace LeL
 
 #endif  // INCLUDE_LEL_HPP_

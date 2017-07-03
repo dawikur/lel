@@ -1,4 +1,4 @@
-# lel
+# LeL
 
 > Lambda Expression Library
 > > Single header (after fusing) library with no external dependencies.
@@ -57,8 +57,8 @@ auto is_less  = _1 < _2;
 auto compute_something = 1 + _x * 3 - _y * _y + _x * _z;
 
 // make own placeholders
-auto first_arg  = Lel::Placeholder<'1'>();
-auto second_arg = Lel::Placeholder<'2'>();
+auto first_arg  = LeL::Placeholder<'1'>();
+auto second_arg = LeL::Placeholder<'2'>();
 
 auto not_equal = first_arg != second_arg;
 
@@ -72,6 +72,60 @@ std::vector<std::unique_ptr<std::unique_ptr<int>>> y = ...;
 
 ASSERT_EQ(..., sum(1, 2, x, y));
 ```
+
+# Usage
+
+You can use it in two ways:
+ * in multiple headers, as it is in reposiroty
+ * fuse it into one header, use `./script/fuse`
+
+The only think that should be used are:
+ * `LeL::Placeholder`            - template alias for creation of placeholders
+ * `namespace LeL::Placeholders` - with predefined placeholders
+
+```cpp
+#include "lel.hpp"
+
+auto use_with_namespace = Lel::Placeholders::_x + 2;
+
+auto create_your_own    = Lel::Placeholder<'a'>();
+
+// or use namespace
+using namespace Lel::Placeholders;
+auto like_that          = 1 * _2;
+```
+
+The separate types of placehodlers are distinguist by template variable
+**char**. So `Placeholder<'a'>` and `Placeholder<'A'>` are different types.
+
+You can use any combination of them (only numbets, mixis numbets and letters,
+etc) in any order or order. The important thing is the arguments during
+evaluation will be assigned with alphabetic (ASCII alphabetic) order.
+
+So:
+```cpp
+auto expr = _1 - _x;
+
+assert(-1 == expr(2, 3));
+assert( 1 == expr(3, 2));
+```
+
+# Tests
+
+There is a bunch of tests but they are not needed for normal usage. You can run
+all of them (**cmake** is needed) and run with:
+
+```bash
+mkdir build
+cd build
+cmake .. -DTESTS=ON
+cmake --build .
+ctest -VV
+```
+
+# Benchmarks
+
+TODO
 
 # Boost Lambda Library?
 

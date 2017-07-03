@@ -6,7 +6,7 @@
 
 class nested_single_lel_placeholder_test : public ::testing::Test {
  protected:
-  Lel::Placeholder<'x'> _x;
+  LeL::Placeholder<'x'> _x;
 };
 
 TEST_F(nested_single_lel_placeholder_test, indirection_and_cmparition) {

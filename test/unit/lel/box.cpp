@@ -9,7 +9,7 @@
 class box_test : public ::testing::Test {
  protected:
   template <int ... Values>
-  using Box = Lel::Box<int, Values...>;
+  using Box = LeL::Box<int, Values...>;
 };
 
 TEST_F(box_test, index_of_first_value) {
@@ -33,25 +33,25 @@ TEST_F(box_test, indexes_return_multiple_values) {
 }
 
 TEST_F(box_test, non_empty_merge_empty_gives_non_empty) {
-  ASSERT_TYPE((Box<1, 2>()), (Lel::Merge<Box<1, 2>, Box<>>()));
+  ASSERT_TYPE((Box<1, 2>()), (LeL::Merge<Box<1, 2>, Box<>>()));
 }
 
 TEST_F(box_test, empty_merge_non_empty_gives_non_empty) {
-  ASSERT_TYPE((Box<4, 8>()), (Lel::Merge<Box<>, Box<4, 8>>()));
+  ASSERT_TYPE((Box<4, 8>()), (LeL::Merge<Box<>, Box<4, 8>>()));
 }
 
 TEST_F(box_test, non_empty_merge_with_bigger_separable_non_empty) {
-  ASSERT_TYPE((Box<1, 4, 8, 9>()), (Lel::Merge<Box<1, 4>, Box<8, 9>>()));
+  ASSERT_TYPE((Box<1, 4, 8, 9>()), (LeL::Merge<Box<1, 4>, Box<8, 9>>()));
 }
 TEST_F(box_test, merge_unique_intersecting) {
-  ASSERT_TYPE((Box<1, 2, 3, 4, 5>()), (Lel::Merge<Box<1, 3>, Box<2, 4, 5>>()));
+  ASSERT_TYPE((Box<1, 2, 3, 4, 5>()), (LeL::Merge<Box<1, 3>, Box<2, 4, 5>>()));
 }
 
 TEST_F(box_test, non_empty_merge_with_intersecting_non_empty) {
-  ASSERT_TYPE((Box<1, 4, 9, 11>()), (Lel::Merge<Box<1, 4, 9>, Box<9, 11>>()));
+  ASSERT_TYPE((Box<1, 4, 9, 11>()), (LeL::Merge<Box<1, 4, 9>, Box<9, 11>>()));
 }
 
 TEST_F(box_test, merge_will_remove_fuplicate_enties) {
-  ASSERT_TYPE((Box<4, 8, 9, 11>()), (Lel::Merge<Box<4, 9>, Box<8, 8, 9, 11>>()));
+  ASSERT_TYPE((Box<4, 8, 9, 11>()), (LeL::Merge<Box<4, 9>, Box<8, 8, 9, 11>>()));
 }
 

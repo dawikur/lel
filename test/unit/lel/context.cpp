@@ -5,7 +5,7 @@
 #include "gtest/gtest.h"
 
 TEST(context_test, identity_pass_trou_value) {
-  ASSERT_EQ(5, Lel::Identity()(5));
-  ASSERT_EQ(7, Lel::Identity()(7));
-  ASSERT_EQ(-2, Lel::Identity()(-2));
+  ASSERT_EQ(5, LeL::Identity()(5));
+  ASSERT_EQ(7, LeL::Identity()(7));
+  ASSERT_EQ(-2, LeL::Identity()(-2));
 }

@@ -7,7 +7,7 @@
 
 #include "lel/box.hpp"
 
-namespace Lel {
+namespace LeL {
 
 struct Variadic {
   template <int Num, class... Values>
@@ -33,6 +33,6 @@ struct Variadic {
   }
 };
 
-}  // namespace Lel
+}  // namespace LeL
 
 #endif  // INCLUDE_LEL_VARIADIC_HPP_

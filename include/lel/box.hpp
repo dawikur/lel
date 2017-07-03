@@ -5,7 +5,7 @@
 
 #include <type_traits>
 
-namespace Lel {
+namespace LeL {
 
 template <class Type, Type... Tokens>
 struct Box {
@@ -151,6 +151,6 @@ struct Box {
 template <class Left, class Right>
 using Merge = typename Left::template Merge<Right>::Result;
 
-}  // namespace Lel
+}  // namespace LeL
 
 #endif  // INCLUDE_LEL_BOX_HPP_

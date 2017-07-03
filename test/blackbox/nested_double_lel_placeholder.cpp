@@ -6,10 +6,10 @@
 
 class nested_double_lel_placeholder_test : public ::testing::Test {
  protected:
-  Lel::Placeholder<'1'> _1;
-  Lel::Placeholder<'2'> _2;
-  Lel::Placeholder<'x'> _x;
-  Lel::Placeholder<'y'> _y;
+  LeL::Placeholder<'1'> _1;
+  LeL::Placeholder<'2'> _2;
+  LeL::Placeholder<'x'> _x;
+  LeL::Placeholder<'y'> _y;
 };
 
 TEST_F(nested_double_lel_placeholder_test, two_unique_pointers) {

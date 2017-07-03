@@ -6,7 +6,7 @@
 
 class nested_single_std_placeholder_test : public ::testing::Test {
  protected:
-  Lel::Placeholder<'x'> _x;
+  LeL::Placeholder<'x'> _x;
 };
 
 

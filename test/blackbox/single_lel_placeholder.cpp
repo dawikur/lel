@@ -6,8 +6,8 @@
 
 class single_lel_placeholder_test : public ::testing::Test {
  protected:
-  Lel::Placeholder<'x'> _x;
-  Lel::Placeholder<'y'> _y;
+  LeL::Placeholder<'x'> _x;
+  LeL::Placeholder<'y'> _y;
 };
 
 TEST_F(single_lel_placeholder_test, subscription_on_array) {
