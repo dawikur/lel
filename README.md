@@ -75,12 +75,17 @@ ASSERT_EQ(..., sum(1, 2, x, y));
 
 # Usage
 
-You can use it in two ways:
- * in multiple headers, as it is in reposiroty
- * fuse it into one header, use `./script/fuse`
+**Files** There are two ways of using it:
+ * in multiple headers, as it is in repository; 
+   
+   everything is in `include` directory
+ * in one fused-header;
+ 
+   `script/fuse` will fuse all into `build/lel.hpp`
 
-The only think that should be used are:
- * `LeL::Placeholder`            - template alias for creation of placeholders
+
+**API** The only things that should be used are:
+ * `LeL::Placeholder`            - template alias for placeholders creation
  * `namespace LeL::Placeholders` - with predefined placeholders
 
 ```cpp
@@ -95,11 +100,13 @@ using namespace Lel::Placeholders;
 auto like_that          = 1 * _2;
 ```
 
-The separate types of placehodlers are distinguist by template variable
+**Implementation** Templates, so many templates. Cool stuff!
+
+The separate types of placeholders are distinguist by template variable
 **char**. So `Placeholder<'a'>` and `Placeholder<'A'>` are different types.
 
-You can use any combination of them (only numbets, mixis numbets and letters,
-etc) in any order or order. The important thing is the arguments during
+You can use any combination of them (only numbers, numbers and letters,
+etc) in any order or degree. The important thing is the arguments during
 evaluation will be assigned with alphabetic (ASCII alphabetic) order.
 
 So:
