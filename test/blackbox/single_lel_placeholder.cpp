@@ -41,3 +41,11 @@ TEST_F(single_lel_placeholder_test, shift_right) {
   ASSERT_EQ(1, value2(2));
 }
 
+
+TEST_F(single_lel_placeholder_test, indirection_on_pointer) {
+  auto get = *_x;
+
+  int value = 5;
+
+  ASSERT_EQ(5, get(&value));
+}

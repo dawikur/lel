@@ -76,6 +76,15 @@ OPERATION_LEL( >> , ShiftRight    )
 #undef OPERATION
 #undef OPERATION_LEL
 
+#define OPERATION_LEL(MARK, FUNC)                                              \
+  struct __##FUNC {                                                            \
+    template <class Value>                                                     \
+    constexpr auto operator()(Value &&value) const {                           \
+      return MARK std::forward<Value>(value);                                  \
+    }                                                                          \
+  };                                                                           \
+  OPERATION(MARK, __##FUNC)
+
 #define OPERATION(MARK, FUNC)                                                  \
   template <class Rest, class IDs>                                             \
   constexpr auto operator MARK(Impl<Rest, IDs> view)                           \
@@ -94,10 +103,13 @@ OPERATION_STD( - , negate      )
 OPERATION_STD( ! , logical_not )
 OPERATION_STD( ~ , bit_not     )
 
-OPERATION( + , Identity )
+OPERATION    ( + , Identity    )
+
+OPERATION_LEL( * , Indirection )
 
 #undef OPERATION
 
+#undef OPERATION_LEL
 #undef OPERATION_STD
 
 }  // namespace Lel
