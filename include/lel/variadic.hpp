@@ -20,12 +20,12 @@ struct Variadic {
 
  private:
   template <int  Num, class Head, class... Tail>
-  constexpr auto get_impl(Box<int, Num>, Head &&head, Tail &&... tail) const {
+  constexpr auto get_impl(Box<int, Num>, Head &&, Tail &&... tail) const {
     return get_impl(Box<int, Num - 1>(), std::forward<Tail>(tail)...);
   }
 
   template <class Head, class... Tail>
-  constexpr auto get_impl(Box<int, 0>, Head &&head, Tail &&... tail) const {
+  constexpr auto get_impl(Box<int, 0>, Head &&head, Tail &&...) const {
     return std::forward<Head>(head);
   }
 };

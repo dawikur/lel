@@ -42,28 +42,28 @@ namespace Lel {
     return {std::move(viewL), std::move(viewR)};                               \
   }
 
-OPERATION_STD( +  , plus          );
-OPERATION_STD( -  , minus         );
-OPERATION_STD( *  , multiplies    );
-OPERATION_STD( /  , divides       );
-OPERATION_STD( %  , modulus       );
+OPERATION_STD( +  , plus          )
+OPERATION_STD( -  , minus         )
+OPERATION_STD( *  , multiplies    )
+OPERATION_STD( /  , divides       )
+OPERATION_STD( %  , modulus       )
 
-OPERATION_STD( == , equal_to      );
-OPERATION_STD( != , not_equal_to  );
-OPERATION_STD( >  , greater       );
-OPERATION_STD( <  , less          );
-OPERATION_STD( >= , greater_equal );
-OPERATION_STD( <= , less_equal    );
+OPERATION_STD( == , equal_to      )
+OPERATION_STD( != , not_equal_to  )
+OPERATION_STD( >  , greater       )
+OPERATION_STD( <  , less          )
+OPERATION_STD( >= , greater_equal )
+OPERATION_STD( <= , less_equal    )
 
-OPERATION_STD( && , logical_and   );
-OPERATION_STD( || , logical_or    );
+OPERATION_STD( && , logical_and   )
+OPERATION_STD( || , logical_or    )
 
-OPERATION_STD( &  , bit_and       );
-OPERATION_STD( |  , bit_or        );
-OPERATION_STD( ^  , bit_xor       );
+OPERATION_STD( &  , bit_and       )
+OPERATION_STD( |  , bit_or        )
+OPERATION_STD( ^  , bit_xor       )
 
-OPERATION_LEL( << , ShiftLeft     );
-OPERATION_LEL( >> , ShiftRight    );
+OPERATION_LEL( << , ShiftLeft     )
+OPERATION_LEL( >> , ShiftRight    )
 
 // =
 // += -=
@@ -90,11 +90,11 @@ OPERATION_LEL( >> , ShiftRight    );
 // & address of
 // sizeof
 
-OPERATION_STD( - , negate      );
-OPERATION_STD( ! , logical_not );
-OPERATION_STD( ~ , bit_not     );
+OPERATION_STD( - , negate      )
+OPERATION_STD( ! , logical_not )
+OPERATION_STD( ~ , bit_not     )
 
-OPERATION( + , Identity );
+OPERATION( + , Identity )
 
 #undef OPERATION
 
