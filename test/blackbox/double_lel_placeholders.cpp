@@ -54,3 +54,27 @@ TEST_F(double_lel_placeholders_test, both_array_and_index_with_vector) {
   ASSERT_EQ(5, arr2(2, vec));
 }
 
+TEST_F(double_lel_placeholders_test, double_index_vector_of_unique_ptr) {
+  auto arr1 = *(_x[_y]);
+  auto arr2 = *(_y[_x]);
+
+  auto vec = std::vector<std::unique_ptr<int>>();
+  vec.push_back(std::make_unique<int>(5));
+  vec.push_back(std::make_unique<int>(4));
+
+  ASSERT_EQ(5, arr1(vec, 0));
+  ASSERT_EQ(4, arr2(1, vec));
+}
+
+TEST_F(double_lel_placeholders_test, double_index_unique_ptr_of_vector) {
+  auto arr1 = (*_x)[_y];
+  auto arr2 = (*_y)[_x];
+
+  auto ptr = std::make_unique<std::vector<int>>();
+  ptr->push_back(5);
+  ptr->push_back(4);
+
+  ASSERT_EQ(5, arr1(ptr, 0));
+  ASSERT_EQ(4, arr2(1, ptr));
+}
+

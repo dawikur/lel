@@ -49,9 +49,9 @@ struct Impl<Context, Box<char, IDs...>> {
   }
 
  private:
-  template <class Value>
-  constexpr decltype(auto) call(Single, Value &&value) const {
-    return typename Context::Func()(left(std::forward<Value>(value)));
+  template <class... Values>
+  constexpr decltype(auto) call(Single, Values &&... values) const {
+    return typename Context::Func()(left(std::forward<Values>(values)...));
   }
 
   template <class Value>
@@ -79,7 +79,7 @@ struct Impl<Context, Box<char, IDs...>> {
   }
 
   template <int... Indexes, class... Values>
-  constexpr auto slice(Box<int, Indexes...>, Values &&... values) const {
+  constexpr decltype(auto) slice(Box<int, Indexes...>, Values &&... values) const {
     return call(typename Context::Mode(),
                 Variadic().Get<Indexes>(values...)...);
   }

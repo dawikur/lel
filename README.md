@@ -70,13 +70,13 @@ auto not_equal = first_arg != second_arg;
 
 // some more... complex...
 
-auto sum = *((*_x)[2]) + **(_y[3]);
+auto sum = *((*_x)[_1]) + **(_y[_2]);
 
 auto x = std::make_unique<std::vector<std::unique_ptr<int>>>();
 std::unique_ptr<std::vector<std::unique_ptr<int>>> x = ...;
 std::vector<std::unique_ptr<std::unique_ptr<int>>> y = ...;
 
-ASSERT_EQ(3 + 9, sum(x, y));
+ASSERT_EQ(..., sum(1, 2, x, y));
 ```
 
 ---
