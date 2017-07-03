@@ -1,5 +1,7 @@
 # lel
 
+> Lambda Expression Library
+
 [![Language][Language-img]][Language-url]
 [![Release][Release-img]][Release-url]
 [![License][License-img]][License-url]
@@ -14,6 +16,54 @@
 [![DevelopLinuxBuild][DevelopLinuxBuild-img]][DevelopLinuxBuild-url]
 [![DevelopWindowsBuild][DevelopWindowsBuild-img]][DevelopWindowsBuild-url]
 [![DevelopCoverage][DevelopCoverage-img]][DevelopCoverage-url]
+
+---
+
+```cpp
+auto is_right_triangle = _a * _a + _b *_b == _c * _c;
+
+is_right_triangle(3, 4, 5);
+```
+
+# About
+
+Lambda functions in c++ are cool, very cool. But they give quite some overhead
+in syntax requirements, which obscures very little functions. Consider:
+
+```cpp
+auto is_even = [](auto i) { return i % 2 == 0; };
+```
+
+It is very short, nice lambda, but the actual condition is only around half of
+its body. Now lets see how it would look in lambda expression:
+
+```cpp
+auto is_even = _x % 2 == 0;
+```
+
+Shorted, right? And, for me, much cleaner.
+
+## Boost Lambda Library?
+
+The same concept but this one uses a little bit newer C++. LeL also does not
+constrain maximum number of arguments to 3. 255 will be enough? Single header
+(after fusing) library with no external dependencies.
+
+# Example
+
+```cpp
+
+auto plus_one = _x + 1;
+auto multiply = _x * _y;
+auto is_less  = _1 < _2;
+
+auto compute_something = 1 + _x * 3 - _y * _y + _x * _z;
+
+auto first_arg  = Lel::Placeholder<'1'>();
+auto second_arg = Lel::Placeholder<'2'>();
+
+auto not_equal = first_arg != second_arg;
+```
 
 ---
 
