@@ -44,13 +44,7 @@ auto is_even = _x % 2 == 0;
 
 Shorted, right? And, for me, much cleaner.
 
-## Boost Lambda Library?
-
-Yes, the same concept but this one uses a little bit newer C++.
-
-LeL also does not constrain maximum number of arguments to 3.
-
-# Examples
+## More examples
 
 ```cpp
 
@@ -68,7 +62,7 @@ auto second_arg = Lel::Placeholder<'2'>();
 
 auto not_equal = first_arg != second_arg;
 
-// some more... complex...
+// some more... complexity...
 
 auto sum = *((*_x)[_1]) + **(_y[_2]);
 
@@ -78,6 +72,11 @@ std::vector<std::unique_ptr<std::unique_ptr<int>>> y = ...;
 
 ASSERT_EQ(..., sum(1, 2, x, y));
 ```
+
+# Boost Lambda Library?
+
+Yes, the same concept but this one uses a little bit newer C++.
+However the idea for this library came out independently.
 
 ---
 
