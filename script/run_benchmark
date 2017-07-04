@@ -30,7 +30,7 @@ echo "Json Parsed ]"
 echo "[ Generating PNG"
   for file in ${files}; do
     echo "> ${file}"
-    plot_title="${file}" data_file="${file}" ./script/benchmark/plot > "res/benchmark/${file}.png"
+    plot_title="${file//_/ }" data_file="${file}" ./script/benchmark/plot > "res/benchmark/${file}.png"
     rm -v "${file}"
   done
 echo "PNG generated ]"

@@ -1,66 +1,80 @@
 {
   "context": {
-    "date": "2017-07-04 11:28:53",
-    "num_cpus": 32,
-    "mhz_per_cpu": 2152,
-    "cpu_scaling_enabled": true,
+    "date": "2017-07-04 20:06:07",
+    "num_cpus": 2,
+    "mhz_per_cpu": 2394,
+    "cpu_scaling_enabled": false,
     "library_build_type": "release"
   },
   "benchmarks": [
     {
-      "name": "simple_expression__lel/0",
-      "iterations": 20514561,
-      "real_time": 33,
-      "cpu_time": 33,
+      "name": "simple_expression_in_lopp/LeL/0",
+      "iterations": 10520115,
+      "real_time": 57,
+      "cpu_time": 57,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression__lel/1",
-      "iterations": 10830255,
-      "real_time": 65,
-      "cpu_time": 65,
+      "name": "simple_expression_in_lopp/LeL/1",
+      "iterations": 6447181,
+      "real_time": 109,
+      "cpu_time": 108,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression__lel/8",
-      "iterations": 2362571,
-      "real_time": 297,
-      "cpu_time": 297,
+      "name": "simple_expression_in_lopp/LeL/8",
+      "iterations": 1000000,
+      "real_time": 515,
+      "cpu_time": 512,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression__lel/20",
-      "iterations": 1027211,
-      "real_time": 693,
-      "cpu_time": 693,
+      "name": "simple_expression_in_lopp/LeL/64",
+      "iterations": 196479,
+      "real_time": 3495,
+      "cpu_time": 3476,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression__lambda/0",
-      "iterations": 20630194,
-      "real_time": 33,
-      "cpu_time": 33,
+      "name": "simple_expression_in_lopp/LeL/100",
+      "iterations": 106674,
+      "real_time": 5453,
+      "cpu_time": 5424,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression__lambda/1",
-      "iterations": 10769450,
-      "real_time": 65,
-      "cpu_time": 65,
+      "name": "simple_expression_in_lopp/Lambda/0",
+      "iterations": 9710638,
+      "real_time": 56,
+      "cpu_time": 56,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression__lambda/8",
-      "iterations": 2344819,
-      "real_time": 298,
-      "cpu_time": 298,
+      "name": "simple_expression_in_lopp/Lambda/1",
+      "iterations": 5629860,
+      "real_time": 110,
+      "cpu_time": 109,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression__lambda/20",
-      "iterations": 1024392,
-      "real_time": 688,
-      "cpu_time": 688,
+      "name": "simple_expression_in_lopp/Lambda/8",
+      "iterations": 1333714,
+      "real_time": 520,
+      "cpu_time": 515,
+      "time_unit": "ns"
+    },
+    {
+      "name": "simple_expression_in_lopp/Lambda/64",
+      "iterations": 199252,
+      "real_time": 3492,
+      "cpu_time": 3474,
+      "time_unit": "ns"
+    },
+    {
+      "name": "simple_expression_in_lopp/Lambda/100",
+      "iterations": 116015,
+      "real_time": 5550,
+      "cpu_time": 5512,
       "time_unit": "ns"
     }
   ]

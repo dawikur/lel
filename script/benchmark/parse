@@ -13,15 +13,15 @@ def parse_json(benchmarks):
     parsed_data = {}
 
     for benchmark in benchmarks:
-        name, count = benchmark["name"].split("/")
-        fixture, name = name.split("__")
-
+        name = benchmark["name"]
         value = benchmark["real_time"]
 
-        name = name.replace('_', ' ')
-        name = name.replace("<st", 'st')
-        name = name.replace(">>", '>')
-        name = name.replace("<Value>", '')
+        if "__" in name:
+            name, count = name.split("/")
+            fixture, name = name.split("__")
+        else:
+            fixture, name, count = name.split("/")
+
 
         count = str(count)
         if count.endswith("k"):
