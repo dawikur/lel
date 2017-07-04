@@ -37,35 +37,45 @@ namespace LeL {
                 Merge<IDL, IDR>>{std::move(viewL), std::move(viewR)};          \
   }
 
-OPERATION_STD( +  , plus          )
-OPERATION_STD( -  , minus         )
-OPERATION_STD( *  , multiplies    )
-OPERATION_STD( /  , divides       )
-OPERATION_STD( %  , modulus       )
+OPERATION_STD( +  , plus              )
+OPERATION_STD( -  , minus             )
+OPERATION_STD( *  , multiplies        )
+OPERATION_STD( /  , divides           )
+OPERATION_STD( %  , modulus           )
 
-OPERATION_STD( == , equal_to      )
-OPERATION_STD( != , not_equal_to  )
-OPERATION_STD( >  , greater       )
-OPERATION_STD( <  , less          )
-OPERATION_STD( >= , greater_equal )
-OPERATION_STD( <= , less_equal    )
+OPERATION_STD( == , equal_to          )
+OPERATION_STD( != , not_equal_to      )
+OPERATION_STD( >  , greater           )
+OPERATION_STD( <  , less              )
+OPERATION_STD( >= , greater_equal     )
+OPERATION_STD( <= , less_equal        )
 
-OPERATION_STD( && , logical_and   )
-OPERATION_STD( || , logical_or    )
+OPERATION_STD( && , logical_and       )
+OPERATION_STD( || , logical_or        )
 
-OPERATION_STD( &  , bit_and       )
-OPERATION_STD( |  , bit_or        )
-OPERATION_STD( ^  , bit_xor       )
+OPERATION_STD( &  , bit_and           )
+OPERATION_STD( |  , bit_or            )
+OPERATION_STD( ^  , bit_xor           )
 
-OPERATION_LEL( << , ShiftLeft     )
-OPERATION_LEL( >> , ShiftRight    )
+OPERATION_LEL( << , ShiftLeft         )
+OPERATION_LEL( >> , ShiftRight        )
 
+// TODO: 2017-07-04 How to handle reference?
 // =
-// += -=
-// *= /= %/
-// <<= >>=
-// &= ^= |=
+OPERATION_LEL( += , PlusAssign        )
+OPERATION_LEL( -= , MinusAssign       )
+OPERATION_LEL( *= , MulAssign         )
+OPERATION_LEL( /= , DivAssign         )
+OPERATION_LEL( %= , ModAssign         )
 
+OPERATION_LEL( &= , AndAssign         )
+OPERATION_LEL( |= , OrAssign          )
+OPERATION_LEL( ^= , XorAssign         )
+
+OPERATION_LEL( <<= , ShiftLeftAssign  )
+OPERATION_LEL( >>= , ShiftRightAssign )
+
+// TODO: 2017-07-04
 // , ??
 
 #undef OPERATION

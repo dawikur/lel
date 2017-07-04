@@ -74,3 +74,57 @@ TEST_F(single_lel_placeholder_test, address_of_unique_ptr) {
 
   ASSERT_EQ(&ptr, addr(ptr));
 }
+
+TEST_F(single_lel_placeholder_test, plus_assignment) {
+  //int value1 = 4;
+  int value2 = 7;
+  int value3 = 9;
+  int value4 = 8;
+  int value5 = 6;
+
+  //auto assign1 = value1 += _x;
+  auto assign2 = _x += value2;
+  auto assign3 = _x += _y;
+
+  //assign1(2);
+  assign2(value3);
+  assign3(value4, value5);
+
+  //ASSERT_EQ(6, value1);
+  ASSERT_EQ(16, value3);
+  ASSERT_EQ(14, value4);
+}
+
+TEST_F(single_lel_placeholder_test, minus_assignment) {
+  //int value1 = 4;
+  int value2 = 7;
+  int value3 = 9;
+  int value4 = 8;
+  int value5 = 6;
+
+  //auto assign1 = value1 -= _x;
+  auto assign2 = _x -= value2;
+  auto assign3 = _x -= _y;
+
+  //assign1(2);
+  assign2(value3);
+  assign3(value4, value5);
+
+  //ASSERT_EQ(2, value1);
+  ASSERT_EQ(2, value3);
+  ASSERT_EQ(2, value4);
+}
+
+/*
+ * TODO: 2017-07-04
+ * *=
+ * /=
+ * %=
+ *
+ * &=
+ * |=
+ * ^=
+ *
+ * <<=
+ * >>=
+ */
