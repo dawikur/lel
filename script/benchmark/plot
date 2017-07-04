@@ -7,7 +7,7 @@ plot_title=system("echo $plot_title")
 data_file=system("echo $data_file")
 
 set title plot_title
-set xlabel "#elements"
+set xlabel "count"
 set ylabel "time [ns]"
 
 set key reverse Left outside

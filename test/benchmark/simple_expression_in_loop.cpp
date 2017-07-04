@@ -8,7 +8,7 @@
 #include <cstdlib>
 
 template <class Expression>
-void simple_expression_in_lopp(::benchmark::State &state,
+void simple_expression_in_loop(::benchmark::State &state,
                                Expression const    expression) {
   std::vector<int> vec(100);
   std::generate(vec.begin(), vec.end(), std::rand);
@@ -23,5 +23,5 @@ void simple_expression_in_lopp(::benchmark::State &state,
 auto eLeL    = LeL::Placeholders::_x * LeL::Placeholders::_x + 3;
 auto eLambda = [](auto const _x) { return _x * _x + 3; };
 
-BENCHMARK_CAPTURE(simple_expression_in_lopp, LeL, eLeL)->Range(0, 100);
-BENCHMARK_CAPTURE(simple_expression_in_lopp, Lambda, eLambda)->Range(0, 100);
+BENCHMARK_CAPTURE(simple_expression_in_loop, LeL, eLeL)->Range(0, 100);
+BENCHMARK_CAPTURE(simple_expression_in_loop, Lambda, eLambda)->Range(0, 100);

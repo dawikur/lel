@@ -76,11 +76,11 @@ ASSERT_EQ(..., sum(1, 2, x, y));
 # Usage
 
 **Files** There are two ways of using it:
- * in multiple headers, as it is in repository; 
-   
+ * in multiple headers, as it is in repository;
+
    everything is in `include` directory
  * in one fused-header;
- 
+
    `script/fuse` will fuse all into `build/lel.hpp`
 
 
@@ -134,15 +134,18 @@ ctest -VV
 
 ![Simple Expression In Loop chart](res/benchmark/simple_expression_in_loop.png "Simple Expression In Loop chart")
 
+```
+expression == x * x + 3
+
 ```cpp
 std::vector<int> vec(100);
-  std::generate(vec.begin(), vec.end(), std::rand);
+std::generate(vec.begin(), vec.end(), std::rand);
 
-  while (state.KeepRunning()) {
-    for (int i = 0; i <= elements; ++i) {
-      std::transform(vec.begin(), vec.end(), vec.begin(), expression);
-    }
+while (state.KeepRunning()) {
+  for (int i = 0; i <= count; ++i) {
+    std::transform(vec.begin(), vec.end(), vec.begin(), expression);
   }
+}
 ```
 
 # Boost Lambda Library?
