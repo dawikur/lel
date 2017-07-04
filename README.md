@@ -136,6 +136,7 @@ ctest -VV
 
 ```
 expression == x * x + 3
+```
 
 ```cpp
 std::vector<int> vec(100);
