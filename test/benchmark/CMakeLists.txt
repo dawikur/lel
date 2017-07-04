@@ -1,5 +1,6 @@
 set(lel_benchmark_SOURCES
   lel_benchmark.cpp
+  increasing_complexity_of_expressions.cpp
   simple_expression_in_loop.cpp
 )
 

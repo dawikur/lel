@@ -14,8 +14,7 @@ set key reverse Left outside
 set grid
 
 set style data linespoints
-set logscale xy
 
 plot for [IDX=0:2] \
-  data_file index IDX using 1:2 title columnheader(1)
+  data_file index IDX using 1:2 title columnheader(1) with boxes
 
