@@ -1,0 +1,67 @@
+{
+  "context": {
+    "date": "2017-07-04 11:28:53",
+    "num_cpus": 32,
+    "mhz_per_cpu": 2152,
+    "cpu_scaling_enabled": true,
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "simple_expression__lel/0",
+      "iterations": 20514561,
+      "real_time": 33,
+      "cpu_time": 33,
+      "time_unit": "ns"
+    },
+    {
+      "name": "simple_expression__lel/1",
+      "iterations": 10830255,
+      "real_time": 65,
+      "cpu_time": 65,
+      "time_unit": "ns"
+    },
+    {
+      "name": "simple_expression__lel/8",
+      "iterations": 2362571,
+      "real_time": 297,
+      "cpu_time": 297,
+      "time_unit": "ns"
+    },
+    {
+      "name": "simple_expression__lel/20",
+      "iterations": 1027211,
+      "real_time": 693,
+      "cpu_time": 693,
+      "time_unit": "ns"
+    },
+    {
+      "name": "simple_expression__lambda/0",
+      "iterations": 20630194,
+      "real_time": 33,
+      "cpu_time": 33,
+      "time_unit": "ns"
+    },
+    {
+      "name": "simple_expression__lambda/1",
+      "iterations": 10769450,
+      "real_time": 65,
+      "cpu_time": 65,
+      "time_unit": "ns"
+    },
+    {
+      "name": "simple_expression__lambda/8",
+      "iterations": 2344819,
+      "real_time": 298,
+      "cpu_time": 298,
+      "time_unit": "ns"
+    },
+    {
+      "name": "simple_expression__lambda/20",
+      "iterations": 1024392,
+      "real_time": 688,
+      "cpu_time": 688,
+      "time_unit": "ns"
+    }
+  ]
+}

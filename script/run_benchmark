@@ -4,39 +4,39 @@
 
 fileJson=$(mktemp)
 
-echo "Start"
+echo "[ Start ]"
 
 echo "Temporary file: ${fileJson}"
 
-echo "Mkdir"
+echo "[ Mkdir ]"
   if [ ! -d build ]; then
     mkdir build || exit 1
   fi
 
-echo "Building..."; (
+echo "[ Building..."; (
   cd build || exit 1
   cmake .. -G'Unix Makefiles' -DCMAKE_BUILD_TYPE=Release -DBENCHMARK=ON || exit 1
   cmake --build . || exit 1
-) || exit 1; echo "Builded"
+) || exit 1; echo "Builded ]"
 
-echo "Running..."
+echo "[ Running..."
   ./build/test/benchmark/lel_benchmark --benchmark_format=json > "${fileJson}"
-echo "Tests done"
+echo "Tests done ]"
 
-echo "Parsing Json"
+echo "[ Parsing Json"
   files=$(./script/benchmark/parse "${fileJson}")
-echo "Json Parsed"
+echo "Json Parsed ]"
 
-echo "Generating PNG"
+echo "[ Generating PNG"
   for file in ${files}; do
     echo "> ${file}"
     plot_title="${file}" data_file="${file}" ./script/benchmark/plot > "res/benchmark/${file}.png"
     rm -v "${file}"
   done
-echo "PNG generated"
+echo "PNG generated ]"
 
-echo "Copy json file"
-cp "${fileJson}" "res/benchmark/data"
+echo "[ Copy json file ]"
+cp "${fileJson}" "res/benchmark/dataRaw"
 
-echo "Stop"
+echo "[ Stop ]"
 

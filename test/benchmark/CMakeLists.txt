@@ -1,5 +1,6 @@
 set(lel_benchmark_SOURCES
   lel_benchmark.cpp
+  simple_expression.cpp
 )
 
 add_executable(lel_benchmark ${lel_benchmark_SOURCES})

@@ -1,5 +1,0 @@
-// Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
-
-#include "lel_benchmark.hpp"
-
-BENCHMARK_MAIN();
