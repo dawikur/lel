@@ -132,7 +132,18 @@ ctest -VV
 
 # Benchmarks
 
-TODO
+![Simple Expression In Loop chart](res/benchmark/simple_expression_in_loop.png "Simple Expression In Loop chart")
+
+```cpp
+std::vector<int> vec(100);
+  std::generate(vec.begin(), vec.end(), std::rand);
+
+  while (state.KeepRunning()) {
+    for (int i = 0; i <= elements; ++i) {
+      std::transform(vec.begin(), vec.end(), vec.begin(), expression);
+    }
+  }
+```
 
 # Boost Lambda Library?
 
