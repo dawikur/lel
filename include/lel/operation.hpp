@@ -90,10 +90,6 @@ OPERATION_LEL( >> , ShiftRight    )
 // ++/-- postfix increment/decrement
 // ++/+--prefix increment/decrement
 
-// * indirection
-// & address of
-// sizeof
-
 OPERATION_STD( - , negate      )
 OPERATION_STD( ! , logical_not )
 OPERATION_STD( ~ , bit_not     )
@@ -101,6 +97,7 @@ OPERATION_STD( ~ , bit_not     )
 OPERATION    ( + , Identity    )
 
 OPERATION_LEL( * , Indirection )
+OPERATION_LEL( & , AddressOf   )
 
 #undef OPERATION
 

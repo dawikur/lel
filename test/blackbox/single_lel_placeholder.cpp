@@ -58,3 +58,19 @@ TEST_F(single_lel_placeholder_test, indirection_of_unique_ptr) {
 
   ASSERT_EQ(5, get(ptr));
 }
+
+TEST_F(single_lel_placeholder_test, address_of) {
+  auto addr = &_x;
+
+  int value = 5;
+
+  ASSERT_EQ(&value, addr(value));
+}
+
+TEST_F(single_lel_placeholder_test, address_of_unique_ptr) {
+  auto addr = &_x;
+
+  auto ptr = std::make_unique<int>(5);
+
+  ASSERT_EQ(&ptr, addr(ptr));
+}

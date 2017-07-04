@@ -78,3 +78,10 @@ TEST_F(double_lel_placeholders_test, double_index_unique_ptr_of_vector) {
   ASSERT_EQ(4, arr2(1, ptr));
 }
 
+TEST_F(double_lel_placeholders_test, combine_indirection_and_address_of) {
+  int value = 6;
+
+  ASSERT_EQ(6, (*&_x)(value));
+  ASSERT_EQ(&value, (&*&_x)(value));
+  ASSERT_EQ(6, (*&*&_x)(value));
+}
