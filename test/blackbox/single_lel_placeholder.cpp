@@ -115,16 +115,22 @@ TEST_F(single_lel_placeholder_test, minus_assignment) {
   ASSERT_EQ(2, value4);
 }
 
-/*
- * TODO: 2017-07-04
- * *=
- * /=
- * %=
- *
- * &=
- * |=
- * ^=
- *
- * <<=
- * >>=
- */
+TEST_F(single_lel_placeholder_test, multiply_assignment) {
+  //int value1 = 4;
+  int value2 = 7;
+  int value3 = 9;
+  int value4 = 8;
+  int value5 = 6;
+
+  //auto assign1 = value1 *= _x;
+  auto assign2 = _x *= value2;
+  auto assign3 = _x *= _y;
+
+  //assign1(2);
+  assign2(value3);
+  assign3(value4, value5);
+
+  //ASSERT_EQ(8, value1);
+  ASSERT_EQ(63, value3);
+  ASSERT_EQ(48, value4);
+}
