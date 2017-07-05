@@ -10,6 +10,7 @@
 namespace LeL {
 
 #define OPERATION_STD(MARK, FUNC) OPERATION(MARK, std::FUNC<>)
+
 #define OPERATION_LEL(MARK, FUNC)                                              \
   struct __##FUNC {                                                            \
     template <class Left, class Right>                                         \
@@ -110,7 +111,7 @@ OPERATION_LEL( & , AddressOf   )
 #undef OPERATION_STD
 
 #define OPERATION(FUNC, PRE, POST)                                             \
-  struct FUNC {                                                              \
+  struct __##FUNC {                                                            \
     template <class Value>                                                     \
     constexpr decltype(auto) operator()(Value &&value) const {                 \
       return PRE std::forward<Value>(value) POST;                              \
@@ -126,25 +127,25 @@ OPERATION( PostDecrement ,    , -- )
 
 template <class Rest, class IDs>
 constexpr decltype(auto) operator++(Impl<Rest, IDs> view) {
-  return Impl<Context<Impl<Rest, IDs>, Identity, PreIncrement, Single>, IDs>{
+  return Impl<Context<Impl<Rest, IDs>, Identity, __PreIncrement, Single>, IDs>{
     std::move(view), Identity{}};
 }
 
 template <class Rest, class IDs>
 constexpr decltype(auto) operator++(Impl<Rest, IDs> view, int) {
-  return Impl<Context<Impl<Rest, IDs>, Identity, PostIncrement, Single>, IDs>{
+  return Impl<Context<Impl<Rest, IDs>, Identity, __PostIncrement, Single>, IDs>{
     std::move(view), Identity{}};
 }
 
 template <class Rest, class IDs>
 constexpr decltype(auto) operator--(Impl<Rest, IDs> view) {
-  return Impl<Context<Impl<Rest, IDs>, Identity, PreDecrement, Single>, IDs>{
+  return Impl<Context<Impl<Rest, IDs>, Identity, __PreDecrement, Single>, IDs>{
     std::move(view), Identity{}};
 }
 
 template <class Rest, class IDs>
 constexpr decltype(auto) operator--(Impl<Rest, IDs> view, int) {
-  return Impl<Context<Impl<Rest, IDs>, Identity, PostDecrement, Single>, IDs>{
+  return Impl<Context<Impl<Rest, IDs>, Identity, __PostDecrement, Single>, IDs>{
     std::move(view), Identity{}};
 }
 
