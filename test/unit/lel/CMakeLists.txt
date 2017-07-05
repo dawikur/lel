@@ -14,3 +14,5 @@ if(UNIX)
 endif()
 
 add_test(lel lel_test --gtest_color=yes)
+
+add_subdirectory(operation)
