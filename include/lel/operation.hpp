@@ -95,9 +95,6 @@ OPERATION_LEL( >>= , ShiftRightAssign )
       std::move(view), Identity{}};                                            \
   }
 
-// ++/-- postfix increment/decrement
-// ++/+--prefix increment/decrement
-
 OPERATION_STD( - , negate      )
 OPERATION_STD( ! , logical_not )
 OPERATION_STD( ~ , bit_not     )
@@ -111,6 +108,45 @@ OPERATION_LEL( & , AddressOf   )
 
 #undef OPERATION_LEL
 #undef OPERATION_STD
+
+#define OPERATION(FUNC, PRE, POST)                                             \
+  struct FUNC {                                                              \
+    template <class Value>                                                     \
+    constexpr decltype(auto) operator()(Value &&value) const {                 \
+      return PRE std::forward<Value>(value) POST;                              \
+    }                                                                          \
+  };
+
+OPERATION( PreIncrement  , ++ ,    )
+OPERATION( PostIncrement ,    , ++ )
+OPERATION( PreDecrement  , -- ,    )
+OPERATION( PostDecrement ,    , -- )
+
+#undef OPERATION
+
+template <class Rest, class IDs>
+constexpr decltype(auto) operator++(Impl<Rest, IDs> view) {
+  return Impl<Context<Impl<Rest, IDs>, Identity, PreIncrement, Single>, IDs>{
+    std::move(view), Identity{}};
+}
+
+template <class Rest, class IDs>
+constexpr decltype(auto) operator++(Impl<Rest, IDs> view, int) {
+  return Impl<Context<Impl<Rest, IDs>, Identity, PostIncrement, Single>, IDs>{
+    std::move(view), Identity{}};
+}
+
+template <class Rest, class IDs>
+constexpr decltype(auto) operator--(Impl<Rest, IDs> view) {
+  return Impl<Context<Impl<Rest, IDs>, Identity, PreDecrement, Single>, IDs>{
+    std::move(view), Identity{}};
+}
+
+template <class Rest, class IDs>
+constexpr decltype(auto) operator--(Impl<Rest, IDs> view, int) {
+  return Impl<Context<Impl<Rest, IDs>, Identity, PostDecrement, Single>, IDs>{
+    std::move(view), Identity{}};
+}
 
 }  // namespace LeL
 

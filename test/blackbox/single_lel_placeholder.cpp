@@ -158,3 +158,39 @@ TEST_F(single_lel_placeholder_test, multiply_assignment) {
   ASSERT_EQ(63, value3);
   ASSERT_EQ(48, value4);
 }
+
+TEST_F(single_lel_placeholder_test, pre_increment) {
+  auto inc = ++_x;
+
+  int value = 5;
+
+  ASSERT_EQ(6, inc(value));
+  ASSERT_EQ(6, value);
+}
+
+TEST_F(single_lel_placeholder_test, post_increment) {
+  auto inc = _x++;
+
+  int value = 5;
+
+  ASSERT_EQ(5, inc(value));
+  ASSERT_EQ(6, value);
+}
+
+TEST_F(single_lel_placeholder_test, pre_decrement) {
+  auto inc = --_x;
+
+  int value = 5;
+
+  ASSERT_EQ(4, inc(value));
+  ASSERT_EQ(4, value);
+}
+
+TEST_F(single_lel_placeholder_test, post_decrement) {
+  auto inc = _x--;
+
+  int value = 5;
+
+  ASSERT_EQ(5, inc(value));
+  ASSERT_EQ(4, value);
+}
