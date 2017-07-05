@@ -14,6 +14,13 @@ struct Identity {
   }
 };
 
+struct Assign {
+  template <class Left, class Right>
+  constexpr decltype(auto) operator()(Left &&left, Right &&right) const {
+    return std::forward<Left>(left) = std::forward<Right>(right);
+  }
+};
+
 struct Subscript {
   template <class Left, class Right>
   constexpr decltype(auto) operator()(Left &&left, Right &&right) const {

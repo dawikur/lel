@@ -10,6 +10,27 @@ class single_lel_placeholder_test : public ::testing::Test {
   LeL::Placeholder<'y'> _y;
 };
 
+TEST_F(single_lel_placeholder_test, assign_simple_value) {
+  // TODO: 2017-07-05
+  //int value1 = 2;
+  int value2 = 4;
+  int value3 = 7;
+  int value4 = 9;
+  int value5 = 12;
+
+  //auto assign1 = (value1 = _x);
+  auto assign2 = (_x = value2);
+  auto assign3 = (_x = _y);
+
+  //assign1(3);
+  assign2(value3);
+  assign3(value4, value5);
+
+  //ASSERT_EQ(3, value1);
+  ASSERT_EQ(4, value2);
+  ASSERT_EQ(12, value4);
+}
+
 TEST_F(single_lel_placeholder_test, subscription_on_array) {
   auto value = _x[3];
 
@@ -76,6 +97,7 @@ TEST_F(single_lel_placeholder_test, address_of_unique_ptr) {
 }
 
 TEST_F(single_lel_placeholder_test, plus_assignment) {
+  // TODO: 2017-07-05
   //int value1 = 4;
   int value2 = 7;
   int value3 = 9;
@@ -96,6 +118,7 @@ TEST_F(single_lel_placeholder_test, plus_assignment) {
 }
 
 TEST_F(single_lel_placeholder_test, minus_assignment) {
+  // TODO: 2017-07-05
   //int value1 = 4;
   int value2 = 7;
   int value3 = 9;
@@ -116,6 +139,7 @@ TEST_F(single_lel_placeholder_test, minus_assignment) {
 }
 
 TEST_F(single_lel_placeholder_test, multiply_assignment) {
+  // TODO: 2017-07-05
   //int value1 = 4;
   int value2 = 7;
   int value3 = 9;

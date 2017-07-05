@@ -60,8 +60,6 @@ OPERATION_STD( ^  , bit_xor           )
 OPERATION_LEL( << , ShiftLeft         )
 OPERATION_LEL( >> , ShiftRight        )
 
-// TODO: 2017-07-04 How to handle reference?
-// =
 OPERATION_LEL( += , PlusAssign        )
 OPERATION_LEL( -= , MinusAssign       )
 OPERATION_LEL( *= , MulAssign         )
