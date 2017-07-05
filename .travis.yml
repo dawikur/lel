@@ -49,6 +49,7 @@ matrix:
       script: cppcheck --enable=all -Iinclude -Itest include test
 
 before_script:
+  - ./script/fuse -o include -f
   - mkdir build
   - cd build
 
