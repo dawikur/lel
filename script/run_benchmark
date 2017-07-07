@@ -24,14 +24,18 @@ echo "[ Running..."
 echo "Tests done ]"
 
 echo "[ Parsing Json"
-  files=$(./script/benchmark/parse "${fileJson}")
+  tokens=$(./script/benchmark/parse "${fileJson}")
 echo "Json Parsed ]"
 
 echo "[ Generating PNG"
-  for file in ${files}; do
-    echo "> ${file}"
-    plot_title="${file//_/ }" data_file="${file}" ./script/benchmark/plot > "res/benchmark/${file}.png"
-    rm -v "${file}"
+  for token in ${tokens}; do
+    files=(${token//__/ })
+    type=${files[0]}
+    title=${files[1]}
+
+    echo "> ${title}"
+    plot_title="${title//_/ }" data_file="${token}" ./script/benchmark/plot/${type} > "res/benchmark/${title}.png"
+    rm -v "${token}"
   done
 echo "PNG generated ]"
 

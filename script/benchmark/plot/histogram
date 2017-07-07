@@ -1,0 +1,24 @@
+#!/usr/bin/gnuplot
+
+plot_title=system("echo $plot_title")
+data_file=system("echo $data_file")
+
+set title plot_title
+
+set terminal pngcairo size 800,480
+
+set style data histogram
+
+set style fill solid border 0
+set style histogram cluster gap 1
+
+set grid ytics
+set key left nobox
+set noborder
+
+set ytics format ""
+set xlabel "version"
+
+plot for [IDX=0:2] \
+  data_file index IDX using 2:xtic(1) title columnheader(1) lw 0
+

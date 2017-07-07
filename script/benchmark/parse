@@ -16,12 +16,7 @@ def parse_json(benchmarks):
         name = benchmark["name"]
         value = benchmark["real_time"]
 
-        if "__" in name:
-            name, count = name.split("/")
-            fixture, name = name.split("__")
-        else:
-            fixture, name, count = name.split("/")
-
+        fixture, name, count = name.split("/")
 
         if fixture not in parsed_data:
             parsed_data[fixture] = {}

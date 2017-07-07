@@ -8,8 +8,8 @@
 #include <cstdlib>
 
 template <class Expression>
-void simple_expression_in_loop(::benchmark::State &state,
-                               Expression const    expression) {
+void line__simple_expression_in_loop(::benchmark::State &state,
+                                     Expression const    expression) {
   std::vector<int> vec(100);
   std::generate(vec.begin(), vec.end(), std::rand);
 
@@ -23,8 +23,8 @@ void simple_expression_in_loop(::benchmark::State &state,
 auto eLeL    = LeL::Placeholders::_x * LeL::Placeholders::_x + 3;
 auto eLambda = [](auto const _x) { return _x * _x + 3; };
 
-BENCHMARK_CAPTURE(simple_expression_in_loop, LeL, eLeL)->Range(0, 100);
-BENCHMARK_CAPTURE(simple_expression_in_loop, Lambda, eLambda)->Range(0, 100);
+BENCHMARK_CAPTURE(line__simple_expression_in_loop, LeL, eLeL)->Range(0, 100);
+BENCHMARK_CAPTURE(line__simple_expression_in_loop, Lambda, eLambda)->Range(0, 100);
 
 #ifdef LEL_HAS_BOOST
 
@@ -32,6 +32,6 @@ BENCHMARK_CAPTURE(simple_expression_in_loop, Lambda, eLambda)->Range(0, 100);
 
 auto eBLL   = boost::lambda::_1 * boost::lambda::_1 + 3;
 
-BENCHMARK_CAPTURE(simple_expression_in_loop, BLL, eBLL)->Range(0, 100);
+BENCHMARK_CAPTURE(line__simple_expression_in_loop, BLL, eBLL)->Range(0, 100);
 
 #endif  // LEL_HAS_BOOST

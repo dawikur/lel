@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2017-07-07 18:32:53",
+    "date": "2017-07-07 19:55:10",
     "num_cpus": 2,
     "mhz_per_cpu": 2394,
     "cpu_scaling_enabled": false,
@@ -8,192 +8,192 @@
   },
   "benchmarks": [
     {
-      "name": "increasing_complexity_of_expressions/LeL/(ax)",
-      "iterations": 11943304,
-      "real_time": 57,
-      "cpu_time": 57,
+      "name": "histogram__increasing_complexity_of_expressions/LeL/0",
+      "iterations": 11431316,
+      "real_time": 60,
+      "cpu_time": 60,
       "time_unit": "ns"
     },
     {
-      "name": "increasing_complexity_of_expressions/LeL/(ax-(a+x))",
-      "iterations": 8674104,
-      "real_time": 78,
-      "cpu_time": 78,
+      "name": "histogram__increasing_complexity_of_expressions/LeL/1",
+      "iterations": 8086093,
+      "real_time": 82,
+      "cpu_time": 82,
       "time_unit": "ns"
     },
     {
-      "name": "increasing_complexity_of_expressions/LeL/(ax-(a+b))(a+x)",
-      "iterations": 7391978,
-      "real_time": 97,
-      "cpu_time": 97,
+      "name": "histogram__increasing_complexity_of_expressions/LeL/2",
+      "iterations": 6336153,
+      "real_time": 103,
+      "cpu_time": 102,
       "time_unit": "ns"
     },
     {
-      "name": "increasing_complexity_of_expressions/LeL/(ax-(a+x))(bx-(b+x))(ax-(b+x))(bx-(a+x))",
-      "iterations": 3504340,
-      "real_time": 212,
-      "cpu_time": 212,
+      "name": "histogram__increasing_complexity_of_expressions/LeL/3",
+      "iterations": 3224563,
+      "real_time": 219,
+      "cpu_time": 218,
       "time_unit": "ns"
     },
     {
-      "name": "increasing_complexity_of_expressions/Lambda/(ax)",
-      "iterations": 12907083,
-      "real_time": 57,
-      "cpu_time": 57,
+      "name": "histogram__increasing_complexity_of_expressions/Lambda/0",
+      "iterations": 11567975,
+      "real_time": 63,
+      "cpu_time": 62,
       "time_unit": "ns"
     },
     {
-      "name": "increasing_complexity_of_expressions/Lambda/(ax-(a+x))",
-      "iterations": 9054963,
-      "real_time": 77,
-      "cpu_time": 77,
+      "name": "histogram__increasing_complexity_of_expressions/Lambda/1",
+      "iterations": 8198080,
+      "real_time": 86,
+      "cpu_time": 86,
       "time_unit": "ns"
     },
     {
-      "name": "increasing_complexity_of_expressions/Lambda/(ax-(a+b))(a+x)",
-      "iterations": 6909094,
-      "real_time": 98,
-      "cpu_time": 98,
-      "time_unit": "ns"
-    },
-    {
-      "name": "increasing_complexity_of_expressions/Lambda/(ax-(a+x))(bx-(b+x))(ax-(b+x))(bx-(a+x))",
-      "iterations": 4502907,
-      "real_time": 156,
-      "cpu_time": 156,
-      "time_unit": "ns"
-    },
-    {
-      "name": "increasing_complexity_of_expressions/BLL/(ax)",
-      "iterations": 12494068,
-      "real_time": 57,
-      "cpu_time": 57,
-      "time_unit": "ns"
-    },
-    {
-      "name": "increasing_complexity_of_expressions/BLL/(ax-(a+x))",
-      "iterations": 8537026,
-      "real_time": 79,
-      "cpu_time": 79,
-      "time_unit": "ns"
-    },
-    {
-      "name": "increasing_complexity_of_expressions/BLL/(ax-(a+b))(a+x)",
-      "iterations": 7952886,
-      "real_time": 83,
-      "cpu_time": 83,
-      "time_unit": "ns"
-    },
-    {
-      "name": "increasing_complexity_of_expressions/BLL/(ax-(a+x))(bx-(b+x))(ax-(b+x))(bx-(a+x))",
-      "iterations": 3410408,
-      "real_time": 206,
-      "cpu_time": 206,
-      "time_unit": "ns"
-    },
-    {
-      "name": "simple_expression_in_loop/LeL/0",
-      "iterations": 13706647,
-      "real_time": 52,
-      "cpu_time": 52,
-      "time_unit": "ns"
-    },
-    {
-      "name": "simple_expression_in_loop/LeL/1",
-      "iterations": 6365717,
+      "name": "histogram__increasing_complexity_of_expressions/Lambda/2",
+      "iterations": 6811390,
       "real_time": 104,
-      "cpu_time": 103,
+      "cpu_time": 104,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/LeL/8",
-      "iterations": 1543066,
-      "real_time": 462,
-      "cpu_time": 462,
+      "name": "histogram__increasing_complexity_of_expressions/Lambda/3",
+      "iterations": 4014972,
+      "real_time": 164,
+      "cpu_time": 163,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/LeL/64",
-      "iterations": 214378,
-      "real_time": 3303,
-      "cpu_time": 3303,
+      "name": "histogram__increasing_complexity_of_expressions/BLL/0",
+      "iterations": 12239720,
+      "real_time": 61,
+      "cpu_time": 61,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/LeL/100",
-      "iterations": 138179,
-      "real_time": 5145,
-      "cpu_time": 5145,
+      "name": "histogram__increasing_complexity_of_expressions/BLL/1",
+      "iterations": 7611345,
+      "real_time": 85,
+      "cpu_time": 85,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/Lambda/0",
-      "iterations": 13893574,
-      "real_time": 53,
-      "cpu_time": 53,
+      "name": "histogram__increasing_complexity_of_expressions/BLL/2",
+      "iterations": 7939207,
+      "real_time": 93,
+      "cpu_time": 93,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/Lambda/1",
-      "iterations": 6511280,
-      "real_time": 101,
-      "cpu_time": 101,
+      "name": "histogram__increasing_complexity_of_expressions/BLL/3",
+      "iterations": 3146934,
+      "real_time": 217,
+      "cpu_time": 217,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/Lambda/8",
-      "iterations": 1480365,
-      "real_time": 479,
-      "cpu_time": 478,
+      "name": "line__simple_expression_in_loop/LeL/0",
+      "iterations": 12490825,
+      "real_time": 56,
+      "cpu_time": 55,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/Lambda/64",
-      "iterations": 213011,
-      "real_time": 3399,
-      "cpu_time": 3397,
+      "name": "line__simple_expression_in_loop/LeL/1",
+      "iterations": 6457269,
+      "real_time": 115,
+      "cpu_time": 115,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/Lambda/100",
-      "iterations": 135802,
-      "real_time": 5291,
-      "cpu_time": 5268,
+      "name": "line__simple_expression_in_loop/LeL/8",
+      "iterations": 1379308,
+      "real_time": 505,
+      "cpu_time": 503,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/BLL/0",
-      "iterations": 12655776,
-      "real_time": 53,
-      "cpu_time": 53,
+      "name": "line__simple_expression_in_loop/LeL/64",
+      "iterations": 200554,
+      "real_time": 3538,
+      "cpu_time": 3537,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/BLL/1",
-      "iterations": 6941069,
-      "real_time": 105,
-      "cpu_time": 105,
+      "name": "line__simple_expression_in_loop/LeL/100",
+      "iterations": 133757,
+      "real_time": 5458,
+      "cpu_time": 5449,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/BLL/8",
-      "iterations": 1513069,
-      "real_time": 467,
-      "cpu_time": 466,
+      "name": "line__simple_expression_in_loop/Lambda/0",
+      "iterations": 12390854,
+      "real_time": 55,
+      "cpu_time": 55,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/BLL/64",
-      "iterations": 205395,
-      "real_time": 3312,
-      "cpu_time": 3312,
+      "name": "line__simple_expression_in_loop/Lambda/1",
+      "iterations": 6427041,
+      "real_time": 111,
+      "cpu_time": 110,
       "time_unit": "ns"
     },
     {
-      "name": "simple_expression_in_loop/BLL/100",
-      "iterations": 106307,
-      "real_time": 5161,
-      "cpu_time": 5090,
+      "name": "line__simple_expression_in_loop/Lambda/8",
+      "iterations": 1000000,
+      "real_time": 506,
+      "cpu_time": 506,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/Lambda/64",
+      "iterations": 198547,
+      "real_time": 3675,
+      "cpu_time": 3666,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/Lambda/100",
+      "iterations": 125925,
+      "real_time": 5450,
+      "cpu_time": 5435,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/BLL/0",
+      "iterations": 11933206,
+      "real_time": 56,
+      "cpu_time": 56,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/BLL/1",
+      "iterations": 6319321,
+      "real_time": 112,
+      "cpu_time": 112,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/BLL/8",
+      "iterations": 1420516,
+      "real_time": 512,
+      "cpu_time": 512,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/BLL/64",
+      "iterations": 199828,
+      "real_time": 3560,
+      "cpu_time": 3558,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/BLL/100",
+      "iterations": 133209,
+      "real_time": 5498,
+      "cpu_time": 5493,
       "time_unit": "ns"
     }
   ]
