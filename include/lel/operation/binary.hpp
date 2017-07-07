@@ -79,6 +79,8 @@ OPERATION_LEL( ^= , XorAssign         )
 OPERATION_LEL( <<= , ShiftLeftAssign  )
 OPERATION_LEL( >>= , ShiftRightAssign )
 
+OPERATION_LEL( ->* , PointerToMember  )
+
 #undef OPERATION
 #undef OPERATION_LEL
 #undef OPERATION_STD

@@ -159,6 +159,24 @@ TEST_F(single_lel_placeholder_test, multiply_assignment) {
   ASSERT_EQ(48, value4);
 }
 
+struct Object {
+  int value;
+};
+
+TEST_F(single_lel_placeholder_test, pointer_to_member) {
+  Object obj1 =  {9};
+  Object obj2 = {11};
+  Object obj3 = {13};
+
+  auto call1 = (&obj1)->*_y;
+  auto call2 = _x->*(&Object::value);
+  auto call3 = _x->*_y;
+
+  ASSERT_EQ( 9, call1(&Object::value));
+  ASSERT_EQ(11, call2(&obj2));
+  ASSERT_EQ(13, call3(&obj3, &Object::value));
+}
+
 TEST_F(single_lel_placeholder_test, pre_increment) {
   auto inc = ++_x;
 
@@ -194,3 +212,4 @@ TEST_F(single_lel_placeholder_test, post_decrement) {
   ASSERT_EQ(5, inc(value));
   ASSERT_EQ(4, value);
 }
+

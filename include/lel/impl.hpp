@@ -27,12 +27,12 @@ struct Impl<Context, Box<char, IDs...>> {
   constexpr decltype(auto) operator()(Values &&... values) const {
     static_assert(sizeof...(IDs) == sizeof...(values),
                   "Incorrect number of arguments");
+
     return call(typename Context::Mode(), std::forward<Values>(values)...);
   }
 
   // () function call
-  // . -> member access
-  // .* ->* pointer to member
+  // -> member access ?
 
   template <class Value>
   constexpr decltype(auto) operator=(Value value) const {
