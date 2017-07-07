@@ -23,12 +23,6 @@ def parse_json(benchmarks):
             fixture, name, count = name.split("/")
 
 
-        count = str(count)
-        if count.endswith("k"):
-            count = int(count[:-1]) * 1024
-        else:
-            count = int(count)
-
         if fixture not in parsed_data:
             parsed_data[fixture] = {}
 

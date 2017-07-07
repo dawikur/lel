@@ -15,7 +15,7 @@ echo "[ Mkdir ]"
 
 echo "[ Building..."; (
   cd build || exit 1
-  cmake .. -G'Unix Makefiles' -DCMAKE_BUILD_TYPE=Release -DBENCHMARK=ON || exit 1
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DBENCHMARK=ON || exit 1
   cmake --build . || exit 1
 ) || exit 1; echo "Builded ]"
 
