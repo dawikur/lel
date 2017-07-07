@@ -151,6 +151,13 @@ while (state.KeepRunning()) {
 
 ![Increasing Complexity Of Expressions](res/benchmark/increasing_complexity_of_expressions.png "chart")
 
+```
+0 == ax
+1 == ax - (a+x)
+2 == (ax - (a+x))(a+x)
+3 == ((ax) - (a+x))(bx - (b+x))(ax - (b+x))(bx - (a+x))
+```
+
 ```cpp
 std::vector<double> vec(100);
 std::generate(vec.begin(), vec.end(), std::rand);
