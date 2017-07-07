@@ -14,7 +14,9 @@ struct Box {
   using Self = Box<Type, Values...>;
 
   template <int Index, Type Token, Type... Tail>
-  struct IndexOfImpl;
+  struct IndexOfImpl {
+    static_assert(sizeof...(Tail) != 0, "Index not found");
+  };
 
   template <Type... NewTokens>
   struct IndexesOfImpl;
@@ -62,15 +64,15 @@ struct Box {
   };
 
   // Finish: only left
-  template <Type... Merged, Type HeadL, Type... TailL>
-  struct MergeImpl<Self<Merged...>, Self<HeadL, TailL...>, Self<>> {
-    using Result = Self<Merged..., HeadL, TailL...>;
+  template <Type... Merged, Type... Left>
+  struct MergeImpl<Self<Merged...>, Self<Left...>, Self<>> {
+    using Result = Self<Merged..., Left...>;
   };
 
   // Finish: only right
-  template <Type... Merged, Type HeadR, Type... TailR>
-  struct MergeImpl<Self<Merged...>, Self<>, Self<HeadR, TailR...>> {
-    using Result = Self<Merged..., HeadR, TailR...>;
+  template <Type... Merged, Type... Right>
+  struct MergeImpl<Self<Merged...>, Self<>, Self<Right...>> {
+    using Result = Self<Merged..., Right...>;
   };
 
   // Finish: nothing left to do

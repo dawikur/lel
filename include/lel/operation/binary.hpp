@@ -42,7 +42,6 @@ namespace LeL {
                 Merge<IDL, IDR>>{std::move(viewL), std::move(viewR)};          \
   }
 
-
 OPERATION_STD( +  , plus              )
 OPERATION_STD( -  , minus             )
 OPERATION_STD( *  , multiplies        )
