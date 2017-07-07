@@ -33,7 +33,10 @@ struct Left {};
 struct Right {};
 struct Fold {};
 
-template <class ViewLT, class ViewRT, class FuncT, class ModeT>
+template <class ViewLT = Identity,
+          class ViewRT = Identity,
+          class FuncT  = Identity,
+          class ModeT  = Single>
 struct Context {
   using ViewL = ViewLT;
   using ViewR = ViewRT;
