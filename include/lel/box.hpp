@@ -94,32 +94,24 @@ struct Box {
                             (HeadL < HeadR)> {};
 
   // Left is lower
-  template <Type... Merged,
-            Type HeadL,
-            Type... TailL,
-            Type HeadR,
-            Type... TailR>
+  template <Type... Merged, Type... Left, Type HeadR, Type... TailR>
   struct MergeCondition<Self<Merged...>,
-                        Self<HeadL, TailL...>,
+                        Self<Left...>,
                         Self<HeadR, TailR...>,
                         false> : public MergeUnique<Self<Merged...>,
                                                     HeadR,
-                                                    Self<HeadL, TailL...>,
+                                                    Self<Left...>,
                                                     Self<TailR...>> {};
 
   // Right is lower
-  template <Type... Merged,
-            Type HeadL,
-            Type... TailL,
-            Type HeadR,
-            Type... TailR>
+  template <Type... Merged, Type HeadL, Type... TailL, Type... Right>
   struct MergeCondition<Self<Merged...>,
                         Self<HeadL, TailL...>,
-                        Self<HeadR, TailR...>,
+                        Self<Right...>,
                         true> : public MergeUnique<Self<Merged...>,
                                                    HeadL,
                                                    Self<TailL...>,
-                                                   Self<HeadR, TailR...>> {};
+                                                   Self<Right...>> {};
 
   // Current element is still in Left and Right queue
   template <Type... Merged, Type Current, Type... Left, Type... Right>
