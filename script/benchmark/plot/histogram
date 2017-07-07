@@ -16,7 +16,6 @@ set grid ytics
 set key left nobox
 set noborder
 
-set ytics format ""
 set xlabel "version"
 
 plot for [IDX=0:2] \

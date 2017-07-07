@@ -32,7 +32,6 @@ struct Impl<Context, Box<char, IDs...>> {
   }
 
   // () function call
-  // -> member access ?
 
   template <class Value>
   constexpr decltype(auto) operator=(Value value) const {
@@ -93,7 +92,8 @@ struct Impl<Context, Box<char, IDs...>> {
   }
 
   template <int... Indexes, class... Values>
-  constexpr decltype(auto) slice(Box<int, Indexes...>, Values &&... values) const {
+  constexpr decltype(auto) slice(Box<int, Indexes...>,
+                                 Values &&... values) const {
     return call(typename Context::Mode(),
                 Variadic().Get<Indexes>(values...)...);
   }
