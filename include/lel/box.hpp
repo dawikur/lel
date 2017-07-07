@@ -134,7 +134,7 @@ struct Box {
     : public MergeUnique<Self<Merged...>, Current, Self<Left...>, Self<Right...>> {
   };
 
-  // Current element is already uqnique
+  // Current element is already unique
   template <Type... Merged, Type Current, Type... Left, Type... Right>
   struct MergeUnique<Self<Merged...>, Current, Self<Left...>, Self<Right...>>
     : public MergeImpl<Self<Merged..., Current>, Self<Left...>, Self<Right...>> {};
