@@ -5,10 +5,10 @@
 #include "gtest/gtest.h"
 
 TEST(increment_decrement_test, TODO) {
-  LeL::Operation::__PreIncrement preInc;
-  LeL::Operation::__PostIncrement postInc;
-  LeL::Operation::__PreDecrement preDec;
-  LeL::Operation::__PostDecrement postDec;
+  volatile LeL::Operation::__PreIncrement preInc;
+  volatile LeL::Operation::__PostIncrement postInc;
+  volatile LeL::Operation::__PreDecrement preDec;
+  volatile LeL::Operation::__PostDecrement postDec;
 
   (void)preInc;
   (void)postInc;

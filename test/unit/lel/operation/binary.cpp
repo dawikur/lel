@@ -5,19 +5,19 @@
 #include "gtest/gtest.h"
 
 TEST(binary_test, TODO) {
-  LeL::Operation::__ShiftLeft left;
-  LeL::Operation::__ShiftRight right;
-  LeL::Operation::__PlusAssign plus;
-  LeL::Operation::__MinusAssign minus;
-  LeL::Operation::__MulAssign mulA;
-  LeL::Operation::__DivAssign divA;
-  LeL::Operation::__ModAssign modA;
-  LeL::Operation::__AndAssign andA;
-  LeL::Operation::__OrAssign orA;
-  LeL::Operation::__XorAssign xorA;
-  LeL::Operation::__ShiftLeftAssign leftA;
-  LeL::Operation::__ShiftRightAssign rightA;
-  LeL::Operation::__PointerToMember pTm;
+  volatile LeL::Operation::__ShiftLeft left;
+  volatile LeL::Operation::__ShiftRight right;
+  volatile LeL::Operation::__PlusAssign plus;
+  volatile LeL::Operation::__MinusAssign minus;
+  volatile LeL::Operation::__MulAssign mulA;
+  volatile LeL::Operation::__DivAssign divA;
+  volatile LeL::Operation::__ModAssign modA;
+  volatile LeL::Operation::__AndAssign andA;
+  volatile LeL::Operation::__OrAssign orA;
+  volatile LeL::Operation::__XorAssign xorA;
+  volatile LeL::Operation::__ShiftLeftAssign leftA;
+  volatile LeL::Operation::__ShiftRightAssign rightA;
+  volatile LeL::Operation::__PointerToMember pTm;
 
   (void)left;
   (void)right;

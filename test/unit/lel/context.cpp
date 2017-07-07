@@ -11,8 +11,8 @@ TEST(context_test, identity_pass_trou_value) {
 }
 
 TEST(context_test, TODO) {
-  LeL::Assign ass;
-  LeL::Subscript sub;
+  volatile LeL::Assign ass;
+  volatile LeL::Subscript sub;
   (void)ass;
   (void)sub;
 }
