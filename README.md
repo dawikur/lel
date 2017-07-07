@@ -132,7 +132,7 @@ ctest -VV
 
 # Benchmarks
 
-![Simple Expression In Loop chart](res/benchmark/simple_expression_in_loop.png "Simple Expression In Loop chart")
+![Simple Expression In Loop](res/benchmark/simple_expression_in_loop.png "chart")
 
 ```
 expression == x * x + 3
@@ -146,6 +146,17 @@ while (state.KeepRunning()) {
   for (int i = 0; i <= count; ++i) {
     std::transform(vec.begin(), vec.end(), vec.begin(), expression);
   }
+}
+```
+
+![Increasing Complexity Of Expressions](res/benchmark/increasing_complexity_of_expressions.png "chart")
+
+```cpp
+std::vector<double> vec(100);
+std::generate(vec.begin(), vec.end(), std::rand);
+
+while (state.KeepRunning()) {
+  std::transform(vec.begin(), vec.end(), vec.begin(), expression);
 }
 ```
 
