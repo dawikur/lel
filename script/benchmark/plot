@@ -5,20 +5,24 @@ data_file=system("echo $data_file")
 
 set terminal pngcairo size 800,480
 
-set noborder
-
-set key left nobox
 set style data lines
+#set style data histogram
 
+set style fill solid border 0
+set style histogram cluster gap 1
+
+set noborder
+set key left nobox
 set grid ytics
-
-set border 0
 
 set format y '%.0s %c'
 
 set xlabel "count"
-set ylabel "time [ns]"
+#set xtics mirror rotate by -45
+set ylabel "time [ms]"
 
 plot for [IDX=0:2] \
   data_file index IDX using 1:2 title columnheader(1) lw 3
+
+  #data_file index IDX using 2:xtic(1) title columnheader(1) lw 0
 
