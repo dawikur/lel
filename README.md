@@ -167,7 +167,7 @@ while (state.KeepRunning()) {
 }
 ```
 
-![Increasing Number of Arguments](res/benchmark/increasing_number_of_arguments.[ng "chart")
+![Increasing Number of Arguments](res/benchmark/increasing_number_of_arguments.png "chart")
 
 ```
 ((ax) - (a+x))(bx - (b+x))(ax - (b+x))(bx - (a+x))
