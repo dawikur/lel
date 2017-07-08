@@ -167,6 +167,21 @@ while (state.KeepRunning()) {
 }
 ```
 
+![Increasing Number of Arguments](res/benchmark/increasing_number_of_arguments.[ng "chart")
+
+```
+((ax) - (a+x))(bx - (b+x))(ax - (b+x))(bx - (a+x))
+```
+
+```cpp
+std::vector<double> vec(100);
+std::generate(vec.begin(), vec.end(), std::rand);
+
+for (int i = 0; i < 1000; ++i) {
+  expression(vec[args]...);
+}
+```
+
 # BLL - Boost Lambda Library?
 
 Yes, the same concept but this one uses a little bit newer C++.

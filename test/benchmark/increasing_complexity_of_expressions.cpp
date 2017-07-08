@@ -10,7 +10,7 @@
 template <class Expression>
 void histogram__increasing_complexity_of_expressions(
   ::benchmark::State &state, Expression const expression) {
-  std::vector<double> vec(100);
+  std::vector<double> vec(1000);
   std::generate(vec.begin(), vec.end(), std::rand);
 
   while (state.KeepRunning()) {

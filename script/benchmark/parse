@@ -14,7 +14,7 @@ def parse_json(benchmarks):
 
     for benchmark in benchmarks:
         name = benchmark["name"]
-        value = benchmark["real_time"]
+        time = int(benchmark["real_time"]) / 1000
 
         fixture, name, count = name.split("/")
 
@@ -26,7 +26,7 @@ def parse_json(benchmarks):
         if name not in parsed_data[fixture]:
             parsed_data[fixture][name] = {}
 
-        parsed_data[fixture][name][count] = value
+        parsed_data[fixture][name][count] = time
 
     return parsed_data
 
@@ -37,8 +37,8 @@ def print_data(all_data):
             print(fixture)
             for name, entry in sorted(data.items()):
                 output.write('"' + name + '"\n')
-                for count, value in sorted(entry.items()):
-                    output.write(str(count) + " " + str(value) + '\n')
+                for count, time in sorted(entry.items()):
+                    output.write(str(count) + " " + str(time) + '\n')
                 output.write("\n")
                 output.write("\n")
 
