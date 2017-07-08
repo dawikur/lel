@@ -39,7 +39,7 @@ It is very short, nice lambda, but the actual condition is only around half of
 its body. Now lets see how it would look in lambda expression:
 
 ```cpp
-auto is_even = _x % 2 == 0;
+auto is_even = _i % 2 == 0;
 ```
 
 Shorted, right? And, for me, much cleaner.
@@ -66,16 +66,15 @@ auto not_equal = first_arg != second_arg;
 
 auto sum = *((*_x)[_1]) + **(_y[_2]);
 
-auto x = std::make_unique<std::vector<std::unique_ptr<int>>>();
 std::unique_ptr<std::vector<std::unique_ptr<int>>> x = ...;
 std::vector<std::unique_ptr<std::unique_ptr<int>>> y = ...;
 
-ASSERT_EQ(..., sum(1, 2, x, y));
+sum(1, 2, x, y);
 ```
 
 # Usage
 
-**Files** There are two ways of using it:
+**Files** There are two ways of including **LeL**:
  * in multiple headers, as it is in repository;
 
    everything is in `include` directory
@@ -120,7 +119,7 @@ assert( 1 == expr(3, 2));
 # Tests
 
 There is a bunch of tests but they are not needed for normal usage. You can run
-all of them (**cmake** is needed) and run with:
+all of them with **cmake**:
 
 ```bash
 mkdir build
@@ -167,7 +166,7 @@ while (state.KeepRunning()) {
 }
 ```
 
-# Boost Lambda Library?
+# BLL - Boost Lambda Library?
 
 Yes, the same concept but this one uses a little bit newer C++.
 However the idea for this library came out independently.
