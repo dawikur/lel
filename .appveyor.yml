@@ -23,8 +23,7 @@ before_build:
 
 build_script:
   - cmd: cmake .. -DTESTS=ON
-  #- cmd: cmake --build . --config Release
+  - cmd: cmake --build . --config Release
 
 test_script:
-  -cmd: echo "temporary disabled"
-  #- cmd: ctest -VV
+  - cmd: ctest -VV

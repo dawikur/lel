@@ -4,6 +4,9 @@
 
 #include "gtest/gtest.h"
 
+#include <memory>
+#include <vector>
+
 class nested_double_lel_placeholder_test : public ::testing::Test {
  protected:
   LeL::Placeholder<'1'> _1;

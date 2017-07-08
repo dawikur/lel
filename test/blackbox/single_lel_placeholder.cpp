@@ -4,6 +4,9 @@
 
 #include "gtest/gtest.h"
 
+#include <memory>
+#include <vector>
+
 class single_lel_placeholder_test : public ::testing::Test {
  protected:
   LeL::Placeholder<'x'> _x;

@@ -18,7 +18,7 @@ namespace LeL {
   struct __##FUNC {                                                            \
     template <class Left, class Right>                                         \
     constexpr decltype(auto) operator()(Left &&left, Right &&right) const {    \
-      return std::forward<Left>(left) MARK std::forward<Right>(right);         \
+      return (std::forward<Left>(left) MARK std::forward<Right>(right));       \
     }                                                                          \
   };                                                                           \
   }                                                                            \

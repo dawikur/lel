@@ -15,7 +15,7 @@ namespace LeL {
   struct __##FUNC {                                                            \
     template <class Value>                                                     \
     constexpr decltype(auto) operator()(Value &&value) const {                 \
-      return MARK std::forward<Value>(value);                                  \
+      return (MARK std::forward<Value>(value));                                \
     }                                                                          \
   };                                                                           \
   }                                                                            \

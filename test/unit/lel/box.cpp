@@ -55,3 +55,6 @@ TEST_F(box_test, merge_will_remove_fuplicate_enties) {
   ASSERT_TYPE((Box<4, 8, 9, 11>()), (LeL::Merge<Box<4, 9>, Box<8, 8, 9, 11>>()));
 }
 
+TEST_F(box_test, merge_boxes_with_same_tails) {
+  ASSERT_TYPE((Box<1, 4, 8, 9>()), (LeL::Merge<Box<4, 8, 9>, Box<1, 8, 9>>()));
+}
