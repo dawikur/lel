@@ -152,9 +152,10 @@ while (state.KeepRunning()) {
 
 ```
 0 == ax
-1 == ax - (a+x)
-2 == (ax - (a+x))(a+x)
-3 == ((ax) - (a+x))(bx - (b+x))(ax - (b+x))(bx - (a+x))
+1 == ax + x
+2 == ax - (a+x)
+3 == (ax - (a+x))(a+x)
+4 == ((ax) - (a+x))(bx - (b+x))(ax - (b+x))(bx - (a+x))
 ```
 
 ```cpp

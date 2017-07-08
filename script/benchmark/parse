@@ -18,6 +18,8 @@ def parse_json(benchmarks):
 
         fixture, name, count = name.split("/")
 
+        count = int(count)
+
         if fixture not in parsed_data:
             parsed_data[fixture] = {}
 

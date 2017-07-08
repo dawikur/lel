@@ -1,6 +1,6 @@
 {
   "context": {
-    "date": "2017-07-07 19:55:10",
+    "date": "2017-07-08 09:43:50",
     "num_cpus": 2,
     "mhz_per_cpu": 2394,
     "cpu_scaling_enabled": false,
@@ -9,191 +9,212 @@
   "benchmarks": [
     {
       "name": "histogram__increasing_complexity_of_expressions/LeL/0",
-      "iterations": 11431316,
-      "real_time": 60,
-      "cpu_time": 60,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/LeL/1",
-      "iterations": 8086093,
-      "real_time": 82,
-      "cpu_time": 82,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/LeL/2",
-      "iterations": 6336153,
-      "real_time": 103,
-      "cpu_time": 102,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/LeL/3",
-      "iterations": 3224563,
-      "real_time": 219,
-      "cpu_time": 218,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/0",
-      "iterations": 11567975,
-      "real_time": 63,
-      "cpu_time": 62,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/1",
-      "iterations": 8198080,
-      "real_time": 86,
-      "cpu_time": 86,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/2",
-      "iterations": 6811390,
-      "real_time": 104,
-      "cpu_time": 104,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/3",
-      "iterations": 4014972,
-      "real_time": 164,
-      "cpu_time": 163,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/0",
-      "iterations": 12239720,
-      "real_time": 61,
-      "cpu_time": 61,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/1",
-      "iterations": 7611345,
-      "real_time": 85,
-      "cpu_time": 85,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/2",
-      "iterations": 7939207,
-      "real_time": 93,
-      "cpu_time": 93,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/3",
-      "iterations": 3146934,
-      "real_time": 217,
-      "cpu_time": 217,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/0",
-      "iterations": 12490825,
-      "real_time": 56,
-      "cpu_time": 55,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/1",
-      "iterations": 6457269,
-      "real_time": 115,
-      "cpu_time": 115,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/8",
-      "iterations": 1379308,
-      "real_time": 505,
-      "cpu_time": 503,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/64",
-      "iterations": 200554,
-      "real_time": 3538,
-      "cpu_time": 3537,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/100",
-      "iterations": 133757,
-      "real_time": 5458,
-      "cpu_time": 5449,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/Lambda/0",
-      "iterations": 12390854,
+      "iterations": 12655029,
       "real_time": 55,
       "cpu_time": 55,
       "time_unit": "ns"
     },
     {
+      "name": "histogram__increasing_complexity_of_expressions/LeL/1",
+      "iterations": 12024923,
+      "real_time": 58,
+      "cpu_time": 57,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/LeL/2",
+      "iterations": 10866681,
+      "real_time": 64,
+      "cpu_time": 64,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/LeL/3",
+      "iterations": 10293247,
+      "real_time": 69,
+      "cpu_time": 69,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/LeL/4",
+      "iterations": 3620807,
+      "real_time": 196,
+      "cpu_time": 196,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/Lambda/0",
+      "iterations": 13104106,
+      "real_time": 55,
+      "cpu_time": 55,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/Lambda/1",
+      "iterations": 12161390,
+      "real_time": 58,
+      "cpu_time": 58,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/Lambda/2",
+      "iterations": 10765819,
+      "real_time": 65,
+      "cpu_time": 65,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/Lambda/3",
+      "iterations": 10053432,
+      "real_time": 69,
+      "cpu_time": 69,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/Lambda/4",
+      "iterations": 4758088,
+      "real_time": 153,
+      "cpu_time": 152,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/BLL/0",
+      "iterations": 13022440,
+      "real_time": 57,
+      "cpu_time": 57,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/BLL/1",
+      "iterations": 11988402,
+      "real_time": 58,
+      "cpu_time": 58,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/BLL/2",
+      "iterations": 9046409,
+      "real_time": 77,
+      "cpu_time": 77,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/BLL/3",
+      "iterations": 8514406,
+      "real_time": 83,
+      "cpu_time": 83,
+      "time_unit": "ns"
+    },
+    {
+      "name": "histogram__increasing_complexity_of_expressions/BLL/4",
+      "iterations": 3455983,
+      "real_time": 202,
+      "cpu_time": 202,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/LeL/0",
+      "iterations": 10000000,
+      "real_time": 50,
+      "cpu_time": 50,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/LeL/1",
+      "iterations": 7232177,
+      "real_time": 98,
+      "cpu_time": 98,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/LeL/8",
+      "iterations": 1529033,
+      "real_time": 458,
+      "cpu_time": 458,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/LeL/64",
+      "iterations": 217747,
+      "real_time": 3251,
+      "cpu_time": 3226,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/LeL/100",
+      "iterations": 143909,
+      "real_time": 5075,
+      "cpu_time": 5019,
+      "time_unit": "ns"
+    },
+    {
+      "name": "line__simple_expression_in_loop/Lambda/0",
+      "iterations": 13868405,
+      "real_time": 52,
+      "cpu_time": 51,
+      "time_unit": "ns"
+    },
+    {
       "name": "line__simple_expression_in_loop/Lambda/1",
-      "iterations": 6427041,
-      "real_time": 111,
-      "cpu_time": 110,
+      "iterations": 6953317,
+      "real_time": 102,
+      "cpu_time": 101,
       "time_unit": "ns"
     },
     {
       "name": "line__simple_expression_in_loop/Lambda/8",
-      "iterations": 1000000,
-      "real_time": 506,
-      "cpu_time": 506,
+      "iterations": 1525491,
+      "real_time": 464,
+      "cpu_time": 461,
       "time_unit": "ns"
     },
     {
       "name": "line__simple_expression_in_loop/Lambda/64",
-      "iterations": 198547,
-      "real_time": 3675,
-      "cpu_time": 3666,
+      "iterations": 219832,
+      "real_time": 3223,
+      "cpu_time": 3204,
       "time_unit": "ns"
     },
     {
       "name": "line__simple_expression_in_loop/Lambda/100",
-      "iterations": 125925,
-      "real_time": 5450,
-      "cpu_time": 5435,
+      "iterations": 139332,
+      "real_time": 4933,
+      "cpu_time": 4930,
       "time_unit": "ns"
     },
     {
       "name": "line__simple_expression_in_loop/BLL/0",
-      "iterations": 11933206,
-      "real_time": 56,
-      "cpu_time": 56,
+      "iterations": 13504045,
+      "real_time": 51,
+      "cpu_time": 51,
       "time_unit": "ns"
     },
     {
       "name": "line__simple_expression_in_loop/BLL/1",
-      "iterations": 6319321,
-      "real_time": 112,
-      "cpu_time": 112,
+      "iterations": 6953945,
+      "real_time": 98,
+      "cpu_time": 98,
       "time_unit": "ns"
     },
     {
       "name": "line__simple_expression_in_loop/BLL/8",
-      "iterations": 1420516,
-      "real_time": 512,
-      "cpu_time": 512,
+      "iterations": 1579269,
+      "real_time": 445,
+      "cpu_time": 445,
       "time_unit": "ns"
     },
     {
       "name": "line__simple_expression_in_loop/BLL/64",
-      "iterations": 199828,
-      "real_time": 3560,
-      "cpu_time": 3558,
+      "iterations": 214993,
+      "real_time": 3197,
+      "cpu_time": 3196,
       "time_unit": "ns"
     },
     {
       "name": "line__simple_expression_in_loop/BLL/100",
-      "iterations": 133209,
-      "real_time": 5498,
-      "cpu_time": 5493,
+      "iterations": 100000,
+      "real_time": 5015,
+      "cpu_time": 5006,
       "time_unit": "ns"
     }
   ]
