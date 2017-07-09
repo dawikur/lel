@@ -84,6 +84,6 @@ OPERATION_LEL( ->* , PointerToMember  )
 #undef OPERATION_LEL
 #undef OPERATION_STD
 
-}  // namespace Lel
+}  // namespace LeL
 
 #endif  // INCLUDE_LEL_OPERATION_BINARY_HPP_

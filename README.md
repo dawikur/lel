@@ -90,12 +90,12 @@ sum(1, 2, x, y);
 ```cpp
 #include "lel.hpp"
 
-auto use_with_namespace = Lel::Placeholders::_x + 2;
+auto use_with_namespace = LeL::Placeholders::_x + 2;
 
-auto create_your_own    = Lel::Placeholder<'a'>();
+auto create_your_own    = LeL::Placeholder<'a'>();
 
 // or use namespace
-using namespace Lel::Placeholders;
+using namespace LeL::Placeholders;
 auto like_that          = 1 * _2;
 ```
 
