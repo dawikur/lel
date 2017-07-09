@@ -3,6 +3,12 @@
 > Lambda Expression Library
 > > Single header (after fusing) library with no external dependencies.
 
+```cpp
+auto is_right_triangle = _a * _a + _b *_b == _c * _c;
+
+is_right_triangle(3, 4, 5);
+```
+
 [![Language][Language-img]][Language-url]
 [![Release][Release-img]][Release-url]
 [![License][License-img]][License-url]
@@ -19,12 +25,6 @@
 [![DevelopCoverage][DevelopCoverage-img]][DevelopCoverage-url]
 
 ---
-
-```cpp
-auto is_right_triangle = _a * _a + _b *_b == _c * _c;
-
-is_right_triangle(3, 4, 5);
-```
 
 # About
 
