@@ -18,17 +18,11 @@ struct Box {
     static_assert(sizeof...(Tail) != 0, "Index not found");
   };
 
-  template <Type... NewTokens>
-  struct IndexesOfImpl;
-
   template <class Merged, class Left, class Right>
   struct MergeImpl;
 
   template <class Merged, class Left, class Right, bool Condition>
   struct MergeCondition;
-
-  template <class Merged, Type Current, class Left, class Right>
-  struct MergeUnique;
 
  public:
   template <class>
