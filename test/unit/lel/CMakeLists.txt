@@ -1,7 +1,7 @@
 set(lel_test_SOURCES
   box.cpp
   context.cpp
-  impl.cpp
+  lambda.cpp
   operation.cpp
   variadic.cpp
 )

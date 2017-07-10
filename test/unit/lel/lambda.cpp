@@ -1,11 +1,11 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#include "lel/impl.hpp"
+#include "lel/lambda.hpp"
 
 #include "gtest/gtest.h"
 
 #include "lel/context.hpp"
 
 
-TEST(impl_test, TODO) {
+TEST(lambda_test, TODO) {
 }

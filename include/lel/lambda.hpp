@@ -1,7 +1,7 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_LEL_IMPL_HPP_
-#define INCLUDE_LEL_IMPL_HPP_
+#ifndef INCLUDE_LEL_LAMBDA_HPP_
+#define INCLUDE_LEL_LAMBDA_HPP_
 
 #include <utility>
 
@@ -11,16 +11,16 @@
 namespace LeL {
 
 template <class Context, class IDs>
-struct Impl;
+struct Lambda;
 
 template <class Context, char... IDs>
-struct Impl<Context, Box<char, IDs...>> {
+struct Lambda<Context, Box<char, IDs...>> {
   using MyIDs = Box<char, IDs...>;
 
  public:
-  constexpr Impl() : left(), right() {}
+  constexpr Lambda() : left(), right() {}
 
-  constexpr Impl(typename Context::ViewL left, typename Context::ViewR right)
+  constexpr Lambda(typename Context::ViewL left, typename Context::ViewR right)
     : left(std::move(left)), right(std::move(right)) {}
 
   template <class... Values>
@@ -35,30 +35,32 @@ struct Impl<Context, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator=(Value value) const {
-    return Impl<LeL::Context<Impl<Context, MyIDs>, Value, Assign, Left>, MyIDs>{
-      *this, std::move(value)};
+    return Lambda<LeL::Context<Lambda<Context, MyIDs>, Value, Assign, Left>,
+                  MyIDs>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
-  constexpr decltype(auto) operator=(Impl<RestV, IDV> viewV) const {
-    return Impl<LeL::
-                  Context<Impl<Context, MyIDs>, Impl<RestV, IDV>, Assign, Fold>,
-                Merge<MyIDs, IDV>>{*this, std::move(viewV)};
+  constexpr decltype(auto) operator=(Lambda<RestV, IDV> viewV) const {
+    return Lambda<LeL::Context<Lambda<Context, MyIDs>,
+                               Lambda<RestV, IDV>,
+                               Assign,
+                               Fold>,
+                  Merge<MyIDs, IDV>>{*this, std::move(viewV)};
   }
 
   template <class Value>
   constexpr decltype(auto) operator[](Value value) const {
-    return Impl<LeL::Context<Impl<Context, MyIDs>, Value, Subscript, Left>,
-                MyIDs>{*this, std::move(value)};
+    return Lambda<LeL::Context<Lambda<Context, MyIDs>, Value, Subscript, Left>,
+                  MyIDs>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
-  constexpr decltype(auto) operator[](Impl<RestV, IDV> viewV) const {
-    return Impl<LeL::Context<Impl<Context, MyIDs>,
-                             Impl<RestV, IDV>,
-                             Subscript,
-                             Fold>,
-                Merge<MyIDs, IDV>>{*this, std::move(viewV)};
+  constexpr decltype(auto) operator[](Lambda<RestV, IDV> viewV) const {
+    return Lambda<LeL::Context<Lambda<Context, MyIDs>,
+                               Lambda<RestV, IDV>,
+                               Subscript,
+                               Fold>,
+                  Merge<MyIDs, IDV>>{*this, std::move(viewV)};
   }
 
  private:
@@ -102,9 +104,9 @@ struct Impl<Context, Box<char, IDs...>> {
   typename Context::ViewR const right;
 
   template <class ContextF, class IDsF>
-  friend struct Impl;
+  friend struct Lambda;
 };
 
 }  // namespace LeL
 
-#endif  // INCLUDE_LEL_IMPL_HPP_
+#endif  // INCLUDE_LEL_LAMBDA_HPP_

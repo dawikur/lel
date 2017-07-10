@@ -3,7 +3,7 @@
 #ifndef INCLUDE_LEL_OPERATION_INCREMENT_DECREMENT_HPP_
 #define INCLUDE_LEL_OPERATION_INCREMENT_DECREMENT_HPP_
 
-#include "lel/impl.hpp"
+#include "lel/lambda.hpp"
 
 namespace LeL {
 
@@ -17,12 +17,12 @@ namespace LeL {
   };                                                                           \
   }                                                                            \
   template <class Rest, class IDs>                                             \
-  constexpr decltype(auto) operator MARK(Impl<Rest, IDs> view INT) {           \
-    return Impl<Context<Impl<Rest, IDs>,                                       \
-                        Identity,                                              \
-                        Operation::__##FUNC,                                   \
-                        Single>,                                               \
-                IDs>{std::move(view), Identity{}};                             \
+  constexpr decltype(auto) operator MARK(Lambda<Rest, IDs> view INT) {         \
+    return Lambda<Context<Lambda<Rest, IDs>,                                   \
+                          Identity,                                            \
+                          Operation::__##FUNC,                                 \
+                          Single>,                                             \
+                  IDs>{std::move(view), Identity{}};                           \
   }
 
 #define INT , int

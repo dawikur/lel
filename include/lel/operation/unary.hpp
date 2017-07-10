@@ -5,7 +5,7 @@
 
 #include <functional>
 
-#include "lel/impl.hpp"
+#include "lel/lambda.hpp"
 
 namespace LeL {
 
@@ -23,8 +23,8 @@ namespace LeL {
 
 #define OPERATION(MARK, FUNC)                                                  \
   template <class Rest, class IDs>                                             \
-  constexpr decltype(auto) operator MARK(Impl<Rest, IDs> view) {               \
-    return Impl<Context<Impl<Rest, IDs>, Identity, FUNC, Single>, IDs>{        \
+  constexpr decltype(auto) operator MARK(Lambda<Rest, IDs> view) {             \
+    return Lambda<Context<Lambda<Rest, IDs>, Identity, FUNC, Single>, IDs>{    \
       std::move(view), Identity{}};                                            \
   }
 
