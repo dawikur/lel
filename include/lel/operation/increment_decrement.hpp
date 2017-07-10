@@ -18,10 +18,10 @@ namespace LeL {
   }                                                                            \
   template <class Rest, class IDs>                                             \
   constexpr decltype(auto) operator MARK(Lambda<Rest, IDs> view INT) {         \
-    return Lambda<Context<Lambda<Rest, IDs>,                                   \
+    return Lambda<Context<Single,                                              \
+                          Lambda<Rest, IDs>,                                   \
                           Identity,                                            \
-                          Operation::__##FUNC,                                 \
-                          Single>,                                             \
+                          Operation::__##FUNC>,                                \
                   IDs>{std::move(view), Identity{}};                           \
   }
 

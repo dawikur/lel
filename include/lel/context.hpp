@@ -33,15 +33,15 @@ struct Left {};
 struct Right {};
 struct Fold {};
 
-template <class ViewLT = Identity,
+template <class ModeT  = Single,
+          class ViewLT = Identity,
           class ViewRT = Identity,
-          class FuncT  = Identity,
-          class ModeT  = Single>
+          class FuncT  = Identity>
 struct Context {
+  using Mode  = ModeT;
   using ViewL = ViewLT;
   using ViewR = ViewRT;
   using Func  = FuncT;
-  using Mode  = ModeT;
 };
 
 }  // namespace LeL

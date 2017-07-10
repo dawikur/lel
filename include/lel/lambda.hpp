@@ -35,31 +35,31 @@ struct Lambda<Context, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator=(Value value) const {
-    return Lambda<LeL::Context<Lambda<Context, MyIDs>, Value, Assign, Left>,
+    return Lambda<LeL::Context<Left, Lambda<Context, MyIDs>, Value, Assign>,
                   MyIDs>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator=(Lambda<RestV, IDV> viewV) const {
-    return Lambda<LeL::Context<Lambda<Context, MyIDs>,
+    return Lambda<LeL::Context<Fold,
+                               Lambda<Context, MyIDs>,
                                Lambda<RestV, IDV>,
-                               Assign,
-                               Fold>,
+                               Assign>,
                   Merge<MyIDs, IDV>>{*this, std::move(viewV)};
   }
 
   template <class Value>
   constexpr decltype(auto) operator[](Value value) const {
-    return Lambda<LeL::Context<Lambda<Context, MyIDs>, Value, Subscript, Left>,
+    return Lambda<LeL::Context<Left, Lambda<Context, MyIDs>, Value, Subscript>,
                   MyIDs>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator[](Lambda<RestV, IDV> viewV) const {
-    return Lambda<LeL::Context<Lambda<Context, MyIDs>,
+    return Lambda<LeL::Context<Fold,
+                               Lambda<Context, MyIDs>,
                                Lambda<RestV, IDV>,
-                               Subscript,
-                               Fold>,
+                               Subscript>,
                   Merge<MyIDs, IDV>>{*this, std::move(viewV)};
   }
 
