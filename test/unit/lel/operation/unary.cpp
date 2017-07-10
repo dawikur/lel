@@ -5,9 +5,4 @@
 #include "gtest/gtest.h"
 
 TEST(unary_test, TODO) {
-  volatile LeL::Operation::__Indirection indirection;
-  volatile LeL::Operation::__AddressOf addressOf;
-
-  (void)indirection;
-  (void)addressOf;
 }

@@ -8,6 +8,4 @@
 
 
 TEST(impl_test, TODO) {
-  volatile LeL::Impl<LeL::Context<>, LeL::Box<char>> impl;
-  (void)impl;
 }
