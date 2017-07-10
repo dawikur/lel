@@ -51,8 +51,8 @@ TEST_F(box_test, non_empty_merge_with_intersecting_non_empty) {
   ASSERT_TYPE((Box<1, 4, 9, 11>()), (LeL::Merge<Box<1, 4, 9>, Box<9, 11>>()));
 }
 
-TEST_F(box_test, merge_will_remove_fuplicate_enties) {
-  ASSERT_TYPE((Box<4, 8, 9, 11>()), (LeL::Merge<Box<4, 9>, Box<8, 8, 9, 11>>()));
+TEST_F(box_test, merge_will_remove_duplicate_enties) {
+  ASSERT_TYPE((Box<4, 8, 9, 11>()), (LeL::Merge<Box<4, 8, 9>, Box<8, 9, 11>>()));
 }
 
 TEST_F(box_test, merge_boxes_with_same_tails) {
@@ -61,4 +61,8 @@ TEST_F(box_test, merge_boxes_with_same_tails) {
 
 TEST_F(box_test, merge_same_boxes) {
   ASSERT_TYPE((Box<1, 3, 7>()), (LeL::Merge<Box<1, 3, 7>, Box<1, 3, 7>>()));
+}
+
+TEST_F(box_test, merge_with_same_subsequences) {
+  ASSERT_TYPE((Box<1, 3, 5, 7, 9>()), (LeL::Merge<Box<1, 5, 7>, Box<3, 5, 7, 9>>()));
 }
