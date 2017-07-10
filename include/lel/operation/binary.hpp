@@ -28,19 +28,22 @@ namespace LeL {
   template <class Rest, class IDs, class Value>                                \
   constexpr decltype(auto) operator MARK(Lambda<Rest, IDs> view,               \
                                          Value value) {                        \
-    return Lambda<Context<Left, Lambda<Rest, IDs>, Value, FUNC>, IDs>{         \
+    return Lambda<Context<Binary, Lambda<Rest, IDs>, Wrap<Value>, FUNC>, IDs>{ \
       std::move(view), std::move(value)};                                      \
   }                                                                            \
   template <class Rest, class IDs, class Value>                                \
   constexpr decltype(auto) operator MARK(Value value,                          \
                                          Lambda<Rest, IDs> view) {             \
-    return Lambda<Context<Right, Value, Lambda<Rest, IDs>, FUNC>, IDs>{        \
+    return Lambda<Context<Binary, Wrap<Value>, Lambda<Rest, IDs>, FUNC>, IDs>{ \
       std::move(value), std::move(view)};                                      \
   }                                                                            \
   template <class RestL, class IDL, class RestR, class IDR>                    \
   constexpr decltype(auto) operator MARK(Lambda<RestL, IDL> viewL,             \
                                          Lambda<RestR, IDR> viewR) {           \
-    return Lambda<Context<Fold, Lambda<RestL, IDL>, Lambda<RestR, IDR>, FUNC>, \
+    return Lambda<Context<Binary,                                              \
+                          Lambda<RestL, IDL>,                                  \
+                          Lambda<RestR, IDR>,                                  \
+                          FUNC>,                                               \
                   Merge<IDL, IDR>>{std::move(viewL), std::move(viewR)};        \
   }
 

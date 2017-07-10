@@ -35,13 +35,16 @@ struct Lambda<Context, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator=(Value value) const {
-    return Lambda<LeL::Context<Left, Lambda<Context, MyIDs>, Value, Assign>,
+    return Lambda<LeL::Context<Binary,
+                               Lambda<Context, MyIDs>,
+                               Wrap<Value>,
+                               Assign>,
                   MyIDs>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator=(Lambda<RestV, IDV> viewV) const {
-    return Lambda<LeL::Context<Fold,
+    return Lambda<LeL::Context<Binary,
                                Lambda<Context, MyIDs>,
                                Lambda<RestV, IDV>,
                                Assign>,
@@ -50,13 +53,16 @@ struct Lambda<Context, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator[](Value value) const {
-    return Lambda<LeL::Context<Left, Lambda<Context, MyIDs>, Value, Subscript>,
+    return Lambda<LeL::Context<Binary,
+                               Lambda<Context, MyIDs>,
+                               Wrap<Value>,
+                               Subscript>,
                   MyIDs>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator[](Lambda<RestV, IDV> viewV) const {
-    return Lambda<LeL::Context<Fold,
+    return Lambda<LeL::Context<Binary,
                                Lambda<Context, MyIDs>,
                                Lambda<RestV, IDV>,
                                Subscript>,
@@ -65,22 +71,12 @@ struct Lambda<Context, Box<char, IDs...>> {
 
  private:
   template <class... Values>
-  constexpr decltype(auto) call(Single, Values &&... values) const {
+  constexpr decltype(auto) call(Unary, Values &&... values) const {
     return typename Context::Func()(left(std::forward<Values>(values)...));
   }
 
-  template <class Value>
-  constexpr decltype(auto) call(Left, Value &&value) const {
-    return typename Context::Func()(left(std::forward<Value>(value)), right);
-  }
-
-  template <class Value>
-  constexpr decltype(auto) call(Right, Value &&value) const {
-    return typename Context::Func()(left, right(std::forward<Value>(value)));
-  }
-
   template <class... Values>
-  constexpr decltype(auto) call(Fold, Values &&... values) const {
+  constexpr decltype(auto) call(Binary, Values &&... values) const {
     return typename Context::Func()(left.slice(MyIDs(), values...),
                                     right.slice(MyIDs(), values...));
   }
