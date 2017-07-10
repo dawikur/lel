@@ -46,7 +46,7 @@ struct Box {
   }
 
   template <Type... NewTokens>
-  using IndexesOf = typename IndexesOfImpl<NewTokens...>::Result;
+  using IndexesOf = Box<int, IndexOf<NewTokens>()...>;
 
  private:
   template <int Index, Type Token, Type Head, Type... Tail>
@@ -56,11 +56,6 @@ struct Box {
   template <int Index, Type Token, Type... Tail>
   struct IndexOfImpl<Index, Token, Token, Tail...> {
     using Result = std::integral_constant<int, Index>;
-  };
-
-  template <Type... NewTokens>
-  struct IndexesOfImpl {
-    using Result = Box<int, IndexOf<NewTokens>()...>;
   };
 
   // Finish: only left
