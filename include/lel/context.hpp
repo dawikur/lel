@@ -9,7 +9,7 @@ namespace LeL {
 
 template <class Value>
 struct Wrap {
-  Wrap(Value value) : value(std::move(value)) {}
+  constexpr Wrap(Value value) : value(std::move(value)) {}
 
   template <class... Types>
   constexpr decltype(auto) slice(Types &&...) const {
