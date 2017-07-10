@@ -20,7 +20,7 @@ struct Lambda<Context, Box<char, IDs...>> {
  public:
   constexpr Lambda() : left(), right() {}
 
-  constexpr Lambda(typename Context::ViewL left, typename Context::ViewR right)
+  constexpr Lambda(typename Context::Left left, typename Context::Right right)
     : left(std::move(left)), right(std::move(right)) {}
 
   template <class... Values>
@@ -96,8 +96,8 @@ struct Lambda<Context, Box<char, IDs...>> {
                 Variadic().Get<Indexes>(values...)...);
   }
 
-  typename Context::ViewL const left;
-  typename Context::ViewR const right;
+  typename Context::Left const  left;
+  typename Context::Right const right;
 
   template <class ContextF, class IDsF>
   friend struct Lambda;

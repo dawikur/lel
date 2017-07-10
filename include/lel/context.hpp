@@ -45,13 +45,13 @@ struct Unary {};
 struct Binary {};
 
 template <class ModeT  = Unary,
-          class ViewLT = Identity,
-          class ViewRT = Identity,
+          class LeftT = Identity,
+          class RightT = Identity,
           class FuncT  = Identity>
 struct Context {
   using Mode  = ModeT;
-  using ViewL = ViewLT;
-  using ViewR = ViewRT;
+  using Left  = LeftT;
+  using Right = RightT;
   using Func  = FuncT;
 };
 
