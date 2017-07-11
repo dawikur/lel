@@ -50,25 +50,25 @@ class Lambda<Identity, Box<char, IDs>> {
 
   template <class Value>
   constexpr decltype(auto) operator=(Value value) const {
-    return Lambda<Binary<Class, Lambda<Value, Box<char>>, Assign>, ID>{
+    return Lambda<Binary<Assign, Class, Lambda<Value, Box<char>>>, ID>{
       *this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator=(Lambda<RestV, IDV> viewV) const {
-    return Lambda<Binary<Class, Lambda<RestV, IDV>, Assign>, Merge<ID, IDV>>{
+    return Lambda<Binary<Assign, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
       *this, std::move(viewV)};
   }
 
   template <class Value>
   constexpr decltype(auto) operator[](Value value) const {
-    return Lambda<Binary<Class, Lambda<Value, Box<char>>, Subscript>, ID>{
+    return Lambda<Binary<Subscript, Class, Lambda<Value, Box<char>>>, ID>{
       *this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator[](Lambda<RestV, IDV> viewV) const {
-    return Lambda<Binary<Class, Lambda<RestV, IDV>, Subscript>, Merge<ID, IDV>>{
+    return Lambda<Binary<Subscript, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
       *this, std::move(viewV)};
   }
 
@@ -89,10 +89,10 @@ class Lambda<Identity, Box<char, IDs>> {
 
 };
 
-template <class View, class Func, char... IDs>
-class Lambda<Unary<View, Func>, Box<char, IDs...>> {
+template <class Func, class View, char... IDs>
+class Lambda<Unary<Func, View>, Box<char, IDs...>> {
   using ID = Box<char, IDs...>;
-  using Class = Lambda<Unary<View, Func>, ID>;
+  using Class = Lambda<Unary<Func, View>, ID>;
 
  public:
   constexpr Lambda(View view) : view(std::move(view)) {}
@@ -109,25 +109,25 @@ class Lambda<Unary<View, Func>, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator=(Value value) const {
-    return Lambda<Binary<Class, Lambda<Value, Box<char>>, Assign>, ID>{
+    return Lambda<Binary<Assign, Class, Lambda<Value, Box<char>>>, ID>{
       *this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator=(Lambda<RestV, IDV> viewV) const {
-    return Lambda<Binary<Class, Lambda<RestV, IDV>, Assign>, Merge<ID, IDV>>{
+    return Lambda<Binary<Assign, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
       *this, std::move(viewV)};
   }
 
   template <class Value>
   constexpr decltype(auto) operator[](Value value) const {
-    return Lambda<Binary<Class, Lambda<Value, Box<char>>, Subscript>, ID>{
+    return Lambda<Binary<Subscript, Class, Lambda<Value, Box<char>>>, ID>{
       *this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator[](Lambda<RestV, IDV> viewV) const {
-    return Lambda<Binary<Class, Lambda<RestV, IDV>, Subscript>, Merge<ID, IDV>>{
+    return Lambda<Binary<Subscript, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
       *this, std::move(viewV)};
   }
 
@@ -152,10 +152,10 @@ class Lambda<Unary<View, Func>, Box<char, IDs...>> {
   friend class Lambda;
 };
 
-template <class Left, class Right, class Func, char... IDs>
-class Lambda<Binary<Left, Right, Func>, Box<char, IDs...>> {
+template <class Func, class Left, class Right, char... IDs>
+class Lambda<Binary<Func, Left, Right>, Box<char, IDs...>> {
   using ID = Box<char, IDs...>;
-  using Class = Lambda<Binary<Left, Right, Func>, ID>;
+  using Class = Lambda<Binary<Func, Left, Right>, ID>;
 
  public:
   constexpr Lambda(Left left, Right right)
@@ -173,25 +173,25 @@ class Lambda<Binary<Left, Right, Func>, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator=(Value value) const {
-    return Lambda<Binary<Class, Lambda<Value, Box<char>>, Assign>, ID>{
+    return Lambda<Binary<Assign, Class, Lambda<Value, Box<char>>>, ID>{
       *this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator=(Lambda<RestV, IDV> viewV) const {
-    return Lambda<Binary<Class, Lambda<RestV, IDV>, Assign>, Merge<ID, IDV>>{
+    return Lambda<Binary<Assign, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
       *this, std::move(viewV)};
   }
 
   template <class Value>
   constexpr decltype(auto) operator[](Value value) const {
-    return Lambda<Binary<Class, Lambda<Value, Box<char>>, Subscript>, ID>{
+    return Lambda<Binary<Subscript, Class, Lambda<Value, Box<char>>>, ID>{
       *this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator[](Lambda<RestV, IDV> viewV) const {
-    return Lambda<Binary<Class, Lambda<RestV, IDV>, Subscript>, Merge<ID, IDV>>{
+    return Lambda<Binary<Subscript, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
       *this, std::move(viewV)};
   }
 
