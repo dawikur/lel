@@ -13,6 +13,24 @@ namespace LeL {
 template <class Context, class IDs>
 struct Lambda;
 
+template <class Value>
+struct Lambda<Value, Box<char>> {
+  constexpr Lambda(Value value) : value(std::move(value)) {}
+
+  template <class... Types>
+  constexpr decltype(auto) operator()(Types &&...) const {
+    return value;
+  }
+
+  template <class... Types>
+  constexpr decltype(auto) slice(Types &&...) const {
+    return value;
+  }
+
+ private:
+  Value const value;
+};
+
 template <class Context, char... IDs>
 struct Lambda<Context, Box<char, IDs...>> {
   using MyIDs = Box<char, IDs...>;
@@ -37,7 +55,7 @@ struct Lambda<Context, Box<char, IDs...>> {
   constexpr decltype(auto) operator=(Value value) const {
     return Lambda<LeL::Context<Binary,
                                Lambda<Context, MyIDs>,
-                               Wrap<Value>,
+                               Lambda<Value, Box<char>>,
                                Assign>,
                   MyIDs>{*this, std::move(value)};
   }
@@ -55,7 +73,7 @@ struct Lambda<Context, Box<char, IDs...>> {
   constexpr decltype(auto) operator[](Value value) const {
     return Lambda<LeL::Context<Binary,
                                Lambda<Context, MyIDs>,
-                               Wrap<Value>,
+                               Lambda<Value, Box<char>>,
                                Subscript>,
                   MyIDs>{*this, std::move(value)};
   }

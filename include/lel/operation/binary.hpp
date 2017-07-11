@@ -28,14 +28,20 @@ namespace LeL {
   template <class Rest, class IDs, class Value>                                \
   constexpr decltype(auto) operator MARK(Lambda<Rest, IDs> view,               \
                                          Value value) {                        \
-    return Lambda<Context<Binary, Lambda<Rest, IDs>, Wrap<Value>, FUNC>, IDs>{ \
-      std::move(view), std::move(value)};                                      \
+    return Lambda<Context<Binary,                                              \
+                          Lambda<Rest, IDs>,                                   \
+                          Lambda<Value, Box<char>>,                            \
+                          FUNC>,                                               \
+                  IDs>{std::move(view), std::move(value)};                     \
   }                                                                            \
   template <class Rest, class IDs, class Value>                                \
   constexpr decltype(auto) operator MARK(Value value,                          \
                                          Lambda<Rest, IDs> view) {             \
-    return Lambda<Context<Binary, Wrap<Value>, Lambda<Rest, IDs>, FUNC>, IDs>{ \
-      std::move(value), std::move(view)};                                      \
+    return Lambda<Context<Binary,                                              \
+                          Lambda<Value, Box<char>>,                            \
+                          Lambda<Rest, IDs>,                                   \
+                          FUNC>,                                               \
+                  IDs>{std::move(value), std::move(view)};                     \
   }                                                                            \
   template <class RestL, class IDL, class RestR, class IDR>                    \
   constexpr decltype(auto) operator MARK(Lambda<RestL, IDL> viewL,             \

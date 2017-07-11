@@ -7,19 +7,6 @@
 
 namespace LeL {
 
-template <class Value>
-struct Wrap {
-  constexpr Wrap(Value value) : value(std::move(value)) {}
-
-  template <class... Types>
-  constexpr decltype(auto) slice(Types &&...) const {
-    return value;
-  }
-
- private:
-  Value const value;
-};
-
 struct Identity {
   template <class Value>
   constexpr decltype(auto) operator()(Value &&value) const {
