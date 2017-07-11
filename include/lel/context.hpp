@@ -28,15 +28,14 @@ struct Subscript {
   }
 };
 
-struct Unary {};
-struct Binary {};
+template <class ViewT, class FuncT>
+struct Unary {
+  using View = ViewT;
+  using Func = FuncT;
+};
 
-template <class ModeT  = Unary,
-          class LeftT = Identity,
-          class RightT = Identity,
-          class FuncT  = Identity>
-struct Context {
-  using Mode  = ModeT;
+template <class LeftT, class RightT, class FuncT>
+struct Binary {
   using Left  = LeftT;
   using Right = RightT;
   using Func  = FuncT;

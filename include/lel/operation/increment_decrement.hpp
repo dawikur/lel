@@ -18,11 +18,8 @@ namespace LeL {
   }                                                                            \
   template <class Rest, class IDs>                                             \
   constexpr decltype(auto) operator MARK(Lambda<Rest, IDs> view INT) {         \
-    return Lambda<Context<Unary,                                               \
-                          Lambda<Rest, IDs>,                                   \
-                          Identity,                                            \
-                          Operation::__##FUNC>,                                \
-                  IDs>{std::move(view), Identity{}};                           \
+    return Lambda<Unary<Lambda<Rest, IDs>, Operation::__##FUNC>, IDs>{         \
+      std::move(view)};                                                        \
   }
 
 #define INT , int

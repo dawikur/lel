@@ -8,7 +8,7 @@
 namespace LeL {
 
 template <char ID>
-using Placeholder = Lambda<Context<>, Box<char, ID>>;
+using Placeholder = Lambda<Identity, Box<char, ID>>;
 
 namespace Placeholders {
 
