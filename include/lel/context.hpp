@@ -28,18 +28,8 @@ struct Subscript {
   }
 };
 
-template <class FuncT, class ViewT>
-struct Unary {
-  using Func = FuncT;
-  using View = ViewT;
-};
-
-template <class FuncT, class LeftT, class RightT>
-struct Binary {
-  using Func  = FuncT;
-  using Left  = LeftT;
-  using Right = RightT;
-};
+template <class Func, class ... Views>
+struct Context {};
 
 }  // namespace LeL
 
