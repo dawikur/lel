@@ -39,62 +39,6 @@ class Lambda<Value, Box<char>> {
   friend class Lambda;
 };
 
-template <char IDs>
-class Lambda<Identity, Box<char, IDs>> {
-  using ID = Box<char, IDs>;
-  using Class = Lambda<Identity, ID>;
-
- public:
-  template <class Value>
-  constexpr decltype(auto) operator()(Value && value) const {
-    return std::forward<Value>(value);
-  }
-
-  // () function call
-
-  template <class Value>
-  constexpr decltype(auto) operator=(Value value) const {
-    return Lambda<Context<Assign, Class, Lambda<Value, Box<char>>>, ID>{
-      *this, std::move(value)};
-  }
-
-  template <class RestV, class IDV>
-  constexpr decltype(auto) operator=(Lambda<RestV, IDV> viewV) const {
-    return Lambda<Context<Assign, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
-      *this, std::move(viewV)};
-  }
-
-  template <class Value>
-  constexpr decltype(auto) operator[](Value value) const {
-    return Lambda<Context<Subscript, Class, Lambda<Value, Box<char>>>, ID>{
-      *this, std::move(value)};
-  }
-
-  template <class RestV, class IDV>
-  constexpr decltype(auto) operator[](Lambda<RestV, IDV> viewV) const {
-    return Lambda<Context<Subscript, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
-      *this, std::move(viewV)};
-  }
-
- private:
-  template <char... Slice, class... Values>
-  constexpr decltype(auto) slice(Box<char, Slice...>,
-                                 Values &&... values) const {
-    using Indexes = typename Box<char, Slice...>::template IndexesOf<IDs>;
-
-    return slice(Indexes(), std::forward<Values>(values)...);
-  }
-
-  template <int... Indexes, class... Values>
-  constexpr decltype(auto) slice(Box<int, Indexes...>,
-                                 Values &&... values) const {
-    return operator()(Variadic().Get<Indexes>(values...)...);
-  }
-
-  template <class ContextF, class IDsF>
-  friend class Lambda;
-};
-
 template <class Func, class... Views, char... IDs>
 class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   using ID = Box<char, IDs...>;
@@ -152,6 +96,12 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   constexpr decltype(auto) slice(Box<int, Indexes...>,
                                  Values &&... values) const {
     return operator()(Variadic().Get<Indexes>(values...)...);
+  }
+
+  template <class... Values>
+  constexpr decltype(auto) call(std::index_sequence<>,
+                                Values &&... values) const {
+    return Func()(values...);
   }
 
   template <std::size_t... Idx, class... Values>
