@@ -11,10 +11,13 @@
 namespace LeL {
 
 template <class Context, class IDs>
-struct Lambda;
+class Lambda;
 
 template <class Value>
-struct Lambda<Value, Box<char>> {
+class Lambda<Value, Box<char>> {
+  using ID = Box<char>;
+
+ public:
   constexpr Lambda(Value value) : value(std::move(value)) {}
 
   template <class... Types>
@@ -32,8 +35,8 @@ struct Lambda<Value, Box<char>> {
 };
 
 template <class Context, char... IDs>
-struct Lambda<Context, Box<char, IDs...>> {
-  using MyIDs = Box<char, IDs...>;
+class Lambda<Context, Box<char, IDs...>> {
+  using ID = Box<char, IDs...>;
 
  public:
   constexpr Lambda() : left(), right() {}
@@ -54,37 +57,37 @@ struct Lambda<Context, Box<char, IDs...>> {
   template <class Value>
   constexpr decltype(auto) operator=(Value value) const {
     return Lambda<LeL::Context<Binary,
-                               Lambda<Context, MyIDs>,
+                               Lambda<Context, ID>,
                                Lambda<Value, Box<char>>,
                                Assign>,
-                  MyIDs>{*this, std::move(value)};
+                  ID>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator=(Lambda<RestV, IDV> viewV) const {
     return Lambda<LeL::Context<Binary,
-                               Lambda<Context, MyIDs>,
+                               Lambda<Context, ID>,
                                Lambda<RestV, IDV>,
                                Assign>,
-                  Merge<MyIDs, IDV>>{*this, std::move(viewV)};
+                  Merge<ID, IDV>>{*this, std::move(viewV)};
   }
 
   template <class Value>
   constexpr decltype(auto) operator[](Value value) const {
     return Lambda<LeL::Context<Binary,
-                               Lambda<Context, MyIDs>,
+                               Lambda<Context, ID>,
                                Lambda<Value, Box<char>>,
                                Subscript>,
-                  MyIDs>{*this, std::move(value)};
+                  ID>{*this, std::move(value)};
   }
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator[](Lambda<RestV, IDV> viewV) const {
     return Lambda<LeL::Context<Binary,
-                               Lambda<Context, MyIDs>,
+                               Lambda<Context, ID>,
                                Lambda<RestV, IDV>,
                                Subscript>,
-                  Merge<MyIDs, IDV>>{*this, std::move(viewV)};
+                  Merge<ID, IDV>>{*this, std::move(viewV)};
   }
 
  private:
@@ -95,8 +98,8 @@ struct Lambda<Context, Box<char, IDs...>> {
 
   template <class... Values>
   constexpr decltype(auto) call(Binary, Values &&... values) const {
-    return typename Context::Func()(left.slice(MyIDs(), values...),
-                                    right.slice(MyIDs(), values...));
+    return typename Context::Func()(left.slice(ID(), values...),
+                                    right.slice(ID(), values...));
   }
 
   template <char... Slice, class... Values>
@@ -118,7 +121,7 @@ struct Lambda<Context, Box<char, IDs...>> {
   typename Context::Right const right;
 
   template <class ContextF, class IDsF>
-  friend struct Lambda;
+  friend class Lambda;
 };
 
 }  // namespace LeL
