@@ -45,8 +45,7 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   using Class = Lambda<Context<Func, Views...>, ID>;
 
  public:
-  constexpr Lambda(Views... views)
-    : views(std::forward_as_tuple(std::move(views)...)) {}
+  constexpr Lambda(Views... views) : views(std::move(views)...) {}
 
   template <class... Values>
   constexpr decltype(auto) operator()(Values &&... values) const {
