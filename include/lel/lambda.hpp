@@ -20,7 +20,8 @@ class Lambda<Value, Box<char>> {
   using Class = Lambda<Value, ID>;
 
  public:
-  constexpr Lambda(Value value) : value(std::move(value)) {}
+  template <class Type>
+  constexpr Lambda(Type &&value) : value(std::forward<Type>(value)) {}
 
   template <class... Types>
   constexpr decltype(auto) operator()(Types &&...) const {
