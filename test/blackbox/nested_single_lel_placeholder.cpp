@@ -43,3 +43,13 @@ TEST_F(nested_single_lel_placeholder_test, indirection_subscription_indirection)
 
   ASSERT_EQ(2, get_get(ptr));
 }
+
+TEST_F(nested_single_lel_placeholder_test, value_will_be_updated_in_multiple_places) {
+  auto update = ++_x < ++_x;
+
+  int value = 1;
+
+  update(value);
+
+  ASSERT_EQ(3, value);
+}

@@ -88,3 +88,15 @@ TEST_F(double_lel_placeholders_test, combine_indirection_and_address_of) {
   ASSERT_EQ(&value, (&*&_x)(value));
   ASSERT_EQ(6, (*&*&_x)(value));
 }
+
+TEST_F(double_lel_placeholders_test, DISABLED_two_values_will_be_updated) {
+  auto update = ++_x < ++_y;
+
+  int x = 2;
+  int y = 8;
+
+  update(2, 8);
+
+  ASSERT_EQ(3, x);
+  ASSERT_EQ(9, y);
+}
