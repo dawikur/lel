@@ -28,12 +28,14 @@ BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, LeL/1 , a * l
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, LeL/2 , a * lX - (a + lX));
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, LeL/3 , (a * lX - (a + lX)) * (a + lX));
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, LeL/4 , (a * lX - (a + lX)) * (b * lX - (b + lX)) * (a * lX - (b + lX)) * (b * lX - (a + lX)));
+BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, LeL/5 , (a * lX - (a + lX)) * (b * lX - (b + lX)) * (a * lX - (b + lX)) * (b * lX - (a + lX)) - b * lX + (b - a * lX));
 
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, Lambda/0 , [] (auto x) { return a*x; });
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, Lambda/1 , [] (auto x) { return a*x - x; });
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, Lambda/2 , [] (auto x) { return a*x-(a+x); });
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, Lambda/3 , [] (auto x) { return (a*x - (a+x))*(a+x); });
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, Lambda/4 , [] (auto x) { return (a*x - (a+x))*(b*x - (b+x))*(a*x - (b+x))*(b*x - (a+x)); });
+BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, Lambda/5 , [] (auto x) { return (a*x - (a+x))*(b*x - (b+x))*(a*x - (b+x))*(b*x - (a+x)) - b * x + (b - a*x); });
 
 #ifdef LEL_HAS_BOOST
 
@@ -46,5 +48,6 @@ BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, BLL/1 , a * b
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, BLL/2 , a * bX - (a + bX));
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, BLL/3 , (a * bX - (a + bX)) * (a + bX));
 BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, BLL/4 , (a * bX - (a + bX)) * (b * bX - (b + bX)) * (a * bX - (b + bX)) * (b * bX - (a + bX)));
+BENCHMARK_CAPTURE(histogram__increasing_complexity_of_expressions, BLL/5 , (a * bX - (a + bX)) * (b * bX - (b + bX)) * (a * bX - (b + bX)) * (b * bX - (a + bX)) - b * bX + (b - a * bX));
 
 #endif  // LEL_HAS_BOOST

@@ -65,9 +65,9 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   }
 
   template <class RestV, class IDV>
-  constexpr decltype(auto) operator=(Lambda<RestV, IDV> viewV) const {
+  constexpr decltype(auto) operator=(Lambda<RestV, IDV> view) const {
     return Lambda<Context<Assign, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
-      *this, std::move(viewV)};
+      *this, std::move(view)};
   }
 
   template <class Value>
@@ -77,9 +77,9 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   }
 
   template <class RestV, class IDV>
-  constexpr decltype(auto) operator[](Lambda<RestV, IDV> viewV) const {
+  constexpr decltype(auto) operator[](Lambda<RestV, IDV> view) const {
     return Lambda<Context<Subscript, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
-      *this, std::move(viewV)};
+      *this, std::move(view)};
   }
 
  private:
@@ -100,7 +100,7 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   template <class... Values>
   constexpr decltype(auto) call(std::index_sequence<>,
                                 Values &&... values) const {
-    return Func()(values...);
+    return Func()(std::forward<Values>(values)...);
   }
 
   template <std::size_t... Idx, class... Values>
