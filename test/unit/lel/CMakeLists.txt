@@ -3,6 +3,7 @@ set(lel_test_SOURCES
   context.cpp
   lambda.cpp
   operation.cpp
+  reference.cpp
   variadic.cpp
 )
 

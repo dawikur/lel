@@ -9,6 +9,7 @@
 
 class single_lel_placeholder_test : public ::testing::Test {
  protected:
+  LeL::Reference _;
   LeL::Placeholder<'x'> _x;
   LeL::Placeholder<'y'> _y;
 };
@@ -21,7 +22,7 @@ TEST_F(single_lel_placeholder_test, assign_simple_value) {
   int value4 = 9;
   int value5 = 12;
 
-  //auto assign1 = (value1 = _x);
+  //auto assign1 = (_(value1) = _x);
   auto assign2 = (_x = value2);
   auto assign3 = (_x = _y);
 
