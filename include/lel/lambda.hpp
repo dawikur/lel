@@ -14,32 +14,6 @@ namespace LeL {
 template <class Context, class IDs>
 class Lambda;
 
-template <class Value>
-class Lambda<Value, Box<char>> {
-  using ID = Box<char>;
-  using Class = Lambda<Value, ID>;
-
- public:
-  template <class Type>
-  constexpr Lambda(Type &&value) : value(std::forward<Type>(value)) {}
-
-  template <class... Types>
-  constexpr decltype(auto) operator()(Types &&...) const {
-    return value;
-  }
-
- private:
-  template <class ID, class... Types>
-  constexpr decltype(auto) slice(ID &&, Types &&...) const {
-    return value;
-  }
-
-  Value const value;
-
-  template <class ContextF, class IDsF>
-  friend class Lambda;
-};
-
 template <class Func, class... Views, char... IDs>
 class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   using ID = Box<char, IDs...>;
@@ -61,7 +35,7 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator=(Value &&value) const {
-    return Lambda<Context<Assign, Class, Lambda<Value, Box<char>>>, ID>{
+    return Lambda<Context<Assign, Class, Wrap<Value>>, ID>{
       *this, std::forward<Value>(value)};
   }
 
@@ -73,7 +47,7 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator[](Value &&value) const {
-    return Lambda<Context<Subscript, Class, Lambda<Value, Box<char>>>, ID>{
+    return Lambda<Context<Subscript, Class, Wrap<Value>>, ID>{
       *this, std::forward<Value>(value)};
   }
 

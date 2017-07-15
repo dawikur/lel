@@ -4,6 +4,7 @@
 #define INCLUDE_LEL_HPP_
 
 #include "lel/operation.hpp"
+#include "lel/reference.hpp"
 
 namespace LeL {
 
@@ -11,6 +12,8 @@ template <char ID>
 using Placeholder = Lambda<Context<Identity>, Box<char, ID>>;
 
 namespace Placeholders {
+
+static constexpr Reference const _;
 
 static constexpr Placeholder<'0'> const _0;
 static constexpr Placeholder<'1'> const _1;

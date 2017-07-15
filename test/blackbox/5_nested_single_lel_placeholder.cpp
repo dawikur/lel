@@ -44,6 +44,14 @@ TEST_F(nested_single_lel_placeholder_test, indirection_subscription_indirection)
   ASSERT_EQ(2, get_get(ptr));
 }
 
+TEST_F(nested_single_lel_placeholder_test, multiple_use_unique_ptr) {
+  auto test = *_x < *_x + 1;
+
+  auto ptr = std::make_unique<int>(5);
+
+  ASSERT_TRUE(test(ptr));
+}
+
 TEST_F(nested_single_lel_placeholder_test, value_will_be_updated_in_multiple_places) {
   auto update = ++_x < ++_x;
 
