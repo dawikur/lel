@@ -71,7 +71,6 @@ std::vector<std::unique_ptr<std::unique_ptr<int>>> y = ...;
 
 sum(1, 2, x, y);
 
-
 // for references we need a wrapper
 
 int x = 5;
