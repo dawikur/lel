@@ -35,7 +35,7 @@ struct Box {
   };
 
   template <Type       Token>
-  static constexpr int IndexOf() {
+  static constexpr int IndexOf() noexcept {
     return IndexOfImpl<0, Token, Tokens...>::Result::value;
   }
 

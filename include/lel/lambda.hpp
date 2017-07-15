@@ -60,9 +60,9 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   // () function call
 
   template <class Value>
-  constexpr decltype(auto) operator=(Value value) const {
+  constexpr decltype(auto) operator=(Value &&value) const {
     return Lambda<Context<Assign, Class, Lambda<Value, Box<char>>>, ID>{
-      *this, std::move(value)};
+      *this, std::forward<Value>(value)};
   }
 
   template <class RestV, class IDV>
@@ -72,9 +72,9 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   }
 
   template <class Value>
-  constexpr decltype(auto) operator[](Value value) const {
+  constexpr decltype(auto) operator[](Value &&value) const {
     return Lambda<Context<Subscript, Class, Lambda<Value, Box<char>>>, ID>{
-      *this, std::move(value)};
+      *this, std::forward<Value>(value)};
   }
 
   template <class RestV, class IDV>

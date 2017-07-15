@@ -9,7 +9,7 @@ namespace LeL {
 
 struct Identity {
   template <class Value>
-  constexpr decltype(auto) operator()(Value &&value) const {
+  constexpr decltype(auto) operator()(Value &&value) const noexcept {
     return std::forward<Value>(value);
   }
 };
