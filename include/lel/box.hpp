@@ -40,7 +40,7 @@ struct Box {
   }
 
   template <Type... NewTokens>
-  using IndexesOf = Box<int, IndexOf<NewTokens>()...>;
+  using IndexesOf = Box<int, (IndexOf<NewTokens>())...>;
 
  private:
   template <int Index, Type Token, Type Head, Type... Tail>
