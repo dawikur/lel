@@ -9,8 +9,7 @@
 
 namespace LeL {
 
-// TODO: 2017-07-04
-// , ??
+// TODO: 2017-07-04 , ??
 
 #define OPERATION_STD(MARK, FUNC) OPERATION(MARK, std::FUNC<>)
 #define OPERATION_LEL(MARK, FUNC)                                              \
@@ -28,13 +27,13 @@ namespace LeL {
   template <class Rest, class IDs, class Value>                                \
   constexpr decltype(auto) operator MARK(Lambda<Rest, IDs> view,               \
                                          Value &&value) {                      \
-    return Lambda<Context<FUNC, Lambda<Rest, IDs>, Wrap<Value>>, IDs>{         \
+    return Lambda<Context<FUNC, Lambda<Rest, IDs>, Wrap<Value const>>, IDs>{   \
       std::move(view), std::forward<Value>(value)};                            \
   }                                                                            \
   template <class Value, class Rest, class IDs>                                \
   constexpr decltype(auto) operator MARK(Value &&value,                        \
                                          Lambda<Rest, IDs> view) {             \
-    return Lambda<Context<FUNC, Wrap<Value>, Lambda<Rest, IDs>>, IDs>{         \
+    return Lambda<Context<FUNC, Wrap<Value const>, Lambda<Rest, IDs>>, IDs>{   \
       std::forward<Value>(value), std::move(view)};                            \
   }                                                                            \
   template <class RestL, class IDL, class RestR, class IDR>                    \

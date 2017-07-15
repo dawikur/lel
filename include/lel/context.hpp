@@ -45,7 +45,7 @@ class Wrap {
     return value;
   }
 
-  Value const value;
+  Value value;
 
   template <class ContextF, class IDsF>
   friend class Lambda;

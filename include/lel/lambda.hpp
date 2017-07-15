@@ -35,7 +35,7 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator=(Value &&value) const {
-    return Lambda<Context<Assign, Class, Wrap<Value>>, ID>{
+    return Lambda<Context<Assign, Class, Wrap<Value const>>, ID>{
       *this, std::forward<Value>(value)};
   }
 
@@ -47,7 +47,7 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
 
   template <class Value>
   constexpr decltype(auto) operator[](Value &&value) const {
-    return Lambda<Context<Subscript, Class, Wrap<Value>>, ID>{
+    return Lambda<Context<Subscript, Class, Wrap<Value const>>, ID>{
       *this, std::forward<Value>(value)};
   }
 

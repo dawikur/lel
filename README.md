@@ -44,7 +44,7 @@ auto is_even = _i % 2 == 0;
 
 Shorted, right? And, for me, much cleaner.
 
-## More examples
+## Examples
 
 ```cpp
 
@@ -70,6 +70,16 @@ std::unique_ptr<std::vector<std::unique_ptr<int>>> x = ...;
 std::vector<std::unique_ptr<std::unique_ptr<int>>> y = ...;
 
 sum(1, 2, x, y);
+
+
+// for references we need a wrapper
+
+int x = 5;
+
+auto add_to_x = _(x) += _y;
+
+add_to_x(8);
+
 ```
 
 # Usage
