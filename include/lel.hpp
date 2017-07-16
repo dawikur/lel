@@ -13,7 +13,7 @@ using Placeholder = Lambda<Context<Identity>, Box<char, ID>>;
 
 namespace Placeholders {
 
-static constexpr Reference const _;
+static constexpr Reference const _{};
 
 static constexpr Placeholder<'0'> const _0;
 static constexpr Placeholder<'1'> const _1;
