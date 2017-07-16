@@ -32,8 +32,6 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
                 std::forward<Values>(values)...);
   }
 
-  // () function call
-
   template <class Value>
   constexpr decltype(auto) operator=(Value &&value) const {
     return Lambda<Context<Assign, Class, Wrap<Value const>>, ID>{

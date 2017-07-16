@@ -9,8 +9,6 @@
 
 namespace LeL {
 
-// TODO: 2017-07-04 , ??
-
 #define OPERATION_STD(MARK, FUNC) OPERATION(MARK, std::FUNC<>)
 #define OPERATION_LEL(MARK, FUNC)                                              \
   namespace Operation {                                                        \
