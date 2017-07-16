@@ -12,7 +12,7 @@ namespace LeL {
   struct __##FUNC {                                                            \
     template <class Value>                                                     \
     constexpr decltype(auto) operator()(Value &&value) const {                 \
-      return (PRE std::forward<Value>(value) POST);                            \
+      return (PRE value POST);                                                 \
     }                                                                          \
   };                                                                           \
   }                                                                            \

@@ -70,19 +70,21 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   template <int... Indexes, class... Values>
   constexpr decltype(auto) slice(Box<int, Indexes...>,
                                  Values &&... values) const {
-    return operator()(Variadic().Get<Indexes>(values...)...);
+    return operator()(
+      Variadic().Get<Indexes>(std::forward<Values>(values)...)...);
   }
 
   template <class... Values>
   constexpr decltype(auto) call(std::index_sequence<>,
                                 Values &&... values) const {
-    return Func()(std::forward<Values>(values)...);
+    return Func()(std::forward<Values>(std::forward<Values>(values))...);
   }
 
   template <std::size_t... Idx, class... Values>
   constexpr decltype(auto) call(std::index_sequence<Idx...>,
                                 Values &&... values) const {
-    return Func()(std::get<Idx>(views).slice(ID(), values...)...);
+    return Func()(
+      std::get<Idx>(views).slice(ID(), std::forward<Values>(values)...)...);
   }
 
   std::tuple<Views...> views;
