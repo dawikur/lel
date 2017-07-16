@@ -213,3 +213,9 @@ TEST_F(single_lel_placeholder_test, post_decrement) {
   ASSERT_EQ(4, value);
 }
 
+
+TEST_F(single_lel_placeholder_test, can_be_used_with_non_copyable) {
+  auto print = std::cout << _x;
+
+  print("use cout to test\n");
+}
