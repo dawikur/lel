@@ -8,6 +8,7 @@
 
 #include "lel/context.hpp"
 #include "lel/variadic.hpp"
+#include "lel/wrap.hpp"
 
 namespace LeL {
 

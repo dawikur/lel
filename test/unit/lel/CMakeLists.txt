@@ -5,6 +5,7 @@ set(lel_test_SOURCES
   operation.cpp
   reference.cpp
   variadic.cpp
+  wrap.cpp
 )
 
 add_executable(lel_test ${lel_test_SOURCES})

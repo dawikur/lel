@@ -28,54 +28,6 @@ struct Subscript {
   }
 };
 
-template <class Value>
-class Wrap;
-
-template <class Value>
-class Wrap<Value const> {
- public:
-  template <class Type>
-  constexpr Wrap(Type &&value) : value(std::forward<Type>(value)) {}
-
-  template <class... Types>
-  constexpr decltype(auto) operator()(Types &&...) const {
-    return value;
-  }
-
- private:
-  template <class ID, class... Types>
-  constexpr decltype(auto) slice(ID &&, Types &&...) const {
-    return value;
-  }
-
-  Value value;
-
-  template <class ContextF, class IDsF>
-  friend class Lambda;
-};
-
-template <class Value>
-class Wrap<Value&> {
- public:
-  constexpr Wrap(Value &value) : value(value) {}
-
-  template <class... Types>
-  constexpr decltype(auto) operator()(Types &&...) const {
-    return value;
-  }
-
- private:
-  template <class ID, class... Types>
-  constexpr decltype(auto) slice(ID &&, Types &&...) const {
-    return value;
-  }
-
-  Value &value;
-
-  template <class ContextF, class IDsF>
-  friend class Lambda;
-};
-
 template <class Func, class ... Views>
 struct Context {};
 
