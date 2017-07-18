@@ -22,6 +22,8 @@ else()
   set(warnings "/W4 /WX")
 endif()
 
+add_subdirectory(include)
+
 if(TESTS OR COVERAGE OR BENCHMARK)
   enable_testing()
 
