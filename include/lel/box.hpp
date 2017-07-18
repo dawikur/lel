@@ -79,6 +79,9 @@ struct Box {
                        Self<TailL...>,
                        Self<TailR...>> {};
 
+  template <Type Left, Type Right>
+  static constexpr Type const Lower = Left < Right ? Left : Right;
+
   template <class Left, class Right, bool Condition>
   struct Choose;
 
@@ -91,10 +94,7 @@ struct Box {
   struct MergeImpl<Self<Merged...>,
                    Self<HeadL, TailL...>,
                    Self<HeadR, TailR...>>
-    : public MergeImpl<Self<Merged...,
-                            Choose<Self<HeadL, TailL...>,
-                                   Self<HeadR, TailR...>,
-                                   (HeadL < HeadR)>::Lower>,
+    : public MergeImpl<Self<Merged..., Lower<HeadL, HeadR>>,
                        typename Choose<Self<HeadL, TailL...>,
                                        Self<HeadR, TailR...>,
                                        (HeadL < HeadR)>::Left,
@@ -105,7 +105,6 @@ struct Box {
   // Left is lower
   template <Type... TailL, Type HeadR, Type... TailR>
   struct Choose<Self<TailL...>, Self<HeadR, TailR...>, false> {
-    static constexpr Type const Lower = HeadR;
     using Left  = Self<TailL...>;
     using Right = Self<TailR...>;
   };
@@ -113,7 +112,6 @@ struct Box {
   // Right is lower
   template <Type HeadL, Type... TailL, Type... TailR>
   struct Choose<Self<HeadL, TailL...>, Self<TailR...>, true> {
-    static constexpr Type const Lower = HeadL;
     using Left  = Self<TailL...>;
     using Right = Self<TailR...>;
   };
