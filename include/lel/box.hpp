@@ -82,7 +82,7 @@ struct Box {
   template <Type Left, Type Right>
   static constexpr Type const Lower = Left < Right ? Left : Right;
 
-  template <class Left, class Right, bool Condition>
+  template <class, Type Condition>
   struct Choose;
 
   // Compare first elements from Left and Right
@@ -95,25 +95,22 @@ struct Box {
                    Self<HeadL, TailL...>,
                    Self<HeadR, TailR...>>
     : public MergeImpl<Self<Merged..., Lower<HeadL, HeadR>>,
-                       typename Choose<Self<HeadL, TailL...>,
-                                       Self<HeadR, TailR...>,
-                                       (HeadL < HeadR)>::Left,
-                       typename Choose<Self<HeadL, TailL...>,
-                                       Self<HeadR, TailR...>,
-                                       (HeadL < HeadR)>::Right> {};
-
-  // Left is lower
-  template <Type... TailL, Type HeadR, Type... TailR>
-  struct Choose<Self<TailL...>, Self<HeadR, TailR...>, false> {
-    using Left  = Self<TailL...>;
-    using Right = Self<TailR...>;
+                       typename Choose<bool, (HeadL < HeadR)>::
+                         template From<Self<TailL...>, Self<HeadL, TailL...>>,
+                       typename Choose<bool, (HeadL < HeadR)>::
+                         template From<Self<HeadR, TailR...>, Self<TailR...>>> {
   };
 
-  // Right is lower
-  template <Type HeadL, Type... TailL, Type... TailR>
-  struct Choose<Self<HeadL, TailL...>, Self<TailR...>, true> {
-    using Left  = Self<TailL...>;
-    using Right = Self<TailR...>;
+  template <class Dummy>
+  struct Choose<Dummy, false> {
+    template <class, class False>
+    using From = False;
+  };
+
+  template <class Dummy>
+  struct Choose<Dummy, true> {
+    template <class True, class>
+    using From = True;
   };
 
   // TODO: 2017-07-10 check if sequences are sored & unique
