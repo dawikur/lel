@@ -11,7 +11,7 @@ template <class Type, Type... Tokens>
 struct Box {
  private:
   template <Type... Values>
-  struct Self{};
+  struct Self;
 
   template <int Index, Type Token, Type... Tail>
   struct IndexOfImpl {
@@ -50,15 +50,15 @@ struct Box {
   };
 
   // Finish: only left
-  template <Type... Merged, Type... Left>
-  struct MergeImpl<Self<Merged...>, Self<Left...>, Self<>> {
-    using Result = Box<Type, Merged..., Left...>;
+  template <Type... Merged, Type HeadL, Type... TailL>
+  struct MergeImpl<Self<Merged...>, Self<HeadL, TailL...>, Self<>> {
+    using Result = Box<Type, Merged..., HeadL, TailL...>;
   };
 
   // Finish: only right
-  template <Type... Merged, Type... Right>
-  struct MergeImpl<Self<Merged...>, Self<>, Self<Right...>> {
-    using Result = Box<Type, Merged..., Right...>;
+  template <Type... Merged, Type HeadR, Type... TailR>
+  struct MergeImpl<Self<Merged...>, Self<>, Self<HeadR, TailR...>> {
+    using Result = Box<Type, Merged..., HeadR, TailR...>;
   };
 
   // Finish: nothing left to do
