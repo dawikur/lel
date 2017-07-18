@@ -21,9 +21,6 @@ struct Box {
   template <class Merged, class Left, class Right>
   struct MergeImpl;
 
-  template <class Merged, class Left, class Right, bool Condition>
-  struct MergeCondition;
-
  public:
   template <class>
   struct Merge;
@@ -82,6 +79,9 @@ struct Box {
                        Self<TailL...>,
                        Self<TailR...>> {};
 
+  template <class Left, class Right, bool Condition>
+  struct Choose;
+
   // Compare first elements from Left and Right
   template <Type... Merged,
             Type HeadL,
@@ -91,28 +91,32 @@ struct Box {
   struct MergeImpl<Self<Merged...>,
                    Self<HeadL, TailL...>,
                    Self<HeadR, TailR...>>
-    : public MergeCondition<Self<Merged...>,
-                            Self<HeadL, TailL...>,
-                            Self<HeadR, TailR...>,
-                            (HeadL < HeadR)> {};
+    : public MergeImpl<Self<Merged...,
+                            Choose<Self<HeadL, TailL...>,
+                                   Self<HeadR, TailR...>,
+                                   (HeadL < HeadR)>::Lower>,
+                       typename Choose<Self<HeadL, TailL...>,
+                                       Self<HeadR, TailR...>,
+                                       (HeadL < HeadR)>::Left,
+                       typename Choose<Self<HeadL, TailL...>,
+                                       Self<HeadR, TailR...>,
+                                       (HeadL < HeadR)>::Right> {};
 
   // Left is lower
-  template <Type... Merged, Type... Left, Type HeadR, Type... TailR>
-  struct MergeCondition<Self<Merged...>,
-                        Self<Left...>,
-                        Self<HeadR, TailR...>,
-                        false> : public MergeImpl<Self<Merged..., HeadR>,
-                                                  Self<Left...>,
-                                                  Self<TailR...>> {};
+  template <Type... TailL, Type HeadR, Type... TailR>
+  struct Choose<Self<TailL...>, Self<HeadR, TailR...>, false> {
+    static constexpr Type const Lower = HeadR;
+    using Left  = Self<TailL...>;
+    using Right = Self<TailR...>;
+  };
 
   // Right is lower
-  template <Type... Merged, Type HeadL, Type... TailL, Type... Right>
-  struct MergeCondition<Self<Merged...>,
-                        Self<HeadL, TailL...>,
-                        Self<Right...>,
-                        true> : public MergeImpl<Self<Merged..., HeadL>,
-                                                 Self<TailL...>,
-                                                 Self<Right...>> {};
+  template <Type HeadL, Type... TailL, Type... TailR>
+  struct Choose<Self<HeadL, TailL...>, Self<TailR...>, true> {
+    static constexpr Type const Lower = HeadL;
+    using Left  = Self<TailL...>;
+    using Right = Self<TailR...>;
+  };
 
   // TODO: 2017-07-10 check if sequences are sored & unique
 };
