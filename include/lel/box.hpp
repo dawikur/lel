@@ -11,7 +11,7 @@ template <class Type, Type... Tokens>
 struct Box {
  private:
   template <Type... Values>
-  using Self = Box<Type, Values...>;
+  struct Self{};
 
   template <int Index, Type Token, Type... Tail>
   struct IndexOfImpl {
@@ -26,7 +26,7 @@ struct Box {
   struct Merge;
 
   template <Type... NewTokens>
-  struct Merge<Self<NewTokens...>> {
+  struct Merge<Box<Type, NewTokens...>> {
     using Result =
       typename MergeImpl<Self<>, Self<Tokens...>, Self<NewTokens...>>::Result;
   };
@@ -52,19 +52,19 @@ struct Box {
   // Finish: only left
   template <Type... Merged, Type... Left>
   struct MergeImpl<Self<Merged...>, Self<Left...>, Self<>> {
-    using Result = Self<Merged..., Left...>;
+    using Result = Box<Type, Merged..., Left...>;
   };
 
   // Finish: only right
   template <Type... Merged, Type... Right>
   struct MergeImpl<Self<Merged...>, Self<>, Self<Right...>> {
-    using Result = Self<Merged..., Right...>;
+    using Result = Box<Type, Merged..., Right...>;
   };
 
   // Finish: nothing left to do
   template <Type... Merged>
   struct MergeImpl<Self<Merged...>, Self<>, Self<>> {
-    using Result = Self<Merged...>;
+    using Result = Box<Type, Merged...>;
   };
 
   // Heads are the same in Left and Right
