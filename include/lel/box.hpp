@@ -82,7 +82,7 @@ struct Box {
   template <Type Left, Type Right>
   static constexpr Type const Lower = Left < Right ? Left : Right;
 
-  template <class, Type Condition>
+  template <class, bool>
   struct Choose;
 
   // Compare first elements from Left and Right
