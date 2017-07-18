@@ -40,9 +40,15 @@ TEST_F(box_test, empty_merge_non_empty_gives_non_empty) {
   ASSERT_TYPE((Box<4, 8>()), (LeL::Merge<Box<>, Box<4, 8>>()));
 }
 
+TEST_F(box_test, merge_two_sequnces_of_one_element) {
+  ASSERT_TYPE((Box<1, 4>()), (LeL::Merge<Box<1>, Box<4>>()));
+  ASSERT_TYPE((Box<1, 4>()), (LeL::Merge<Box<4>, Box<1>>()));
+}
+
 TEST_F(box_test, non_empty_merge_with_bigger_separable_non_empty) {
   ASSERT_TYPE((Box<1, 4, 8, 9>()), (LeL::Merge<Box<1, 4>, Box<8, 9>>()));
 }
+
 TEST_F(box_test, merge_unique_intersecting) {
   ASSERT_TYPE((Box<1, 2, 3, 4, 5>()), (LeL::Merge<Box<1, 3>, Box<2, 4, 5>>()));
 }

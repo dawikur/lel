@@ -83,7 +83,7 @@ struct Box {
   static constexpr Type const Lower = Left < Right ? Left : Right;
 
   template <class, bool>
-  struct Choose;
+  struct PopFrontIf;
 
   // Compare first elements from Left and Right
   template <Type... Merged,
@@ -95,22 +95,21 @@ struct Box {
                    Self<HeadL, TailL...>,
                    Self<HeadR, TailR...>>
     : public MergeImpl<Self<Merged..., Lower<HeadL, HeadR>>,
-                       typename Choose<bool, (HeadL < HeadR)>::
-                         template From<Self<TailL...>, Self<HeadL, TailL...>>,
-                       typename Choose<bool, (HeadL < HeadR)>::
-                         template From<Self<HeadR, TailR...>, Self<TailR...>>> {
+                       typename PopFrontIf<bool, (HeadL < HeadR)>::
+                         template From<HeadL, TailL...>,
+                       typename PopFrontIf<bool, (HeadR < HeadL)>::
+                         template From<HeadR, TailR...>> {};
+
+  template <class Dummy>
+  struct PopFrontIf<Dummy, true> {
+    template <Type, Type... Types>
+    using From = Self<Types...>;
   };
 
   template <class Dummy>
-  struct Choose<Dummy, false> {
-    template <class, class False>
-    using From = False;
-  };
-
-  template <class Dummy>
-  struct Choose<Dummy, true> {
-    template <class True, class>
-    using From = True;
+  struct PopFrontIf<Dummy, false> {
+    template <Type... Types>
+    using From = Self<Types...>;
   };
 
   // TODO: 2017-07-10 check if sequences are sored & unique
