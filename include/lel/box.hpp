@@ -67,18 +67,6 @@ struct Box {
     using Result = Box<Type, Merged...>;
   };
 
-  // Heads are the same in Left and Right
-  template <Type... Merged,
-            Type Head,
-            Type... TailL,
-            Type... TailR>
-  struct MergeImpl<Self<Merged...>,
-                   Self<Head, TailL...>,
-                   Self<Head, TailR...>>
-    : public MergeImpl<Self<Merged..., Head>,
-                       Self<TailL...>,
-                       Self<TailR...>> {};
-
   template <Type Left, Type Right>
   static constexpr Type const Lower = Left < Right ? Left : Right;
 
@@ -95,9 +83,9 @@ struct Box {
                    Self<HeadL, TailL...>,
                    Self<HeadR, TailR...>>
     : public MergeImpl<Self<Merged..., Lower<HeadL, HeadR>>,
-                       typename PopFrontIf<bool, (HeadL < HeadR)>::
+                       typename PopFrontIf<bool, (HeadL <= HeadR)>::
                          template From<HeadL, TailL...>,
-                       typename PopFrontIf<bool, (HeadR < HeadL)>::
+                       typename PopFrontIf<bool, (HeadR <= HeadL)>::
                          template From<HeadR, TailR...>> {};
 
   template <class Dummy>
