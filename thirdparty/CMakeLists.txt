@@ -5,6 +5,5 @@ if(TESTS OR COVERAGE)
 endif()
 
 if(BENCHMARK)
-  set(BENCHMARK_ENABLE_TESTING OFF)
   add_subdirectory(benchmark)
 endif()
