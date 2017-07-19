@@ -99,8 +99,6 @@ struct Box {
     template <Type... Types>
     using From = Self<Types...>;
   };
-
-  // TODO: 2017-07-10 check if sequences are sored & unique
 };
 
 template <class Left, class Right>
