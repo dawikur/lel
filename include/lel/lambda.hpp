@@ -52,8 +52,8 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
 
   template <class RestV, class IDV>
   constexpr decltype(auto) operator[](Lambda<RestV, IDV> view) const {
-    return Lambda<Context<Subscript, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{
-      *this, std::move(view)};
+    return Lambda<Context<Subscript, Class, Lambda<RestV, IDV>>,
+                  Merge<ID, IDV>>{*this, std::move(view)};
   }
 
  private:
