@@ -97,9 +97,9 @@ add_to_x(8);
   * `LeL::Reference`              - class for wrapping objects in a reference
   * `namespace LeL::Placeholders` - with predefined placeholders
     * `_`                         - instance of `LeL::Reference` class
-    * `_1` ... `_9`               - instances of `LeL::Placeholder` class
-      `_A` ... `_Z`
-      `_a` ... `_z`
+    * `_1` ... `_9`               / instances of `LeL::Placeholder` class
+    * `_A` ... `_Z`               | 
+    * `_a` ... `_z`               /
 
 ```cpp
 #include "lel.hpp"
