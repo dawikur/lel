@@ -93,8 +93,13 @@ add_to_x(8);
 
 
 **API** The only things that should be used are:
- * `LeL::Placeholder`            - template alias for placeholders creation
- * `namespace LeL::Placeholders` - with predefined placeholders
+  * `LeL::Placeholder`            - template alias for placeholders creation
+  * `LeL::Reference`              - class for wrapping objects in a reference
+  * `namespace LeL::Placeholders` - with predefined placeholders
+    * `_`                         - instance of `LeL::Reference` class
+    * `_1` ... `_9`               - instances of `LeL::Placeholder` class
+      `_A` ... `_Z`
+      `_a` ... `_z`
 
 ```cpp
 #include "lel.hpp"
