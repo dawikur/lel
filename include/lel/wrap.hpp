@@ -8,10 +8,7 @@
 namespace LeL {
 
 template <class Value>
-class Wrap;
-
-template <class Value>
-class Wrap<Value const> {
+class Wrap {
  public:
   template <class Type>
   constexpr Wrap(Type &&value) : value(std::forward<Type>(value)) {}
