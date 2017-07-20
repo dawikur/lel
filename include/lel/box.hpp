@@ -18,28 +18,6 @@ struct Box {
     static_assert(sizeof...(Tail) != 0, "Index not found");
   };
 
-  template <class Merged, class Left, class Right>
-  struct MergeImpl;
-
- public:
-  template <class>
-  struct Merge;
-
-  template <Type... NewTokens>
-  struct Merge<Box<Type, NewTokens...>> {
-    using Result =
-      typename MergeImpl<Self<>, Self<Tokens...>, Self<NewTokens...>>::Result;
-  };
-
-  template <Type       Token>
-  static constexpr int IndexOf() noexcept {
-    return IndexOfImpl<0, Token, Tokens...>::Result::value;
-  }
-
-  template <Type... NewTokens>
-  using IndexesOf = Box<int, (IndexOf<NewTokens>())...>;
-
- private:
   template <int Index, Type Token, Type Head, Type... Tail>
   struct IndexOfImpl<Index, Token, Head, Tail...>
     : public IndexOfImpl<Index + 1, Token, Tail...> {};
@@ -48,6 +26,24 @@ struct Box {
   struct IndexOfImpl<Index, Token, Token, Tail...> {
     using Result = std::integral_constant<int, Index>;
   };
+
+  template <class, bool>
+  struct PopFrontIf;
+
+  template <class Dummy>
+  struct PopFrontIf<Dummy, true> {
+    template <Type, Type... Types>
+    using From = Self<Types...>;
+  };
+
+  template <class Dummy>
+  struct PopFrontIf<Dummy, false> {
+    template <Type... Types>
+    using From = Self<Types...>;
+  };
+
+  template <class Merged, class Left, class Right>
+  struct MergeImpl;
 
   // Finish: only left
   template <Type... Merged, Type HeadL, Type... TailL>
@@ -70,9 +66,6 @@ struct Box {
   template <Type Left, Type Right>
   static constexpr Type const Lower = Left < Right ? Left : Right;
 
-  template <class, bool>
-  struct PopFrontIf;
-
   // Compare first elements from Left and Right
   template <Type... Merged,
             Type HeadL,
@@ -88,17 +81,23 @@ struct Box {
                        typename PopFrontIf<bool, (HeadR <= HeadL)>::
                          template From<HeadR, TailR...>> {};
 
-  template <class Dummy>
-  struct PopFrontIf<Dummy, true> {
-    template <Type, Type... Types>
-    using From = Self<Types...>;
+ public:
+  template <class>
+  struct Merge;
+
+  template <Type... NewTokens>
+  struct Merge<Box<Type, NewTokens...>> {
+    using Result =
+      typename MergeImpl<Self<>, Self<Tokens...>, Self<NewTokens...>>::Result;
   };
 
-  template <class Dummy>
-  struct PopFrontIf<Dummy, false> {
-    template <Type... Types>
-    using From = Self<Types...>;
-  };
+  template <Type       Token>
+  static constexpr int IndexOf() noexcept {
+    return IndexOfImpl<0, Token, Tokens...>::Result::value;
+  }
+
+  template <Type... NewTokens>
+  using IndexesOf = Box<int, (IndexOf<NewTokens>())...>;
 };
 
 template <class Left, class Right>

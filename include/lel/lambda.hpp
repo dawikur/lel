@@ -69,7 +69,7 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   constexpr decltype(auto) slice(Box<int, Indexes...>,
                                  Values &&... values) const {
     return operator()(
-      Variadic().Get<Indexes>(std::forward<Values>(values)...)...);
+      Variadic::Get<Indexes>::From(std::forward<Values>(values)...)...);
   }
 
   template <class... Values>

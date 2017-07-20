@@ -10,25 +10,28 @@
 namespace LeL {
 
 struct Variadic {
-  template <int Num, class... Values>
-  constexpr decltype(auto) Get(Values &&... values) const {
-    static_assert(Num < sizeof...(values), "Index out range.");
+  template <int Num>
+  struct Get {
+    template <class... Values>
+    static constexpr decltype(auto) From(Values &&... values) {
+      static_assert(Num < sizeof...(values), "Index out of range.");
 
-    return get_impl(Box<int, Num>(), std::forward<Values>(values)...);
-  }
+      return get_impl(Box<int, Num>(), std::forward<Values>(values)...);
+    }
+  };
 
  private:
   template <int Num, class Head, class... Tail>
-  constexpr decltype(auto) get_impl(Box<int, Num>,
-                                    Head &&,
-                                    Tail &&... tail) const {
+  static constexpr decltype(auto) get_impl(Box<int, Num>,
+                                           Head &&,
+                                           Tail &&... tail) {
     return get_impl(Box<int, Num - 1>(), std::forward<Tail>(tail)...);
   }
 
   template <class Head, class... Tail>
-  constexpr decltype(auto) get_impl(Box<int, 0>,
-                                    Head &&head,
-                                    Tail &&...) const {
+  static constexpr decltype(auto) get_impl(Box<int, 0>,
+                                           Head &&head,
+                                           Tail &&...) {
     return std::forward<Head>(head);
   }
 };
