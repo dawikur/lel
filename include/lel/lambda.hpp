@@ -25,7 +25,7 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
 
   template <class... Values>
   constexpr decltype(auto) operator()(Values &&... values) const {
-    static_assert(sizeof...(IDs) == sizeof...(values),
+    static_assert(sizeof...(IDs) >= sizeof...(values),
                   "Incorrect number of arguments");
 
     return call(std::make_index_sequence<sizeof...(Views)>(),
@@ -83,6 +83,10 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
                                 Values &&... values) const {
     return Func()(
       std::get<Idx>(views).slice(ID(), std::forward<Values>(values)...)...);
+  }
+
+  constexpr decltype(auto) operator()(None const) const {
+    return *this;
   }
 
   std::tuple<Views...> views;

@@ -6,6 +6,7 @@
 #include <utility>
 
 #include "lel/box.hpp"
+#include "lel/context.hpp"
 
 namespace LeL {
 
@@ -19,8 +20,6 @@ struct Variadic {
   struct Get {
     template <class... Values>
     static constexpr decltype(auto) Value(Values &&... values) {
-      static_assert(Num < sizeof...(values), "Index out of range.");
-
       return get_value(Box<int, Num>(), std::forward<Values>(values)...);
     }
 
@@ -41,6 +40,11 @@ struct Variadic {
                                             Head &&head,
                                             Tail &&...) {
     return std::forward<Head>(head);
+  }
+
+  template <int Num>
+  static constexpr decltype(auto) get_value(Box<int, Num>) {
+    return None{};
   }
 
   template <int Num, class Head, class... Tail>

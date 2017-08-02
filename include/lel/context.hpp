@@ -7,6 +7,8 @@
 
 namespace LeL {
 
+struct None {};
+
 struct Identity {
   template <class Value>
   constexpr decltype(auto) operator()(Value &&value) const noexcept {
