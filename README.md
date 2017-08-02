@@ -46,48 +46,60 @@ Shorted, right? And, for me, much cleaner.
 
 ## Examples
 
-```cpp
+### simple
 
-// simple
+```cpp
 auto plus_one = _x + 1;
 auto multiply = _x * _y;
 auto is_less  = _1 < _2;
+```
 
-// more arguments
+### more arguments
+
+```cpp
 auto compute_something = 1 + _x * 3 - _y * _y + _x * _z;
+```
 
-// make own placeholders
+#### own placeholders
+```cpp
 auto first_arg  = LeL::Placeholder<'1'>();
 auto second_arg = LeL::Placeholder<'2'>();
 
 auto not_equal = first_arg != second_arg;
+```
 
-// some more... complexity...
+### more complex
 
+```cpp
 auto sum = *((*_x)[_1]) + **(_y[_2]);
 
 std::unique_ptr<std::vector<std::unique_ptr<int>>> x = ...;
 std::vector<std::unique_ptr<std::unique_ptr<int>>> y = ...;
 
 sum(1, 2, x, y);
+```
 
-// for references we need a wrapper
+### references
 
+```cpp
 int x = 5;
 
 auto add_to_x = _(x) += _y;
 
 add_to_x(8);
 
-// currying
+assert(x == 13)
+```
 
+### currying
+
+```cpp
 auto sum = _x + _y + _z;
 
 sum(1, 2, 3);
 sum(1)(2, 3);
 sum(1, 2)(3);
 sum(1)(2)(3);
-
 ```
 
 # Usage
