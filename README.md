@@ -79,6 +79,15 @@ auto add_to_x = _(x) += _y;
 
 add_to_x(8);
 
+// currying
+
+auto sum = _x + _y + _z;
+
+sum(1, 2, 3);
+sum(1)(2, 3);
+sum(1, 2)(3);
+sum(1)(2)(3);
+
 ```
 
 # Usage
@@ -98,7 +107,7 @@ add_to_x(8);
   * `namespace LeL::Placeholders` - with predefined placeholders
     * `_`                         - instance of `LeL::Reference` class
     * `_1` ... `_9`               / instances of `LeL::Placeholder` class
-    * `_A` ... `_Z`               | 
+    * `_A` ... `_Z`               |
     * `_a` ... `_z`               /
 
 ```cpp
