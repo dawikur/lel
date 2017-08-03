@@ -4,5 +4,4 @@
 
 #include "gtest/gtest.h"
 
-TEST(increment_decrement_test, TODO) {
-}
+TEST(increment_decrement_test, TODO) {}

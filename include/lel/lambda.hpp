@@ -89,7 +89,7 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
     return *this;
   }
 
-  std::tuple<Views...> views;
+  std::tuple<Views...> const views;
 
   template <class ContextF, class IDsF>
   friend class Lambda;

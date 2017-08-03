@@ -2,14 +2,14 @@
 
 #include "lel_benchmark.hpp"
 
+#include <cstdlib>
+
 #include <algorithm>
 #include <vector>
 
-#include <cstdlib>
-
 template <class Expression>
-void line__simple_expression_in_loop(::benchmark::State &state,
-                                     Expression const    expression) {
+void line__simple_expression_in_loop(::benchmark::State const &state,
+                                     Expression const          expression) {
   std::vector<int> vec(1000);
   std::generate(vec.begin(), vec.end(), std::rand);
 

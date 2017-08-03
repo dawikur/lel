@@ -6,6 +6,13 @@
 
 #include "lel_test.hpp"
 
+TEST(variadic_test, variadic_get_can_be_used_in_constexpr) {
+  static_assert(LeL::Variadic::Get<0>::Value(11, 22, 33, 44, 55) == 11, "");
+  static_assert(LeL::Variadic::Get<1>::Value(11, 22, 33, 44, 55) == 22, "");
+  static_assert(LeL::Variadic::Get<2>::Value(11, 22, 53, 46, 55) == 53, "");
+  static_assert(LeL::Variadic::Get<3>::Value(11, 22, 33, 46, 55) == 46, "");
+}
+
 TEST(variadic_test, variadic_get_returns_proper_value) {
   ASSERT_EQ(11, LeL::Variadic::Get<0>::Value(11, 22, 33, 44, 55));
   ASSERT_EQ(22, LeL::Variadic::Get<1>::Value(11, 22, 33, 44, 55));
@@ -14,8 +21,8 @@ TEST(variadic_test, variadic_get_returns_proper_value) {
 }
 
 TEST(variadic_test, variadic_get_returns_proper_type) {
-  ASSERT_TYPE(int(),  (LeL::Variadic::Get<0>::Type<int, char, bool, long>()));
-  ASSERT_TYPE(char(), (LeL::Variadic::Get<1>::Type<int, char, bool, long>()));
-  ASSERT_TYPE(bool(), (LeL::Variadic::Get<2>::Type<int, char, bool, long>()));
-  ASSERT_TYPE(long(), (LeL::Variadic::Get<3>::Type<int, char, bool, long>()));
+  ASSERT_TYPE(int(),     (LeL::Variadic::Get<0>::Type<int, char, bool, int64_t>()));
+  ASSERT_TYPE(char(),    (LeL::Variadic::Get<1>::Type<int, char, bool, int64_t>()));
+  ASSERT_TYPE(bool(),    (LeL::Variadic::Get<2>::Type<int, char, bool, int64_t>()));
+  ASSERT_TYPE(int64_t(), (LeL::Variadic::Get<3>::Type<int, char, bool, int64_t>()));
 }

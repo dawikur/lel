@@ -12,6 +12,10 @@ class box_test : public ::testing::Test {
   using Box = LeL::Box<int, Values...>;
 };
 
+TEST_F(box_test, index_of_can_be_used_in_constexpr) {
+  static_assert(Box<1, 3, 4, 7, 9, 10>::IndexOf<9>() == 4, "");
+}
+
 TEST_F(box_test, index_of_first_value) {
   ASSERT_EQ(0, (Box<2, 4, 6>::IndexOf<2>()));
 }

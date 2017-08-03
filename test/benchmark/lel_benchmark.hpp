@@ -7,9 +7,4 @@
 
 #include "benchmark/benchmark.h"
 
-auto constexpr minValue = 1 << 3;
-auto constexpr maxValue = 1 << 13;
-
-using Value = int;
-
 #endif  // TEST_BENCHMARK_LEL_BENCHMARK_HPP_

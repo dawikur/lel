@@ -2,10 +2,10 @@
 
 #include "lel.hpp"
 
-#include "gtest/gtest.h"
-
 #include <memory>
 #include <vector>
+
+#include "gtest/gtest.h"
 
 class nested_double_lel_placeholder_test : public ::testing::Test {
  protected:

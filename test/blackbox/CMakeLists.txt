@@ -9,6 +9,7 @@ set(blackbox_test_SOURCES
   7_nested_double_std_placeholder.cpp
   8_nested_double_lel_placeholder.cpp
   9_curring.cpp
+  10_constexpr.cpp
 )
 
 add_executable(blackbox_test ${blackbox_test_SOURCES})

@@ -34,7 +34,7 @@ echo "[ Generating PNG"
     title=${files[1]}
 
     echo "> ${title}"
-    plot_title="${title//_/ }" data_file="${token}" ./script/benchmark/plot/${type} > "res/benchmark/${title}.png"
+    plot_title="${title//_/ }" data_file="${token}" "./script/benchmark/plot/${type}" > "res/benchmark/${title}.png"
     rm -v "${token}"
   done
 echo "PNG generated ]"

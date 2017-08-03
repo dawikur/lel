@@ -15,13 +15,19 @@ TEST_F(sizeof_lambdas_test, base_placeholder_is_1) {
 }
 
 TEST_F(sizeof_lambdas_test, DISABLED_placeholder_with_one_int_equals_size_of_int) {
-  ASSERT_EQ(sizeof(1), sizeof(_x + 1));
+  auto expr = _x + 1;
+
+  ASSERT_EQ(sizeof(decltype(1)), sizeof(expr));
 }
 
 TEST_F(sizeof_lambdas_test, DISABLED_placeholder_with_two_ints_equals_sizof_to_ints) {
-  ASSERT_EQ(sizeof(1) + sizeof(5), sizeof(_x + 1 < 5));
+  auto expr = _x + 1 < 5;
+
+  ASSERT_EQ(sizeof(decltype(1)) + sizeof(decltype(5)), sizeof(expr));
 }
 
 TEST_F(sizeof_lambdas_test, DISABLED_multiple_base_placehlder_is_1) {
-  ASSERT_EQ(1, sizeof(_x < _y));
+  auto expr = _x < _y;
+
+  ASSERT_EQ(1, sizeof(expr));
 }

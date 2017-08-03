@@ -2,10 +2,10 @@
 
 #include "lel_benchmark.hpp"
 
+#include <cstdlib>
+
 #include <algorithm>
 #include <vector>
-
-#include <cstdlib>
 
 template <class Expression>
 void histogram__increasing_complexity_of_expressions(

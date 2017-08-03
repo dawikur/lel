@@ -2,14 +2,14 @@
 
 #include "lel_benchmark.hpp"
 
+#include <cstdlib>
+
 #include <algorithm>
 #include <vector>
 
-#include <cstdlib>
-
 template <class Expression, class... Args>
-void histogram__increasing_number_of_arguments(::benchmark::State &state,
-                                               Expression const    expression,
+void histogram__increasing_number_of_arguments(::benchmark::State const &state,
+                                               Expression const expression,
                                                Args... args) {
   std::vector<double> vec(10);
   std::generate(vec.begin(), vec.end(), std::rand);
@@ -76,8 +76,6 @@ BENCHMARK_CAPTURE(histogram__increasing_number_of_arguments, Lambda/6,
 auto const bA = boost::lambda::_1;
 auto const bB = boost::lambda::_2;
 auto const bC = boost::lambda::_3;
-//auto const bD = boost::lambda::_4;
-//auto const bE = boost::lambda::_5;
 
 BENCHMARK_CAPTURE(histogram__increasing_number_of_arguments, BLL/1,
                   (a * bA - (a + bA)) * (b * bA - (b + bA)) * (a * bA - (b + bA)) * (b * bA - (a + bA)),
@@ -88,11 +86,5 @@ BENCHMARK_CAPTURE(histogram__increasing_number_of_arguments, BLL/2,
 BENCHMARK_CAPTURE(histogram__increasing_number_of_arguments, BLL/3,
                   (a * bA - (a + bB)) * (b * bA - (b + bB)) * (a * bA - (b + bC)) * (b * bA - (a + bC)),
                   4, 7, 9);
-//BENCHMARK_CAPTURE(histogram__increasing_number_of_arguments, BLL/4,
-//                  (a * bD - (a + bB)) * (b * bA - (b + bB)) * (a * bA - (b + bC)) * (b * bA - (a + bC)),
-//                  4, 7, 9, 2);
-//BENCHMARK_CAPTURE(histogram__increasing_number_of_arguments, BLL/5,
-//                  (a * bD - (a + bB)) * (b * bE - (b + bB)) * (a * bA - (b + bC)) * (b * bA - (a + bC)),
-//                  4, 7, 9, 2, 8);
 
 #endif  // LEL_HAS_BOOST

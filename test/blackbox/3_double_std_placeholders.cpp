@@ -2,10 +2,10 @@
 
 #include "lel.hpp"
 
-#include "gtest/gtest.h"
-
 #include <memory>
 #include <vector>
+
+#include "gtest/gtest.h"
 
 class double_std_placeholders_test : public ::testing::Test {
  protected:
