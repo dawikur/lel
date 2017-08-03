@@ -3,10 +3,10 @@
 #ifndef INCLUDE_LEL_LAMBDA_HPP_
 #define INCLUDE_LEL_LAMBDA_HPP_
 
-#include <tuple>
 #include <utility>
 
 #include "lel/context.hpp"
+#include "lel/tuple.hpp"
 #include "lel/variadic.hpp"
 #include "lel/wrap.hpp"
 
@@ -81,15 +81,15 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   template <std::size_t... Idx, class... Values>
   constexpr decltype(auto) call(std::index_sequence<Idx...>,
                                 Values &&... values) const {
-    return Func()(
-      std::get<Idx>(views).slice(ID(), std::forward<Values>(values)...)...);
+    return Func()(views.template get<Idx>().slice(
+      ID(), std::forward<Values>(values)...)...);
   }
 
   constexpr decltype(auto) operator()(None const) const {
     return *this;
   }
 
-  std::tuple<Views...> const views;
+  Tuple<Views...> const views;
 
   template <class ContextF, class IDsF>
   friend class Lambda;

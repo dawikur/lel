@@ -13,46 +13,92 @@ namespace LeL {
 struct Variadic {
  private:
   template <int, class...>
-  struct get_type;
+  struct GetTypeImpl;
+
+  template <class, template <class> class, class...>
+  struct FilterWithImpl;
 
  public:
   template <int Num>
   struct Get {
     template <class... Values>
     static constexpr decltype(auto) Value(Values &&... values) {
-      return get_value(Box<int, Num>(), std::forward<Values>(values)...);
+      return GetValueImpl(Box<int, Num>(), std::forward<Values>(values)...);
     }
 
     template <class... Types>
-    using Type = typename get_type<Num, Types...>::Result;
+    using Type = typename GetTypeImpl<Num, Types...>::Result;
+  };
+
+  template <class Type>
+  struct Filter;
+
+  template <template <class...> class Wrap, class... Types>
+  struct Filter<Wrap<Types...>> {
+    template <template <class> class Predicate>
+    using With = typename FilterWithImpl<Wrap<>, Predicate, Types...>::Result;
   };
 
  private:
   template <int Num, class Head, class... Tail>
-  static constexpr decltype(auto) get_value(Box<int, Num>,
-                                            Head &&,
-                                            Tail &&... tail) {
-    return get_value(Box<int, Num - 1>(), std::forward<Tail>(tail)...);
+  static constexpr decltype(auto) GetValueImpl(Box<int, Num>,
+                                               Head &&,
+                                               Tail &&... tail) {
+    return GetValueImpl(Box<int, Num - 1>(), std::forward<Tail>(tail)...);
   }
 
   template <class Head, class... Tail>
-  static constexpr decltype(auto) get_value(Box<int, 0>,
-                                            Head &&head,
-                                            Tail &&...) {
+  static constexpr decltype(auto) GetValueImpl(Box<int, 0>,
+                                               Head &&head,
+                                               Tail &&...) {
     return std::forward<Head>(head);
   }
 
   template <int Num>
-  static constexpr decltype(auto) get_value(Box<int, Num>) {
+  static constexpr decltype(auto) GetValueImpl(Box<int, Num>) {
     return None{};
   }
 
   template <int Num, class Head, class... Tail>
-  struct get_type<Num, Head, Tail...> : public get_type<Num - 1, Tail...> {};
+  struct GetTypeImpl<Num, Head, Tail...>
+    : public GetTypeImpl<Num - 1, Tail...> {};
 
   template <class Head, class... Tail>
-  struct get_type<0, Head, Tail...> {
+  struct GetTypeImpl<0, Head, Tail...> {
     using Result = Head;
+  };
+
+  template <class, bool>
+  struct If;
+
+  template <class Dummy>
+  struct If<Dummy, false> {
+    template <template <class...> class Wrap, class Head, class... Tail>
+    using Append = Wrap<Tail..., Head>;
+  };
+
+  template <class Dummy>
+  struct If<Dummy, true> {
+    template <template <class...> class Wrap, class, class... Tail>
+    using Append = Wrap<Tail...>;
+  };
+
+  template <template <class...> class Wrap,
+            template <class> class Predicate,
+            class... Filtered,
+            class Head,
+            class... Tail>
+  struct FilterWithImpl<Wrap<Filtered...>, Predicate, Head, Tail...>
+    : FilterWithImpl<typename If<bool, Predicate<Head>::value>::
+                       template Append<Wrap, Head, Filtered...>,
+                     Predicate,
+                     Tail...> {};
+
+  template <template <class...> class Wrap,
+            template <class> class Predicate,
+            class... Filtered>
+  struct FilterWithImpl<Wrap<Filtered...>, Predicate> {
+    using Result = Wrap<Filtered...>;
   };
 };
 
