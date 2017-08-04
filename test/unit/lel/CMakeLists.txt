@@ -4,7 +4,6 @@ set(lel_test_SOURCES
   lambda.cpp
   operation.cpp
   reference.cpp
-  tuple.cpp
   variadic.cpp
   wrap.cpp
 )
