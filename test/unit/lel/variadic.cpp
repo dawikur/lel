@@ -47,7 +47,7 @@ TEST(variadic_test, variadic_filter_of_basic_types) {
   using Input = List<int, bool, int, int64_t>;
   using Output = List<bool, int64_t>;
 
-  using Result = LeL::Variadic::Filter<Input>::With<PredBase>;
+  using Result = LeL::Variadic::From<Input>::RemoveIf<PredBase>;
 
   ASSERT_TYPE(Output(), Result());
 }
@@ -56,7 +56,7 @@ TEST(variadic_test, variadic_filter_of_structs) {
   using Input = List<Empty, Empty, NonEmpty, Empty, NonEmpty>;
   using Output = List<NonEmpty, NonEmpty>;
 
-  using Result = LeL::Variadic::Filter<Input>::With<PredStruct>;
+  using Result = LeL::Variadic::From<Input>::RemoveIf<PredStruct>;
 
   ASSERT_TYPE(Output(), Result());
 }

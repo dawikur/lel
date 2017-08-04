@@ -16,7 +16,7 @@ struct Variadic {
   struct GetTypeImpl;
 
   template <class, template <class> class, class...>
-  struct FilterWithImpl;
+  struct FromRemoveIfImpl;
 
  public:
   template <int Num>
@@ -31,12 +31,13 @@ struct Variadic {
   };
 
   template <class Type>
-  struct Filter;
+  struct From;
 
   template <template <class...> class Wrap, class... Types>
-  struct Filter<Wrap<Types...>> {
+  struct From<Wrap<Types...>> {
     template <template <class> class Predicate>
-    using With = typename FilterWithImpl<Wrap<>, Predicate, Types...>::Result;
+    using RemoveIf =
+      typename FromRemoveIfImpl<Wrap<>, Predicate, Types...>::Result;
   };
 
  private:
@@ -85,20 +86,20 @@ struct Variadic {
 
   template <template <class...> class Wrap,
             template <class> class Predicate,
-            class... Filtered,
+            class... Fromed,
             class Head,
             class... Tail>
-  struct FilterWithImpl<Wrap<Filtered...>, Predicate, Head, Tail...>
-    : FilterWithImpl<typename If<bool, Predicate<Head>::value>::
-                       template Append<Wrap, Head, Filtered...>,
-                     Predicate,
-                     Tail...> {};
+  struct FromRemoveIfImpl<Wrap<Fromed...>, Predicate, Head, Tail...>
+    : FromRemoveIfImpl<typename If<bool, Predicate<Head>::value>::
+                         template Append<Wrap, Head, Fromed...>,
+                       Predicate,
+                       Tail...> {};
 
   template <template <class...> class Wrap,
             template <class> class Predicate,
-            class... Filtered>
-  struct FilterWithImpl<Wrap<Filtered...>, Predicate> {
-    using Result = Wrap<Filtered...>;
+            class... Fromed>
+  struct FromRemoveIfImpl<Wrap<Fromed...>, Predicate> {
+    using Result = Wrap<Fromed...>;
   };
 };
 
