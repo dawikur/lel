@@ -4,6 +4,9 @@
 #define INCLUDE_LEL_TUPLE_HPP_
 
 #include <tuple>
+#include <type_traits>
+
+#include "lel/variadic.hpp"
 
 namespace LeL {
 
@@ -18,6 +21,9 @@ class Tuple {
   }
 
  private:
+  using Raw = std::tuple<Types...>;
+  using Impl = typename Variadic::From<Raw>::template RemoveIf<std::is_empty>;
+
   std::tuple<Types...> const impl;
 };
 
