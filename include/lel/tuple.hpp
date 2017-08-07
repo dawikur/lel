@@ -24,7 +24,7 @@ class Tuple {
   using Raw = std::tuple<Types...>;
   using Impl = typename Variadic::From<Raw>::template RemoveIf<std::is_empty>;
 
-  std::tuple<Types...> const impl;
+  Impl const impl;
 };
 
 }  // namespace LeL

@@ -16,10 +16,6 @@ struct NonEmpty{ int v; };
 
 template <class Type>
 using PredBase = std::is_same<Type, int>;
-
-template <class Type>
-using PredStruct = std::is_empty<Type>;
-
 }  // namespace
 
 TEST(variadic_test, variadic_get_can_be_used_in_constexpr) {
@@ -56,7 +52,7 @@ TEST(variadic_test, variadic_filter_of_structs) {
   using Input = List<Empty, Empty, NonEmpty, Empty, NonEmpty>;
   using Output = List<NonEmpty, NonEmpty>;
 
-  using Result = LeL::Variadic::From<Input>::RemoveIf<PredStruct>;
+  using Result = LeL::Variadic::From<Input>::RemoveIf<std::is_empty>;
 
   ASSERT_TYPE(Output(), Result());
 }
