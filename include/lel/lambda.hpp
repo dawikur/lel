@@ -16,12 +16,13 @@ template <class Context, class IDs>
 class Lambda;
 
 template <class Func, class... Views, char... IDs>
-class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
+class Lambda<Context<Func, Views...>, Box<char, IDs...>> : Tuple<Views...> {
   using ID = Box<char, IDs...>;
   using Class = Lambda<Context<Func, Views...>, ID>;
+  using Impl = Tuple<Views...>;
 
  public:
-  constexpr Lambda(Views... views) : views(std::move(views)...) {}
+  constexpr Lambda(Views... views) : Impl(std::move(views)...) {}
 
   template <class... Values>
   constexpr decltype(auto) operator()(Values &&... values) const {
@@ -81,15 +82,13 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   template <std::size_t... Idx, class... Values>
   constexpr decltype(auto) call(std::index_sequence<Idx...>,
                                 Values &&... values) const {
-    return Func()(views.template get<Idx>().slice(
+    return Func()(Impl::template get<Idx>().slice(
       ID(), std::forward<Values>(values)...)...);
   }
 
   constexpr decltype(auto) operator()(None const) const {
     return *this;
   }
-
-  Tuple<Views...> const views;
 
   template <class ContextF, class IDsF>
   friend class Lambda;
