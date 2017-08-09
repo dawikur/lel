@@ -34,8 +34,22 @@ template <typename T1, typename T2>
 #define ASSERT_TYPE(T1, T2)                                                    \
   ASSERT_PRED_FORMAT2(AssertSameType, T1, T2);
 
+namespace {
+
+template <class ...>
+struct List {};
+
+struct Empty{};
+struct NonEmpty{ int v; };
+
+template <class Type>
+using PredBase = std::is_same<Type, int>;
+
 template <class Type>
 void Unused(Type const&) {}
+
+}  // namespace
+
 
 #endif  // TEST_UNIT_LEL_TEST_HPP_
 

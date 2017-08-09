@@ -6,18 +6,6 @@
 
 #include "lel_test.hpp"
 
-namespace {
-
-template <class ...>
-struct List {};
-
-struct Empty{};
-struct NonEmpty{ int v; };
-
-template <class Type>
-using PredBase = std::is_same<Type, int>;
-}  // namespace
-
 TEST(variadic_test, variadic_get_can_be_used_in_constexpr) {
   static_assert(LeL::Variadic::Get<0>::Value(11, 22, 33, 44, 55) == 11, "");
   static_assert(LeL::Variadic::Get<1>::Value(11, 22, 33, 44, 55) == 22, "");
