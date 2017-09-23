@@ -39,3 +39,38 @@ TEST(function_call_test, works_with_free_function) {
   ASSERT_EQ(7, pass_five(free_func));
   ASSERT_EQ(9, add_three(6));
 }
+
+TEST(function_call_test, works_with_static_methods) {
+  struct Foo {
+    static int Bar(int val) {
+      return val + 2;
+    }
+  };
+
+  LeL::Placeholder<'x'> _x;
+  LeL::Placeholder<'y'> _y;
+  LeL::Reference<char> _;
+
+  auto call_with = _x._(_y);
+  auto pass_five = _x._(5);
+  auto add_three = _(Foo::Bar)._(_x) + 1;
+
+  ASSERT_EQ(4, call_with(Foo::Bar, 2));
+  ASSERT_EQ(7, pass_five(Foo::Bar));
+  ASSERT_EQ(9, add_three(6));
+}
+
+TEST(function_call_test, works_with_core_lambda) {
+  LeL::Placeholder<'x'> _x;
+  LeL::Placeholder<'y'> _y;
+  LeL::Reference<char> _;
+
+  auto call_with = _x._(_y);
+  auto pass_five = _x._(5);
+  auto add_three = _([](int i) { return i+2; })._(_x) + 1;
+
+  ASSERT_EQ(4, call_with([](int i) { return i+2; }, 2));
+  ASSERT_EQ(7, pass_five([](int i) { return i+2; }));
+  ASSERT_EQ(9, add_three(6));
+}
+
