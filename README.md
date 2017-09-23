@@ -102,6 +102,19 @@ sum(1, 2)(3);
 sum(1)(2)(3);
 ```
 
+### function call
+
+```cpp
+auto call_with = _x._(_y);
+call_with(printf, "str");
+
+auto do_with_str = _x._("str");
+do_with_str(printf);
+
+auto print = _(printf)._(_y);
+print("str");
+```
+
 # Usage
 
 **Files** There are two ways of including **LeL**:
