@@ -100,6 +100,14 @@ struct Box {
   using IndexesOf = Box<int, (IndexOf<NewTokens>())...>;
 };
 
+template <class Type>
+struct Box<Type> {
+  template <class NewType>
+  struct Merge {
+    using Result = NewType;
+  };
+};
+
 template <class Left, class Right>
 using Merge = typename Left::template Merge<Right>::Result;
 
