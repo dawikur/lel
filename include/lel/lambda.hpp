@@ -15,9 +15,9 @@ namespace LeL {
 template <class Context, class IDs>
 class Lambda;
 
-template <class Func, class... Views, char... IDs>
-class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
-  using ID = Box<char, IDs...>;
+template <class Func, class... Views, class IDT, IDT... IDs>
+class Lambda<Context<Func, Views...>, Box<IDT, IDs...>> {
+  using ID = Box<IDT, IDs...>;
   using Class = Lambda<Context<Func, Views...>, ID>;
 
  public:
@@ -57,21 +57,6 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
   }
 
  private:
-  template <char... Slice, class... Values>
-  constexpr decltype(auto) slice(Box<char, Slice...>,
-                                 Values &&... values) const {
-    using Indexes = typename Box<char, Slice...>::template IndexesOf<IDs...>;
-
-    return slice(Indexes(), std::forward<Values>(values)...);
-  }
-
-  template <int... Indexes, class... Values>
-  constexpr decltype(auto) slice(Box<int, Indexes...>,
-                                 Values &&... values) const {
-    return operator()(
-      Variadic::Get<Indexes>::Value(std::forward<Values>(values)...)...);
-  }
-
   template <class... Values>
   constexpr decltype(auto) call(std::index_sequence<>,
                                 Values &&... values) const {
@@ -83,6 +68,21 @@ class Lambda<Context<Func, Views...>, Box<char, IDs...>> {
                                 Values &&... values) const {
     return Func()(
       std::get<Idx>(views).slice(ID(), std::forward<Values>(values)...)...);
+  }
+
+  template <IDT... Slice, class... Values>
+  constexpr decltype(auto) slice(Box<IDT, Slice...>,
+                                 Values &&... values) const {
+    using Indexes = typename Box<IDT, Slice...>::template IndexesOf<IDs...>;
+
+    return select(Indexes(), std::forward<Values>(values)...);
+  }
+
+  template <int... Indexes, class... Values>
+  constexpr decltype(auto) select(Box<int, Indexes...>,
+                                 Values &&... values) const {
+    return operator()(
+      Variadic::Get<Indexes>::Value(std::forward<Values>(values)...)...);
   }
 
   constexpr decltype(auto) operator()(None const) const {
