@@ -8,12 +8,14 @@
 
 namespace LeL {
 
-template <char ID>
-using Placeholder = Lambda<Context<Identity>, Box<char, ID>>;
+using IDT = char;
+
+template <IDT ID>
+using Placeholder = Lambda<Context<Identity>, Box<IDT, ID>>;
 
 namespace Placeholders {
 
-static constexpr Reference const _{};
+static constexpr Reference<IDT> const _{};
 
 static constexpr Placeholder<'0'> const _0;
 static constexpr Placeholder<'1'> const _1;
