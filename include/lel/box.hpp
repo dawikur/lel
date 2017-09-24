@@ -3,6 +3,7 @@
 #ifndef INCLUDE_LEL_BOX_HPP_
 #define INCLUDE_LEL_BOX_HPP_
 
+#include <functional>
 #include <type_traits>
 
 namespace LeL {
@@ -98,6 +99,14 @@ struct Box {
 
   template <Type... NewTokens>
   using IndexesOf = Box<int, (IndexOf<NewTokens>())...>;
+};
+
+template <class Type>
+struct Box<Type> {
+  template <class NewType>
+  struct Merge {
+    using Result = NewType;
+  };
 };
 
 template <class Left, class Right>

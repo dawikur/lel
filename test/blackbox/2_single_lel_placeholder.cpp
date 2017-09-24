@@ -9,7 +9,7 @@
 
 class single_lel_placeholder_test : public ::testing::Test {
  protected:
-  LeL::Reference _;
+  LeL::Reference<char> _;
   LeL::Placeholder<'x'> _x;
   LeL::Placeholder<'y'> _y;
 };
