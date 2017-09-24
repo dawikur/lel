@@ -31,9 +31,10 @@ struct Subscript {
 };
 
 struct Call {
-  template <class Left, class Right>
-  constexpr decltype(auto) operator()(Left &&left, Right &&right) const {
-    return std::forward<Left>(left)(std::forward<Right>(right));
+  template <class Callable, class... Args>
+  constexpr decltype(auto) operator()(Callable &&callable,
+                                      Args &&... args) const {
+    return std::forward<Callable>(callable)(std::forward<Args>(args)...);
   }
 };
 

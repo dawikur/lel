@@ -27,3 +27,16 @@ TEST(context_test, subscript_will_return_element_of_array) {
   ASSERT_EQ(2, LeL::Subscript()(array, 2));
   ASSERT_EQ(1, LeL::Subscript()(array, 1));
 }
+
+TEST(context_test, call_can_be_called_without_arguments) {
+  ASSERT_EQ(3, LeL::Call()([]() { return 3; }));
+}
+
+TEST(context_test, call_will_actually_call_left_operand) {
+  ASSERT_EQ(4, LeL::Call()([](int i) { return i+3; }, 1));
+}
+
+TEST(context_test, call_will_more_than_one_argument) {
+  ASSERT_EQ(
+    7, LeL::Call()([](int a, int b, int c) { return a + b + c; }, 4, 2, 1));
+}
