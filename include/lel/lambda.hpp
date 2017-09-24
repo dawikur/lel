@@ -7,6 +7,7 @@
 #include <utility>
 
 #include "lel/context.hpp"
+#include "lel/functors.hpp"
 #include "lel/variadic.hpp"
 #include "lel/wrap.hpp"
 

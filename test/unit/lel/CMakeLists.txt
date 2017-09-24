@@ -1,6 +1,7 @@
 set(lel_test_SOURCES
   box.cpp
   context.cpp
+  functors.cpp
   lambda.cpp
   operation.cpp
   reference.cpp
