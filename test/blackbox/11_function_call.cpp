@@ -4,15 +4,18 @@
 
 #include "gtest/gtest.h"
 
+class function_call_test : public ::testing::Test {
+ protected:
+  LeL::Placeholder<'x'> _x;
+  LeL::Placeholder<'y'> _y;
+  LeL::Reference<char> _;
+};
+
 int free_func(int val) {
   return val + 2;
 }
 
-TEST(function_call_test, works_with_lambda) {
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
-  LeL::Reference<char> _;
-
+TEST_F(function_call_test, works_with_lambda) {
   auto add_one = _x + 1;
 
   auto call_with = _x._(_y);
@@ -26,11 +29,7 @@ TEST(function_call_test, works_with_lambda) {
   ASSERT_EQ(8, add_values(3, 4));
 }
 
-TEST(function_call_test, works_with_free_function) {
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
-  LeL::Reference<char> _;
-
+TEST_F(function_call_test, works_with_free_function) {
   auto call_with = _x._(_y);
   auto pass_five = _x._(5);
   auto add_three = _(free_func)._(_x) + 1;
@@ -40,16 +39,12 @@ TEST(function_call_test, works_with_free_function) {
   ASSERT_EQ(9, add_three(6));
 }
 
-TEST(function_call_test, works_with_static_methods) {
+TEST_F(function_call_test, works_with_static_methods) {
   struct Foo {
     static int Bar(int val) {
       return val + 2;
     }
   };
-
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
-  LeL::Reference<char> _;
 
   auto call_with = _x._(_y);
   auto pass_five = _x._(5);
@@ -60,11 +55,7 @@ TEST(function_call_test, works_with_static_methods) {
   ASSERT_EQ(9, add_three(6));
 }
 
-TEST(function_call_test, works_with_core_lambda) {
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
-  LeL::Reference<char> _;
-
+TEST_F(function_call_test, works_with_core_lambda) {
   auto call_with = _x._(_y);
   auto pass_five = _x._(5);
   auto add_three = _([](int i) { return i+2; })._(_x) + 1;
@@ -74,3 +65,12 @@ TEST(function_call_test, works_with_core_lambda) {
   ASSERT_EQ(9, add_three(6));
 }
 
+TEST_F(function_call_test, works_with_operator_call_from_object) {
+  struct Callable {
+    int operator()(int i) { return 3 + i; }
+  } callable;
+
+  auto call = _x._(_y);
+
+  ASSERT_EQ(7, call(callable, 4));
+}
