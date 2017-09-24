@@ -11,8 +11,6 @@ namespace LeL {
 template <class Type, Type... Tokens>
 struct Box {
  private:
-  using Order = std::less<>;
-
   template <Type... Values>
   struct Self;
 
@@ -67,7 +65,7 @@ struct Box {
   };
 
   template <Type Left, Type Right>
-  static constexpr Type const Lower = Order()(Left, Right) ? Left : Right;
+  static constexpr Type const Lower = Left < Right ? Left : Right;
 
   // Compare first elements from Left and Right
   template <Type... Merged,
