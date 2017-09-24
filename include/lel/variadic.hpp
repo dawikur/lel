@@ -11,32 +11,35 @@
 namespace LeL {
 
 struct Variadic {
+ template<int Num>
+ using Int = Box<int, Num>;
+
  public:
   template <int Num>
   struct Get {
     template <class... Values>
     static constexpr decltype(auto) Value(Values &&... values) {
-      return GetValueImpl(Box<int, Num>(), std::forward<Values>(values)...);
+      return GetValueImpl(Int<Num>(), std::forward<Values>(values)...);
     }
   };
 
  private:
   template <int Num, class Head, class... Tail>
-  static constexpr decltype(auto) GetValueImpl(Box<int, Num>,
+  static constexpr decltype(auto) GetValueImpl(Int<Num>,
                                                Head &&,
                                                Tail &&... tail) {
-    return GetValueImpl(Box<int, Num - 1>(), std::forward<Tail>(tail)...);
+    return GetValueImpl(Int<Num - 1>(), std::forward<Tail>(tail)...);
   }
 
   template <class Head, class... Tail>
-  static constexpr decltype(auto) GetValueImpl(Box<int, 0>,
+  static constexpr decltype(auto) GetValueImpl(Int<0>,
                                                Head &&head,
                                                Tail &&...) {
     return std::forward<Head>(head);
   }
 
   template <int Num>
-  static constexpr decltype(auto) GetValueImpl(Box<int, Num>) {
+  static constexpr decltype(auto) GetValueImpl(Int<Num>) {
     return None{};
   }
 };
