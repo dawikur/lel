@@ -113,6 +113,9 @@ do_with_str(printf);
 
 auto print = _(printf)._(_y);
 print("str");
+
+auto format = _(printf)._(_1, _2, _3);
+format("sample %s with %d", "string", 5);
 ```
 
 # Usage

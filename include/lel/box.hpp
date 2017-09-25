@@ -83,11 +83,15 @@ struct Box {
                          template From<HeadR, TailR...>> {};
 
  public:
-  template <class>
-  struct Merge;
+  template <class... Tail>
+  struct Merge : Merge<Self<>, Tail...> {};
+
+  template <Type... NewTokens, Type... Head, class... Tail>
+  struct Merge<Self<NewTokens...>, Box<Type, Head...>, Tail...>
+    : Merge<Self<NewTokens..., Head...>, Tail...> {};
 
   template <Type... NewTokens>
-  struct Merge<Box<Type, NewTokens...>> {
+  struct Merge<Self<NewTokens...>> {
     using Result =
       typename MergeImpl<Self<>, Self<Tokens...>, Self<NewTokens...>>::Result;
   };
@@ -101,16 +105,8 @@ struct Box {
   using IndexesOf = Box<int, (IndexOf<NewTokens>())...>;
 };
 
-template <class Type>
-struct Box<Type> {
-  template <class NewType>
-  struct Merge {
-    using Result = NewType;
-  };
-};
-
-template <class Left, class Right>
-using Merge = typename Left::template Merge<Right>::Result;
+template <class Head, class ...Tail>
+using Merge = typename Head::template Merge<Tail...>::Result;
 
 }  // namespace LeL
 

@@ -74,3 +74,27 @@ TEST_F(function_call_test, works_with_operator_call_from_object) {
 
   ASSERT_EQ(7, call(callable, 4));
 }
+
+TEST_F(function_call_test, works_with_zero_argument_function) {
+  struct Callable {
+    int operator()() { return 3; }
+  } callable;
+
+  auto call = _x._();
+
+  ASSERT_EQ(3, call(callable));
+}
+
+TEST_F(function_call_test, works_with_variadic_number_of_parameters) {
+  struct Callable {
+    int operator()(int, int) { return 2; }
+    int operator()(int, int, int) { return 3; }
+  } callable;
+
+  auto count2 = _(callable)._(_x, _y);
+  auto count3 = _(callable)._(_x, _x, _x);
+
+  ASSERT_EQ(2, count2(1, 2));
+  ASSERT_EQ(3, count3(1));
+}
+

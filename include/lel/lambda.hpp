@@ -34,15 +34,19 @@ class Lambda<Context<Func, Views...>, Box<IDT, IDs...>> {
   }
 
 #define OPERATION(MARK, FUNC)                                                  \
-  template <class Value>                                                       \
-  constexpr decltype(auto) MARK(Value &&value) const {                         \
-    return Lambda<Context<FUNC, Class, Wrap<Value const>>, ID>{                \
-      *this, std::forward<Value>(value)};                                      \
+  template <class... Value>                                                    \
+  constexpr decltype(auto) MARK(Value &&... value) const {                     \
+    return Lambda<Context<FUNC, Class, Wrap<Value const>...>, ID>{             \
+      *this, std::forward<Value>(value)...};                                   \
   }                                                                            \
-  template <class RestV, class IDV>                                            \
-  constexpr decltype(auto) MARK(Lambda<RestV, IDV> view) const {               \
-    return Lambda<Context<FUNC, Class, Lambda<RestV, IDV>>, Merge<ID, IDV>>{   \
-      *this, std::move(view)};                                                 \
+  template <class... RestV, class... IDV>                                      \
+  constexpr decltype(auto) MARK(Lambda<RestV, IDV>... view) const {            \
+    return Lambda<Context<FUNC, Class, Lambda<RestV, IDV>...>,                 \
+                  Merge<ID, IDV...>>{*this, std::move(view)...};               \
+  }
+
+  constexpr decltype(auto) _() const {
+    return Lambda<Context<Call, Class>, ID>{*this};
   }
 
   OPERATION( _           , Call      )
