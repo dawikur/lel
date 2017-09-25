@@ -152,8 +152,9 @@ auto like_that          = 1 * _2;
 
 **Implementation** Templates, so many templates. Cool stuff!
 
-The separate types of placeholders are distinguist by template variable
-**char**. So `Placeholder<'a'>` and `Placeholder<'A'>` are different types.
+The separate types of placeholders are distinguist by template variable of
+type (by default, can be changed) **char**.
+So `Placeholder<'a'>` and `Placeholder<'A'>` are different types.
 
 You can use any combination of them (only numbers, numbers and letters,
 etc) in any order or degree. The important thing is the arguments during
