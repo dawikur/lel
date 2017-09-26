@@ -1,8 +1,8 @@
 ---
 
-sudo: false
-
+dist: trusty
 language: generic
+sudo: false
 
 addons:
   apt:
@@ -50,7 +50,7 @@ matrix:
 
 before_script:
   - ./script/fuse -o include -f
-  - mkdir build
+  - mkdir build -j2
   - cd build
 
 script:
