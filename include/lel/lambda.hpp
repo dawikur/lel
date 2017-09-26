@@ -5,9 +5,10 @@
 
 #include <tuple>
 
+#include "lel/template/sequence.hpp"
+#include "lel/template/variadic.hpp"
 #include "lel/context.hpp"
 #include "lel/functor.hpp"
-#include "lel/template/variadic.hpp"
 #include "lel/wrap.hpp"
 
 namespace LeL {
@@ -28,7 +29,7 @@ class Lambda<Context<Func, Views...>, Template::Box<IDT, IDs...>> {
     static_assert(sizeof...(IDs) >= sizeof...(values),
                   "Incorrect number of arguments");
 
-    return call(std::make_index_sequence<sizeof...(Views)>(),
+    return call(Template::MakeSequence<sizeof...(Views)>(),
                 std::forward<Values>(values)...);
   }
 

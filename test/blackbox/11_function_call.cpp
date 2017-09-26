@@ -85,7 +85,7 @@ TEST_F(function_call_test, works_with_zero_argument_function) {
   ASSERT_EQ(3, call(callable));
 }
 
-TEST_F(function_call_test, works_with_variadic_number_of_parameters) {
+TEST_F(function_call_test, works_with_multiple_number_of_parameters) {
   struct Callable {
     int operator()(int, int) { return 2; }
     int operator()(int, int, int) { return 3; }
@@ -98,3 +98,6 @@ TEST_F(function_call_test, works_with_variadic_number_of_parameters) {
   ASSERT_EQ(3, count3(1));
 }
 
+TEST_F(function_call_test, works_with_variadic_number_of_parameters) {
+
+}
