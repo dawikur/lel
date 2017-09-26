@@ -3,7 +3,10 @@
 #ifndef INCLUDE_LEL_HPP_
 #define INCLUDE_LEL_HPP_
 
-#include "lel/operation.hpp"
+#include "lel/lambda.hpp"
+#include "lel/operation/binary.hpp"
+#include "lel/operation/increment_decrement.hpp"
+#include "lel/operation/unary.hpp"
 #include "lel/reference.hpp"
 
 namespace LeL {
@@ -11,7 +14,7 @@ namespace LeL {
 using IDT = char;
 
 template <IDT ID>
-using Placeholder = Lambda<Context<Identity>, Box<IDT, ID>>;
+using Placeholder = Lambda<Context<Identity>, Template::Box<IDT, ID>>;
 
 namespace Placeholders {
 

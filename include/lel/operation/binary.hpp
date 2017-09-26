@@ -38,7 +38,8 @@ namespace LeL {
   constexpr decltype(auto) operator MARK(Lambda<RestL, IDL> viewL,             \
                                          Lambda<RestR, IDR> viewR) {           \
     return Lambda<Context<FUNC, Lambda<RestL, IDL>, Lambda<RestR, IDR>>,       \
-                  Merge<IDL, IDR>>{std::move(viewL), std::move(viewR)};        \
+                  Template::Merge<IDL, IDR>>{std::move(viewL),                 \
+                                             std::move(viewR)};                \
   }
 
 OPERATION_STD( +   , plus             )

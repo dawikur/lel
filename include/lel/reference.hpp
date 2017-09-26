@@ -11,7 +11,7 @@ template <class ID>
 struct Reference {
   template <class Value>
   constexpr decltype(auto) operator()(Value &&value) const {
-    return Lambda<Context<Identity, Wrap<Value &>>, Box<ID>>(
+    return Lambda<Context<Identity, Wrap<Value &>>, Template::Box<ID>>(
       Wrap<Value &>(value));
   }
 };

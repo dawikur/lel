@@ -1,13 +1,14 @@
-set(LeL_HEADERS 
+set(LeL_HEADERS
   lel/operation/binary.hpp
   lel/operation/increment_decrement.hpp
   lel/operation/unary.hpp
-  lel/box.hpp
+  lel/template/box.hpp
+  lel/template/sequence.hpp
+  lel/template/variadic.hpp
   lel/context.hpp
+  lel/functor.hpp
   lel/lambda.hpp
-  lel/operation.hpp
   lel/reference.hpp
-  lel/variadic.hpp
   lel/wrap.hpp
   lel.hpp)
 

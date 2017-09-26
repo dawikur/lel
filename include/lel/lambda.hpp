@@ -4,11 +4,10 @@
 #define INCLUDE_LEL_LAMBDA_HPP_
 
 #include <tuple>
-#include <utility>
 
 #include "lel/context.hpp"
-#include "lel/functors.hpp"
-#include "lel/variadic.hpp"
+#include "lel/functor.hpp"
+#include "lel/template/variadic.hpp"
 #include "lel/wrap.hpp"
 
 namespace LeL {
@@ -17,8 +16,8 @@ template <class Context, class IDs>
 class Lambda;
 
 template <class Func, class... Views, class IDT, IDT... IDs>
-class Lambda<Context<Func, Views...>, Box<IDT, IDs...>> {
-  using ID = Box<IDT, IDs...>;
+class Lambda<Context<Func, Views...>, Template::Box<IDT, IDs...>> {
+  using ID    = Template::Box<IDT, IDs...>;
   using Class = Lambda<Context<Func, Views...>, ID>;
 
  public:
@@ -42,16 +41,16 @@ class Lambda<Context<Func, Views...>, Box<IDT, IDs...>> {
   template <class... RestV, class... IDV>                                      \
   constexpr decltype(auto) MARK(Lambda<RestV, IDV>... view) const {            \
     return Lambda<Context<FUNC, Class, Lambda<RestV, IDV>...>,                 \
-                  Merge<ID, IDV...>>{*this, std::move(view)...};               \
+                  Template::Merge<ID, IDV...>>{*this, std::move(view)...};     \
   }
 
   constexpr decltype(auto) _() const {
     return Lambda<Context<Call, Class>, ID>{*this};
   }
 
-  OPERATION( _           , Call      )
-  OPERATION( operator =  , Assign    )
-  OPERATION( operator [] , Subscript )
+  OPERATION(_, Call)
+  OPERATION(operator=, Assign)
+  OPERATION(operator[], Subscript)
 
 #undef OPERATION
 
@@ -70,23 +69,22 @@ class Lambda<Context<Func, Views...>, Box<IDT, IDs...>> {
   }
 
   template <IDT... Slice, class... Values>
-  constexpr decltype(auto) slice(Box<IDT, Slice...>,
+  constexpr decltype(auto) slice(Template::Box<IDT, Slice...>,
                                  Values &&... values) const {
-    using Indexes = typename Box<IDT, Slice...>::template IndexesOf<IDs...>;
+    using Indexes =
+      typename Template::Box<IDT, Slice...>::template IndexesOf<IDs...>;
 
     return select(Indexes(), std::forward<Values>(values)...);
   }
 
   template <int... Indexes, class... Values>
-  constexpr decltype(auto) select(Box<int, Indexes...>,
-                                 Values &&... values) const {
-    return operator()(
-      Variadic::Get<Indexes>::Value(std::forward<Values>(values)...)...);
+  constexpr decltype(auto) select(Template::Box<int, Indexes...>,
+                                  Values &&... values) const {
+    return operator()(Template::Variadic::Get<Indexes>::Value(
+      std::forward<Values>(values)...)...);
   }
 
-  constexpr decltype(auto) operator()(None const) const {
-    return *this;
-  }
+  constexpr decltype(auto) operator()(None const) const { return *this; }
 
   std::tuple<Views...> const views;
 

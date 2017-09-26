@@ -4,6 +4,18 @@
 
 #include "gtest/gtest.h"
 
+#ifdef OPERATION
+# error "Macro OPERATION is leaking"
+#endif  // OPERATION
+
+#ifdef OPERATION_STD
+# error "Macro OPERATION_STD is leaking"
+#endif  // OPERATION_STD
+
+#ifdef OPERATION_LEL
+# error "Macro OPERATION_LEL is leaking"
+#endif  // OPERATION_LEL
+
 class sizeof_lambdas_test : public ::testing::Test {
  protected:
   LeL::Placeholder<'x'> _x;

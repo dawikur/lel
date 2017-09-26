@@ -1,7 +1,7 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_LEL_FUNCTORS_HPP_
-#define INCLUDE_LEL_FUNCTORS_HPP_
+#ifndef INCLUDE_LEL_FUNCTOR_HPP_
+#define INCLUDE_LEL_FUNCTOR_HPP_
 
 #include <utility>
 
@@ -38,4 +38,4 @@ struct Call {
 
 }  // namespace LeL
 
-#endif  // INCLUDE_LEL_FUNCTORS_HPP_
+#endif  // INCLUDE_LEL_FUNCTOR_HPP_

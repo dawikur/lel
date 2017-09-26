@@ -1,12 +1,13 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_LEL_BOX_HPP_
-#define INCLUDE_LEL_BOX_HPP_
+#ifndef INCLUDE_LEL_TEMPLATE_BOX_HPP_
+#define INCLUDE_LEL_TEMPLATE_BOX_HPP_
 
 #include <functional>
 #include <type_traits>
 
 namespace LeL {
+namespace Template {
 
 template <class Type, Type... Tokens>
 struct Box {
@@ -108,6 +109,7 @@ struct Box {
 template <class Head, class ...Tail>
 using Merge = typename Head::template Merge<Tail...>::Result;
 
+}  // namespace Template
 }  // namespace LeL
 
-#endif  // INCLUDE_LEL_BOX_HPP_
+#endif  // INCLUDE_LEL_TEMPLATE_BOX_HPP_

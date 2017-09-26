@@ -1,6 +1,6 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#include "lel/functors.hpp"
+#include "lel/context.hpp"
 
 #include "gtest/gtest.h"
 

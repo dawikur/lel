@@ -1,11 +1,8 @@
 set(lel_test_SOURCES
-  box.cpp
   context.cpp
-  functors.cpp
+  functor.cpp
   lambda.cpp
-  operation.cpp
   reference.cpp
-  variadic.cpp
   wrap.cpp
 )
 
@@ -19,3 +16,4 @@ endif()
 add_test(lel lel_test --gtest_color=yes)
 
 add_subdirectory(operation)
+add_subdirectory(template)
