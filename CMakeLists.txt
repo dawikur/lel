@@ -4,16 +4,13 @@ option(TESTS     "Build tests"      OFF)
 option(COVERAGE  "Build coverage"   OFF)
 option(BENCHMARK "Build benchmarks" OFF)
 
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 project(LeL C CXX)
 
 if(UNIX)
   add_compile_options(-std=c++14 -Wall -Wextra -Werror -Wpedantic)
   if(COVERAGE OR TESTS)
     set(CMAKE_BUILD_TYPE Debug)
-    add_compile_options(-g -O0 -DDEBUG)
+    add_compile_options(-g -O0 -DDEBUG --coverage)
   else()
     set(CMAKE_BUILD_TYPE Release)
     add_compile_options(-O3 -DNDEBUG)

@@ -12,7 +12,7 @@ if(TESTS)
 endif()
 
 if(COVERAGE)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+  add_compile_options(--coverage)
 
   add_subdirectory(unit)
 endif()

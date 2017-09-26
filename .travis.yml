@@ -36,13 +36,13 @@ matrix:
         - pip install --user codecov
 
       script:
-        - cmake .. -DCOVERAGE=ON
+        - cmake .. -DCOVERAGE=ON -DENABLE_COVERAGE:BOOL=TRUE
         - cmake --build .
         - ctest -VV
 
       after_success:
         - cd ..
-        - codecov --gcov-exec gcov-6
+        - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-6
 
     - env: CppCheck
       before_script: true
