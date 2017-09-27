@@ -22,8 +22,8 @@ before_build:
 
 build_script:
   - cmd: cmake .. -DTESTS=ON
-  - cmd: cmake --build . --config Debug
-  - cmd: cmake --build . --config Release
+  - cmd: cmake --build . --config Debug -- -j2
+  - cmd: cmake --build . --config Release -- -j2
 
 test_script:
-  - cmd: ctest -VV
+  - cmd: ctest -VV -- -j2

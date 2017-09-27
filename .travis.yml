@@ -50,13 +50,13 @@ matrix:
 
 before_script:
   - ./script/fuse -o include -f
-  - mkdir build -j2
+  - mkdir build
   - cd build
 
 script:
   - cmake .. -DTESTS=ON
-  - cmake --build .
-  - ctest -VV
+  - cmake --build . -- -j2
+  - ctest -VV -- -j2
 
 notifications:
   email: false
