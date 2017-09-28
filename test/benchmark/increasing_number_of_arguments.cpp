@@ -8,7 +8,7 @@
 #include <vector>
 
 template <class Expression, class... Args>
-void histogram__increasing_number_of_arguments(::benchmark::State const &state,
+void histogram__increasing_number_of_arguments(::benchmark::State &state,
                                                Expression const expression,
                                                Args... args) {
   std::vector<double> vec(10);

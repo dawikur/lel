@@ -14,7 +14,7 @@ def parse_json(benchmarks):
 
     for benchmark in benchmarks:
         name = benchmark["name"]
-        time = int(benchmark["real_time"]) / 1000
+        time = int(benchmark["real_time"])
 
         fixture, name, count = name.split("/")
 

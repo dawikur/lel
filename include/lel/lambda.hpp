@@ -26,9 +26,6 @@ class Lambda<Context<Func, Views...>, Template::Box<IDT, IDs...>> {
 
   template <class... Values>
   constexpr decltype(auto) operator()(Values &&... values) const {
-    static_assert(sizeof...(IDs) >= sizeof...(values),
-                  "Incorrect number of arguments");
-
     return call(Template::MakeSequence<sizeof...(Views)>(),
                 std::forward<Values>(values)...);
   }

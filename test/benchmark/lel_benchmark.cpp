@@ -2,7 +2,7 @@
 
 #include "lel_benchmark.hpp"
 
-void noop(::benchmark::State const &state) {
+void noop(::benchmark::State &state) {
   while (state.KeepRunning())
     ;
 }
