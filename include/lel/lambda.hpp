@@ -26,7 +26,7 @@ class Lambda<Context<Func, Views...>, Template::Box<IDT, IDs...>> {
 
   template <class... Values>
   constexpr decltype(auto) operator()(Values &&... values) const {
-    return call(Template::MakeSequence<sizeof...(Views)>(),
+    return call(std::index_sequence_for<Views...>(),
                 std::forward<Values>(values)...);
   }
 

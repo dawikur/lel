@@ -103,12 +103,11 @@ struct VariadicCallable {
   int operator()(T...) { return sizeof...(T); }
 };
 
-TEST_F(function_call_test, works_with_variadic_number_of_parameters) {
+TEST_F(function_call_test, DISABLED_works_with_variadic_number_of_parameters) {
   VariadicCallable callable;
 
   auto count = _(callable)._(_x);
 
   ASSERT_EQ(2, count(1, 2));
   ASSERT_EQ(3, count(1, 2, 3));
-
 }
