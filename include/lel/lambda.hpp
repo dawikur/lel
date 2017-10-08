@@ -66,11 +66,9 @@ class Lambda<Context<Func, Views...>, Template::Box<IDT, IDs...>> {
       std::get<Idx>(views).slice(ID(), std::forward<Values>(values)...)...);
   }
 
-  template <IDT... Slice, class... Values>
-  constexpr decltype(auto) slice(Template::Box<IDT, Slice...>,
-                                 Values &&... values) const {
-    using Indexes =
-      typename Template::Box<IDT, Slice...>::template IndexesOf<IDs...>;
+  template <class Slice, class... Values>
+  constexpr decltype(auto) slice(Slice, Values &&... values) const {
+    using Indexes = typename Slice::template IndexesOf<IDs...>;
 
     return select(Indexes(), std::forward<Values>(values)...);
   }
