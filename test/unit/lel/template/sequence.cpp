@@ -23,3 +23,11 @@ TEST_F(sequence_test, index_of_first_value) {
 TEST_F(sequence_test, index_of_not_first_value) {
   ASSERT_EQ(4, (Sequence<1, 3, 4, 7, 9, 10>::IndexOf<9>()));
 }
+
+TEST_F(sequence_test, back_of_one_element_sequence_returns_this_element) {
+  ASSERT_EQ(5, (Sequence<5>::Back()));
+}
+
+TEST_F(sequence_test, back_of_sequence_returns_last_element) {
+  ASSERT_EQ(5, (Sequence<1, 2, 3, 4, 5>::Back()));
+}
