@@ -12,18 +12,6 @@ class box_test : public ::testing::Test {
   using Box = LeL::Template::Box<int, Values...>;
 };
 
-TEST_F(box_test, index_of_can_be_used_in_constexpr) {
-  static_assert(Box<1, 3, 4, 7, 9, 10>::IndexOf<9>() == 4, "");
-}
-
-TEST_F(box_test, index_of_first_value) {
-  ASSERT_EQ(0, (Box<2, 4, 6>::IndexOf<2>()));
-}
-
-TEST_F(box_test, index_of_not_first_value) {
-  ASSERT_EQ(4, (Box<1, 3, 4, 7, 9, 10>::IndexOf<9>()));
-}
-
 TEST_F(box_test, indexes_of_returns_empty_list_on_empty_input) {
   ASSERT_TYPE((Box<>()), (Box<1, 2, 3, 4>::IndexesOf<>()));
 }
@@ -81,4 +69,12 @@ TEST_F(box_test, merge_same_boxes) {
 
 TEST_F(box_test, merge_with_same_subsequences) {
   ASSERT_TYPE((Box<1, 3, 5, 7, 9>()), (LeL::Template::Merge<Box<1, 5, 7>, Box<3, 5, 7, 9>>()));
+}
+
+TEST_F(box_test, expand_to_the_same_size_does_nothing) {
+  ASSERT_TYPE((Box<1, 2, 3, 8>()), (Box<1, 2, 3, 8>::ExpandTo<4>()));
+}
+
+TEST_F(box_test, expand_to_bigger_size_repeats_last_element) {
+  ASSERT_TYPE((Box<1, 2, 3, 8, 8, 8>()), (Box<1, 2, 3, 8>::ExpandTo<6>()));
 }

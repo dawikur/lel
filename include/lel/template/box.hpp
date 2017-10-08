@@ -55,6 +55,11 @@ struct Box {
                        typename Self<HeadR, TailR...>::
                          template PopFrontIf<HeadR <= HeadL>> {};
 
+  template <size_t Size>
+  struct ExpandToImpl {
+    using Result = Box<Type, Tokens...>;
+  };
+
  public:
   template <class... Tail>
   struct Merge : Merge<Self<>, Tail...> {};
@@ -69,13 +74,12 @@ struct Box {
       typename MergeImpl<Self<>, Self<Tokens...>, Self<NewTokens...>>::Result;
   };
 
-  template <Type       Token>
-  static constexpr int IndexOf() noexcept {
-    return Sequence<Type, Tokens...>::template IndexOf<Token>();
-  }
-
   template <Type... NewTokens>
-  using IndexesOf = Box<int, (IndexOf<NewTokens>())...>;
+  using IndexesOf
+    = Box<int, (Sequence<Type, Tokens...>::template IndexOf<NewTokens>())...>;
+
+  template <std::size_t Size>
+  using ExpandTo = typename ExpandToImpl<Size>::Result;
 };
 
 template <class Head, class ...Tail>
