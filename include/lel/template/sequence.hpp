@@ -36,6 +36,21 @@ struct Sequence {
     using Result = std::integral_constant<Type, Last>;
   };
 
+  template <class, bool>
+  struct PopFrontIfImpl;
+
+  template <class Dummy>
+  struct PopFrontIfImpl<Dummy, true> {
+    template <Type, Type... Tail>
+    using Result = Sequence<Type, Tail...>;
+  };
+
+  template <class Dummy>
+  struct PopFrontIfImpl<Dummy, false> {
+    template <Type... Types>
+    using Result = Sequence<Type, Types...>;
+  };
+
  public:
   template <Type       Token>
   static constexpr int IndexOf() noexcept {
@@ -45,6 +60,10 @@ struct Sequence {
   static constexpr Type Back() noexcept {
     return BackImpl<Tokens...>::Result::value;
   }
+
+  template <bool Condition>
+  using PopFrontIf
+    = typename PopFrontIfImpl<bool, Condition>::template Result<Tokens...>;
 };
 
 }  // namespace Template

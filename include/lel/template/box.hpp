@@ -14,22 +14,7 @@ template <class Type, Type... Tokens>
 struct Box {
  private:
   template <Type... Values>
-  struct Self;
-
-  template <class, bool>
-  struct PopFrontIf;
-
-  template <class Dummy>
-  struct PopFrontIf<Dummy, true> {
-    template <Type, Type... Types>
-    using From = Self<Types...>;
-  };
-
-  template <class Dummy>
-  struct PopFrontIf<Dummy, false> {
-    template <Type... Types>
-    using From = Self<Types...>;
-  };
+  using Self = Sequence<Type, Values...>;
 
   template <class Merged, class Left, class Right>
   struct MergeImpl;
@@ -65,10 +50,10 @@ struct Box {
                    Self<HeadL, TailL...>,
                    Self<HeadR, TailR...>>
     : public MergeImpl<Self<Merged..., Lower<HeadL, HeadR>>,
-                       typename PopFrontIf<bool, (HeadL <= HeadR)>::
-                         template From<HeadL, TailL...>,
-                       typename PopFrontIf<bool, (HeadR <= HeadL)>::
-                         template From<HeadR, TailR...>> {};
+                       typename Self<HeadL, TailL...>::
+                         template PopFrontIf<HeadL <= HeadR>,
+                       typename Self<HeadR, TailR...>::
+                         template PopFrontIf<HeadR <= HeadL>> {};
 
  public:
   template <class... Tail>
