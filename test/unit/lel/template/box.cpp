@@ -75,6 +75,10 @@ TEST_F(box_test, expand_to_the_same_size_does_nothing) {
   ASSERT_TYPE((Box<1, 2, 3, 8>()), (Box<1, 2, 3, 8>::ExpandTo<4>()));
 }
 
+TEST_F(box_test, expand_to_smaller_size_does_nothing) {
+  ASSERT_TYPE((Box<1, 2, 3, 8>()), (Box<1, 2, 3, 8>::ExpandTo<2>()));
+}
+
 TEST_F(box_test, expand_to_bigger_size_repeats_last_element) {
   ASSERT_TYPE((Box<1, 2, 3, 8, 8, 8>()), (Box<1, 2, 3, 8>::ExpandTo<6>()));
 }

@@ -55,9 +55,13 @@ struct Box {
                        typename Self<HeadR, TailR...>::
                          template PopFrontIf<HeadR <= HeadL>> {};
 
-  template <size_t Size>
-  struct ExpandToImpl {
-    using Result = Box<Type, Tokens...>;
+  template <std::size_t Size, Type... NewTokens>
+  struct ExpandToImpl
+    : ExpandToImpl<Size - 1, NewTokens..., Self<NewTokens...>::Back()> {};
+
+  template <Type... NewTokens>
+  struct ExpandToImpl<0, NewTokens...> {
+    using Result = Box<Type, NewTokens...>;
   };
 
  public:
@@ -79,7 +83,10 @@ struct Box {
     = Box<int, (Sequence<Type, Tokens...>::template IndexOf<NewTokens>())...>;
 
   template <std::size_t Size>
-  using ExpandTo = typename ExpandToImpl<Size>::Result;
+  using ExpandTo =
+    typename ExpandToImpl<Size <= sizeof...(Tokens) ? 0
+                                                    : Size - sizeof...(Tokens),
+                          Tokens...>::Result;
 };
 
 template <class Head, class ...Tail>
