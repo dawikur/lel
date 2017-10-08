@@ -4,7 +4,8 @@
 #define INCLUDE_LEL_TEMPLATE_BOX_HPP_
 
 #include <functional>
-#include <type_traits>
+
+#include "lel/template/sequence.hpp"
 
 namespace LeL {
 namespace Template {
@@ -14,20 +15,6 @@ struct Box {
  private:
   template <Type... Values>
   struct Self;
-
-  template <int Index, Type Token, Type... Tail>
-  struct IndexOfImpl {
-    static_assert(sizeof...(Tail) != 0, "Index not found");
-  };
-
-  template <int Index, Type Token, Type Head, Type... Tail>
-  struct IndexOfImpl<Index, Token, Head, Tail...>
-    : public IndexOfImpl<Index + 1, Token, Tail...> {};
-
-  template <int Index, Type Token, Type... Tail>
-  struct IndexOfImpl<Index, Token, Token, Tail...> {
-    using Result = std::integral_constant<int, Index>;
-  };
 
   template <class, bool>
   struct PopFrontIf;
@@ -99,7 +86,7 @@ struct Box {
 
   template <Type       Token>
   static constexpr int IndexOf() noexcept {
-    return IndexOfImpl<0, Token, Tokens...>::Result::value;
+    return Sequence<Type, Tokens...>::template IndexOf<Token>();
   }
 
   template <Type... NewTokens>

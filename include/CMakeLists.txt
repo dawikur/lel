@@ -3,6 +3,7 @@ set(LeL_HEADERS
   lel/operation/increment_decrement.hpp
   lel/operation/unary.hpp
   lel/template/box.hpp
+  lel/template/sequence.hpp
   lel/template/variadic.hpp
   lel/context.hpp
   lel/functor.hpp
