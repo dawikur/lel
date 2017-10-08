@@ -5,7 +5,6 @@
 
 #include <tuple>
 
-#include "lel/template/sequence.hpp"
 #include "lel/template/variadic.hpp"
 #include "lel/context.hpp"
 #include "lel/functor.hpp"

@@ -1,6 +1,5 @@
 set(lel_template_test_SOURCES
   box.cpp
-  sequence.cpp
   variadic.cpp
 )
 
