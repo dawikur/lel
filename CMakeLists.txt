@@ -1,12 +1,18 @@
 cmake_minimum_required(VERSION 3.2)
 
-option(TESTS     "Build tests"      OFF)
-option(COVERAGE  "Build coverage"   OFF)
-option(BENCHMARK "Build benchmarks" OFF)
+option(TESTS     "Build tests"              OFF)
+option(COVERAGE  "Build coverage"           OFF)
+option(BENCHMARK "Build benchmarks"         OFF)
+option(SANITIZE  "Build with sanitizers on" OFF)
 
 project(LeL C CXX)
 
 if(UNIX)
+  if(SANITIZE)
+    set(TESTS ON)
+    add_compile_options(-fsanitize=address)
+  endif()
+
   add_compile_options(-std=c++14 -Wall -Wextra -Werror -Wpedantic)
   if(COVERAGE OR TESTS)
     set(CMAKE_BUILD_TYPE Debug)
