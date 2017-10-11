@@ -20,7 +20,7 @@ echo "[ Building..."; (
 ) || exit 1; echo "Builded ]"
 
 echo "[ Running..."
-  ./build/test/benchmark/lel_benchmark --benchmark_format=json > "${fileJson}"
+  ./build/benchmark/lel_benchmark --benchmark_format=json > "${fileJson}"
 echo "Tests done ]"
 
 echo "[ Parsing Json"

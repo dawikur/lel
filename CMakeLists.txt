@@ -26,14 +26,17 @@ else()
 endif()
 
 add_subdirectory(include)
+include_directories(include)
 
-if(TESTS OR COVERAGE OR BENCHMARK)
+add_subdirectory(thirdparty)
+include_directories(SYSTEM thirdparty)
+
+
+if(TESTS OR COVERAGE)
   enable_testing()
-
-  add_subdirectory(thirdparty)
-
-  include_directories(SYSTEM thirdparty)
-  include_directories(include)
-
   add_subdirectory(test)
+endif()
+
+if(BENCHMARK)
+  add_subdirectory(benchmark)
 endif()

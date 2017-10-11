@@ -36,7 +36,7 @@ matrix:
         - pip install --user codecov
 
       script:
-        - cmake .. -DCOVERAGE=ON -DENABLE_COVERAGE:BOOL=TRUE
+        - cmake .. -DCOVERAGE=ON
         - cmake --build .
         - ctest -VV
 

@@ -2,4 +2,6 @@
 
 coverage:
   ignore:
+    - "benchmark"
     - "thirdparty"
+    - "test/blackbox"
