@@ -1,25 +1,30 @@
 cmake_minimum_required(VERSION 3.2)
 
-option(TESTS     "Build tests"              OFF)
-option(COVERAGE  "Build coverage"           OFF)
 option(BENCHMARK "Build benchmarks"         OFF)
+option(COVERAGE  "Build coverage"           OFF)
 option(SANITIZE  "Build with sanitizers on" OFF)
+option(TESTS     "Build tests"              OFF)
 
 project(LeL C CXX)
 
 if(UNIX)
-  if(SANITIZE)
-    set(TESTS ON)
-    add_compile_options(-fsanitize=address)
-  endif()
-
   add_compile_options(-std=c++14 -Wall -Wextra -Werror -Wpedantic)
-  if(COVERAGE OR TESTS)
+
+  if(COVERAGE OR SANITIZE OR TESTS)
     set(CMAKE_BUILD_TYPE Debug)
     add_compile_options(-g -O0 -DDEBUG)
   else()
     set(CMAKE_BUILD_TYPE Release)
     add_compile_options(-O3 -DNDEBUG)
+  endif()
+
+  if(COVERAGE)
+    add_compile_options(--coverage)
+  endif()
+
+  if(SANITIZE)
+    add_compile_options(-fsanitize=address,undefined)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined")
   endif()
 else()
   add_compile_options(/W4 /WX)
@@ -31,12 +36,8 @@ include_directories(include)
 add_subdirectory(thirdparty)
 include_directories(SYSTEM thirdparty)
 
-
-if(TESTS OR COVERAGE)
+if(BENCHMARK OR COVERAGE OR SANITIZE OR TESTS)
   enable_testing()
   add_subdirectory(test)
 endif()
 
-if(BENCHMARK)
-  add_subdirectory(benchmark)
-endif()

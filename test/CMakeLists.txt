@@ -6,13 +6,19 @@ if(UNIX)
   endif()
 endif()
 
-if(TESTS)
-  add_subdirectory(blackbox)
-  add_subdirectory(unit)
+if (BENCHMARK)
+  add_subdirectory(benchmark)
 endif()
 
 if(COVERAGE)
-  add_compile_options(--coverage)
+  add_subdirectory(unit)
+endif()
 
+if(SANITIZE)
+  add_subdirectory(sanitize)
+endif()
+
+if(TESTS)
+  add_subdirectory(blackbox)
   add_subdirectory(unit)
 endif()
