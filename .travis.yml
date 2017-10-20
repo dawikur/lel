@@ -48,7 +48,7 @@ matrix:
       before_script: true
       script: cppcheck --enable=all -Iinclude -Itest include test
 
-    - env: Sanitize CC=clang-3.9 CXX=clang++-3.9
+    - env: Sanitize CC=gcc-6 CXX=g++-6
       script:
         - cmake .. -DSANITIZE=ON
         - cmake --build .
