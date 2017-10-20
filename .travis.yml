@@ -12,8 +12,6 @@ addons:
       - llvm-toolchain-precise-3.7
       - llvm-toolchain-precise-3.8
       - llvm-toolchain-precise-3.9
-      - llvm-toolchain-precise-4.0
-      - llvm-toolchain-precise-5.0
     packages:
       - cppcheck
       - g++-5
@@ -22,8 +20,6 @@ addons:
       - clang-3.7
       - clang-3.8
       - clang-3.9
-      - clang-4.0
-      - clang-5.0
 
 env:
   - CC=gcc-5 CXX=g++-5
@@ -32,8 +28,6 @@ env:
   - CC=clang-3.7 CXX=clang++-3.7
   - CC=clang-3.8 CXX=clang++-3.8
   - CC=clang-3.9 CXX=clang++-3.9
-  - CC=clang-4.0 CXX=clang++-4.0
-  - CC=clang-5.0 CXX=clang++-5.0
 
 matrix:
   include:
