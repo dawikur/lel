@@ -50,7 +50,7 @@ matrix:
 
     - env: Sanitize CC=clang-3.9 CXX=clang++-3.9
       script:
-        - cmkae .. -DSANITIZE=ON
+        - cmake .. -DSANITIZE=ON
         - cmake --build .
         - ./test/sanitize/lel_sanitize
 
