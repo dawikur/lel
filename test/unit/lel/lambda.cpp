@@ -42,7 +42,8 @@ TEST_F(lambda_test, when_no_ids_and_view_doesnt_have_arguments_view_is_called) {
               LeL::Template::Box<char>>
     lambda(mock);
 
-  ASSERT_EQ(5, lambda());
+  auto result = lambda();
+  ASSERT_EQ(5, result);
 }
 
 TEST_F(lambda_test, when_no_ids_view_can_be_called_with_arguments) {
