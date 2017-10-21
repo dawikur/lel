@@ -48,12 +48,6 @@ matrix:
       before_script: true
       script: cppcheck --enable=all -Iinclude -Itest include test
 
-    - env: Sanitize CC=gcc-6 CXX=g++-6
-      script:
-        - cmake .. -DSANITIZE=ON
-        - cmake --build .
-        - ./test/sanitize/lel_sanitize
-
 before_script:
   - ./script/fuse -o include -f
   - mkdir build
