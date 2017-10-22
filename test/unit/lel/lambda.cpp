@@ -5,7 +5,14 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-#include <iostream>
+#ifdef __clang__
+#define IS_TEST_SUPPORTED                                                      \
+  (__clang_major__ > 3) or (__clang_major__ == 3 and __clang_minor__ > 7)
+#else
+#define IS_TEST_SUPPORTED 1
+#endif
+
+#if IS_TEST_SUPPORTED
 
 using namespace ::testing;
 
@@ -59,3 +66,7 @@ TEST_F(lambda_test, when_no_ids_view_can_be_called_with_arguments) {
 }
 
 #undef MOCK
+
+#endif  // IS_TEST_SUPPORTED
+
+#undef IS_TEST_SUPPORTED
