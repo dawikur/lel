@@ -35,6 +35,7 @@ include_directories(include)
 
 add_subdirectory(thirdparty)
 include_directories(SYSTEM thirdparty)
+include_directories(SYSTEM thirdparty/Celero/include)
 
 if(BENCHMARK OR COVERAGE OR SANITIZE OR TESTS)
   enable_testing()

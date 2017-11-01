@@ -5,5 +5,6 @@ if(TESTS OR COVERAGE)
 endif()
 
 if(BENCHMARK)
-  add_subdirectory(benchmark)
+  set(CELERO_ENABLE_EXPERIMENTS OFF)
+  add_subdirectory(Celero)
 endif()

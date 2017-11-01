@@ -2,11 +2,4 @@
 
 #include "lel_benchmark.hpp"
 
-void noop(::benchmark::State &state) {
-  while (state.KeepRunning())
-    ;
-}
-
-//BENCHMARK(noop);
-
-BENCHMARK_MAIN()
+CELERO_MAIN

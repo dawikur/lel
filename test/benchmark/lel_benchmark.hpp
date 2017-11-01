@@ -5,6 +5,6 @@
 
 #include "lel.hpp"
 
-#include "benchmark/benchmark.h"
+#include "celero/Celero.h"
 
 #endif  // TEST_BENCHMARK_LEL_BENCHMARK_HPP_
