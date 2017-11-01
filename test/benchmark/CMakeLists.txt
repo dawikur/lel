@@ -1,6 +1,4 @@
 set(lel_benchmark_SOURCES
-  #increasing_number_of_arguments.cpp
-  increasing_complexity.cpp
   lel_benchmark.cpp
 )
 
