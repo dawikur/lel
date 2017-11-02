@@ -1,53 +1,61 @@
 #!/usr/bin/python
 
-import json
+import csv
 import sys
 
 
-def load_json(in_file):
-    with open(in_file) as file_json:
-        return json.load(file_json)["benchmarks"]
+class flow(object):
+    def __init__(self, val):
+        self._val = val
+
+    def __or__(self, func):
+        return flow(func(self._val))
 
 
-def parse_json(benchmarks):
-    parsed_data = {}
+class multimap(object):
+    def __init__(self, map, *keys):
+        self._map, self._key = multimap._ensure_keys_exists(map, keys)
+
+    @staticmethod
+    def _ensure_keys_exists(map, keys):
+        for key in keys[:-1]:
+            if not key in map:
+                map[key] = {}
+            map = map[key]
+
+        return map, keys[-1]
+
+    def __le__(self, val):
+        self._map[self._key] = val
+
+
+def load(in_file):
+    benchmarks = []
+    with open(in_file) as file_csv:
+        reader = csv.DictReader(file_csv)
+        for row in reader:
+            benchmarks.append(row)
+    return benchmarks
+
+
+def parse(benchmarks):
+    parsed = {}
 
     for benchmark in benchmarks:
-        name = benchmark["name"]
-        time = int(benchmark["real_time"])
+        experiment = benchmark["Experiment"]
+        _, arguments, variables = benchmark["Group"].split("_")
+        value = benchmark["Min (us)"]
 
-        fixture, name, count = name.split("/")
+        multimap(parsed, experiment, arguments, variables) <= value
 
-        count = int(count)
-
-        if fixture not in parsed_data:
-            parsed_data[fixture] = {}
-
-        if name not in parsed_data[fixture]:
-            parsed_data[fixture][name] = {}
-
-        parsed_data[fixture][name][count] = time
-
-    return parsed_data
-
-
-def print_data(all_data):
-    for fixture, data in sorted(all_data.items()):
-        with open(fixture, "w") as output:
-            print(fixture)
-            for name, entry in sorted(data.items()):
-                output.write('"' + name + '"\n')
-                for count, time in sorted(entry.items()):
-                    output.write(str(count) + " " + str(time) + '\n')
-                output.write("\n")
-                output.write("\n")
+    return parsed
 
 
 def main():
-    input_file = sys.argv[1]
-    benchmarks = load_json(input_file)
-    data = parse_json(benchmarks)
-    print_data(data)
+    flow(sys.argv[1])   \
+        | load          \
+        | parse         \
+        | print
 
 
 if __name__ == "__main__":
