@@ -51,10 +51,35 @@ def parse(benchmarks):
     return parsed
 
 
+def format(parsed):
+    result = ""
+
+    for type, data in sorted(parsed.items()):
+        result += type + '\n'
+
+        variables_printed = False
+        for arguments, entry in sorted(data.items()):
+            if not variables_printed:
+                result += '\t'
+                for key in sorted(entry.keys()):
+                    result += key + '\t'
+                result += '\n'
+                variables_printed = True
+
+            result += arguments + '\t'
+            for variables, value in sorted(entry.items()):
+                result += value + '\t'
+            result += '\n'
+        result += '\n'
+
+    return result
+
+
 def main():
     flow(sys.argv[1])   \
         | load          \
         | parse         \
+        | format        \
         | print
 
 

@@ -2,11 +2,11 @@
 
 # Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-fileJson=$(mktemp)
+fileCsv=$(mktemp)
 
 echo "[ Start ]"
 
-echo "Temporary file: ${fileJson}"
+echo "Temporary file: ${fileCsv}"
 
 echo "[ Mkdir ]"
   if [ ! -d build ]; then
@@ -20,27 +20,15 @@ echo "[ Building..."; (
 ) || exit 1; echo "Builded ]"
 
 echo "[ Running..."
-  ./build/test/benchmark/lel_benchmark --outputTable "${fileJson}"
+  ./build/test/benchmark/lel_benchmark --outputTable "${fileCsv}"
 echo "Tests done ]"
 
-echo "[ Parsing Json"
-  tokens=$(./script/benchmark/parse "${fileJson}")
-echo "Json Parsed ]"
+echo "[ Parsing Csv"
+  tokens=$(./script/benchmark/parse "${fileCsv}")
+echo "Csv Parsed ]"
 
-echo "[ Generating PNG"
-  for token in ${tokens}; do
-    files=(${token//__/ })
-    type=${files[0]}
-    title=${files[1]}
-
-    echo "> ${title}"
-    plot_title="${title//_/ }" data_file="${token}" "./script/benchmark/plot/${type}" > "res/benchmark/${title}.png"
-    rm -v "${token}"
-  done
-echo "PNG generated ]"
-
-echo "[ Copy json file ]"
-cp "${fileJson}" "res/benchmark/dataRaw"
+echo "[ Copy csv file ]"
+cp "${fileCsv}" "res/benchmark/dataRaw"
 
 echo "[ Stop ]"
 

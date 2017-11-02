@@ -21,7 +21,7 @@
 #define TEST(                                                                  \
   TYPE, ARGUMENTS, VARIABLES, NAME, PRE, POST, A, B, C, D, E, F, ...)          \
   TYPE(Benchmark_##ARGUMENTS##_##VARIABLES, NAME, 1000, 1000) {                \
-    for (int i = 0; i < 13; ++i)                                               \
+    for (int i = 0; i < 113; ++i)                                               \
       celero::DoNotOptimizeAway(PRE((5 * D - (5 + B)) * (7 * E - (7 + B))      \
                                     * (5 * F - (7 + C)) * (7 * A - (5 + C)))   \
                                   POST(__VA_ARGS__));                          \

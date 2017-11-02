@@ -1,347 +1,58 @@
-{
-  "context": {
-    "date": "2017-10-17 21:04:52",
-    "num_cpus": 2,
-    "mhz_per_cpu": 2394,
-    "cpu_scaling_enabled": false,
-    "library_build_type": "release"
-  },
-  "benchmarks": [
-    {
-      "name": "histogram__increasing_complexity_of_expressions/LeL/0",
-      "iterations": 1511016,
-      "real_time": 419,
-      "cpu_time": 419,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/LeL/1",
-      "iterations": 1314213,
-      "real_time": 515,
-      "cpu_time": 515,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/LeL/2",
-      "iterations": 1104179,
-      "real_time": 613,
-      "cpu_time": 612,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/LeL/3",
-      "iterations": 890406,
-      "real_time": 772,
-      "cpu_time": 770,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/LeL/4",
-      "iterations": 342369,
-      "real_time": 2324,
-      "cpu_time": 2321,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/LeL/5",
-      "iterations": 251131,
-      "real_time": 2834,
-      "cpu_time": 2827,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/0",
-      "iterations": 1690331,
-      "real_time": 422,
-      "cpu_time": 421,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/1",
-      "iterations": 1309208,
-      "real_time": 521,
-      "cpu_time": 520,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/2",
-      "iterations": 1163789,
-      "real_time": 603,
-      "cpu_time": 599,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/3",
-      "iterations": 733091,
-      "real_time": 735,
-      "cpu_time": 734,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/4",
-      "iterations": 460398,
-      "real_time": 1545,
-      "cpu_time": 1543,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/Lambda/5",
-      "iterations": 315658,
-      "real_time": 2266,
-      "cpu_time": 2264,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/0",
-      "iterations": 1667064,
-      "real_time": 424,
-      "cpu_time": 424,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/1",
-      "iterations": 1336245,
-      "real_time": 553,
-      "cpu_time": 552,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/2",
-      "iterations": 1173691,
-      "real_time": 613,
-      "cpu_time": 613,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/3",
-      "iterations": 897202,
-      "real_time": 783,
-      "cpu_time": 783,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/4",
-      "iterations": 340779,
-      "real_time": 2043,
-      "cpu_time": 2042,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_complexity_of_expressions/BLL/5",
-      "iterations": 248155,
-      "real_time": 2768,
-      "cpu_time": 2768,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/LeL/1",
-      "iterations": 195112,
-      "real_time": 3267,
-      "cpu_time": 3267,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/LeL/2",
-      "iterations": 175393,
-      "real_time": 4230,
-      "cpu_time": 4220,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/LeL/3",
-      "iterations": 129530,
-      "real_time": 3981,
-      "cpu_time": 3981,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/LeL/4",
-      "iterations": 175925,
-      "real_time": 4093,
-      "cpu_time": 4089,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/LeL/5",
-      "iterations": 153495,
-      "real_time": 4126,
-      "cpu_time": 4125,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/LeL/6",
-      "iterations": 168360,
-      "real_time": 4124,
-      "cpu_time": 4118,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/Lambda/1",
-      "iterations": 212191,
-      "real_time": 3306,
-      "cpu_time": 3295,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/Lambda/2",
-      "iterations": 173783,
-      "real_time": 4341,
-      "cpu_time": 4331,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/Lambda/3",
-      "iterations": 175091,
-      "real_time": 4027,
-      "cpu_time": 4023,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/Lambda/4",
-      "iterations": 172867,
-      "real_time": 4005,
-      "cpu_time": 4001,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/Lambda/5",
-      "iterations": 164516,
-      "real_time": 4115,
-      "cpu_time": 4115,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/Lambda/6",
-      "iterations": 153698,
-      "real_time": 4101,
-      "cpu_time": 4100,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/BLL/1",
-      "iterations": 211301,
-      "real_time": 3277,
-      "cpu_time": 3277,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/BLL/2",
-      "iterations": 176750,
-      "real_time": 4034,
-      "cpu_time": 4033,
-      "time_unit": "ns"
-    },
-    {
-      "name": "histogram__increasing_number_of_arguments/BLL/3",
-      "iterations": 174469,
-      "real_time": 4292,
-      "cpu_time": 4287,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/0",
-      "iterations": 1483236,
-      "real_time": 469,
-      "cpu_time": 469,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/1",
-      "iterations": 766132,
-      "real_time": 1038,
-      "cpu_time": 1037,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/8",
-      "iterations": 164173,
-      "real_time": 4179,
-      "cpu_time": 4173,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/64",
-      "iterations": 21780,
-      "real_time": 31965,
-      "cpu_time": 31912,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/LeL/100",
-      "iterations": 15023,
-      "real_time": 46256,
-      "cpu_time": 46085,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/Lambda/0",
-      "iterations": 1465155,
-      "real_time": 475,
-      "cpu_time": 475,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/Lambda/1",
-      "iterations": 756101,
-      "real_time": 957,
-      "cpu_time": 956,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/Lambda/8",
-      "iterations": 131568,
-      "real_time": 4358,
-      "cpu_time": 4348,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/Lambda/64",
-      "iterations": 23106,
-      "real_time": 30037,
-      "cpu_time": 29955,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/Lambda/100",
-      "iterations": 14837,
-      "real_time": 48427,
-      "cpu_time": 47872,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/BLL/0",
-      "iterations": 1498036,
-      "real_time": 493,
-      "cpu_time": 493,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/BLL/1",
-      "iterations": 747570,
-      "real_time": 933,
-      "cpu_time": 932,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/BLL/8",
-      "iterations": 168544,
-      "real_time": 4192,
-      "cpu_time": 4191,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/BLL/64",
-      "iterations": 23362,
-      "real_time": 30188,
-      "cpu_time": 30171,
-      "time_unit": "ns"
-    },
-    {
-      "name": "line__simple_expression_in_loop/BLL/100",
-      "iterations": 14892,
-      "real_time": 50882,
-      "cpu_time": 50824,
-      "time_unit": "ns"
-    }
-  ]
-}
+Group,Experiment,Problem Space,Samples,Iterations,Failure,Baseline,us/Iteration,Iterations/sec,Min (us),Mean (us),Max (us),Variance,Standard Deviation,Skewness,Kurtosis,Z Score
+Benchmark_1_1,Lambda,-9223372036854775808,1000,1000,0,1,4.055,246609,4055,4566.62,9982,215905,464.656,3.9283,34.2951,1.10108
+Benchmark_1_2,Lambda,-9223372036854775808,1000,1000,0,1,4.061,246245,4061,4587.36,6302,176390,419.988,1.54446,2.21821,1.25328
+Benchmark_2_2,Lambda,-9223372036854775808,1000,1000,0,1,4.061,246245,4061,4579.58,6795,174223,417.4,1.55284,2.54418,1.24241
+Benchmark_1_3,Lambda,-9223372036854775808,1000,1000,0,1,4.068,245821,4068,4580.63,8429,196253,443.005,2.35978,10.6923,1.15717
+Benchmark_2_3,Lambda,-9223372036854775808,1000,1000,0,1,4.05,246914,4050,4556.84,6912,159066,398.831,1.50687,2.75877,1.27081
+Benchmark_3_3,Lambda,-9223372036854775808,1000,1000,0,1,4.065,246002,4065,4583.51,7300,188199,433.819,1.65616,3.3917,1.19523
+Benchmark_1_4,Lambda,-9223372036854775808,1000,1000,0,1,4.039,247586,4039,4717.61,15537,613504,783.265,4.38574,39.6354,0.866392
+Benchmark_2_4,Lambda,-9223372036854775808,1000,1000,0,1,4.05,246914,4050,4555.3,6958,149375,386.491,1.62633,3.48792,1.30739
+Benchmark_3_4,Lambda,-9223372036854775808,1000,1000,0,1,4.039,247586,4039,4577.96,7063,186333,431.663,1.96044,5.31796,1.24857
+Benchmark_4_4,Lambda,-9223372036854775808,1000,1000,0,1,4.059,246366,4059,4574.69,8955,193870,440.307,2.30774,11.364,1.1712
+Benchmark_1_5,Lambda,-9223372036854775808,1000,1000,0,1,4.049,246975,4049,4566.48,6514,158797,398.493,1.5778,2.77527,1.29859
+Benchmark_2_5,Lambda,-9223372036854775808,1000,1000,0,1,4.046,247158,4046,4560.33,7373,168013,409.894,1.88246,5.48097,1.25479
+Benchmark_3_5,Lambda,-9223372036854775808,1000,1000,0,1,4.071,245640,4071,4566.3,6257,158160,397.694,1.52286,2.21863,1.24543
+Benchmark_4_5,Lambda,-9223372036854775808,1000,1000,0,1,4.04,247525,4040,4569.41,6644,178205,422.144,1.6839,3.15302,1.25409
+Benchmark_5_5,Lambda,-9223372036854775808,1000,1000,0,1,4.058,246427,4058,4558.61,6567,163544,404.406,1.57589,2.83176,1.2379
+Benchmark_1_6,Lambda,-9223372036854775808,1000,1000,0,1,4.052,246792,4052,4562.38,6884,162383,402.968,1.61896,3.13061,1.26654
+Benchmark_2_6,Lambda,-9223372036854775808,1000,1000,0,1,4.051,246853,4051,4558.4,6340,160296,400.37,1.45037,1.97423,1.26732
+Benchmark_3_6,Lambda,-9223372036854775808,1000,1000,0,1,4.045,247219,4045,4445.01,8078,137969,371.442,3.47226,18.9221,1.07692
+Benchmark_4_6,Lambda,-9223372036854775808,1000,1000,0,1,4.054,246670,4054,4722.09,16964,527145,726.047,6.27746,84.2621,0.92018
+Benchmark_5_6,Lambda,-9223372036854775808,1000,1000,0,1,3.967,252080,3967,5414.02,23534,3.35337e+06,1831.22,3.05576,15.2937,0.790197
+Benchmark_6_6,Lambda,-9223372036854775808,1000,1000,0,1,3.501,285633,3501,4757.8,33564,3.09215e+06,1758.45,7.9997,101.12,0.714719
+Benchmark_1_1,LeL,-9223372036854775808,1000,1000,0,0.861406,3.493,286287,3493,4429.58,31753,1.44787e+06,1203.28,14.1092,287.808,0.77836
+Benchmark_1_1,BLL,-9223372036854775808,1000,1000,0,0.861159,3.492,286369,3492,5988.4,31745,9.83646e+06,3136.31,3.31286,16.4425,0.795967
+Benchmark_1_2,LeL,-9223372036854775808,1000,1000,0,0.871706,3.54,282486,3540,5457.77,32299,5.8868e+06,2426.27,4.46307,34.207,0.790417
+Benchmark_1_2,BLL,-9223372036854775808,1000,1000,0,0.847574,3.442,290529,3442,5683.17,32528,9.26467e+06,3043.79,3.97802,23.217,0.73631
+Benchmark_2_2,LeL,-9223372036854775808,1000,1000,0,0.986457,4.006,249626,4006,4685.21,9132,402002,634.036,2.2939,7.16404,1.07125
+Benchmark_2_2,BLL,-9223372036854775808,1000,1000,0,0.989411,4.018,248880,4018,4661.37,10614,347468,589.464,2.93866,15.9522,1.09145
+Benchmark_1_3,LeL,-9223372036854775808,1000,1000,0,0.990905,4.031,248077,4031,4573.14,8437,221325,470.452,2.31116,9.26336,1.15238
+Benchmark_1_3,BLL,-9223372036854775808,1000,1000,0,0.983776,4.002,249875,4002,4603.67,20207,542585,736.604,10.6704,203.856,0.816814
+Benchmark_2_3,LeL,-9223372036854775808,1000,1000,0,0.987654,4,250000,4000,4487.29,6341,135025,367.458,1.48672,2.59784,1.32612
+Benchmark_2_3,BLL,-9223372036854775808,1000,1000,0,0.993086,4.022,248633,4022,4582.73,7950,221767,470.921,2.15154,7.27952,1.1907
+Benchmark_3_3,LeL,-9223372036854775808,1000,1000,0,0.988438,4.018,248880,4018,4556.11,8238,174959,418.281,2.39627,12.1918,1.28648
+Benchmark_3_3,BLL,-9223372036854775808,1000,1000,0,0.990898,4.028,248262,4028,4567.03,7540,174122,417.279,1.82102,5.06244,1.29176
+Benchmark_1_4,LeL,-9223372036854775808,1000,1000,0,0.995791,4.022,248633,4022,4520.28,10471,206536,454.462,4.50755,44.4405,1.09642
+Benchmark_1_4,BLL,-9223372036854775808,1000,1000,0,0.996286,4.024,248509,4024,4573.04,8413,214615,463.266,2.66617,11.7088,1.18515
+Benchmark_2_4,LeL,-9223372036854775808,1000,1000,0,0.991852,4.017,248942,4017,4540.77,8919,179225,423.349,2.78973,16.4979,1.2372
+Benchmark_2_4,BLL,-9223372036854775808,1000,1000,0,0.987407,3.999,250063,3999,4530.77,9341,192161,438.361,3.85278,29.7914,1.21309
+Benchmark_3_4,LeL,-9223372036854775808,1000,1000,0,0.995048,4.019,248818,4019,4533.1,9382,204220,451.907,3.79115,28.2284,1.13762
+Benchmark_3_4,BLL,-9223372036854775808,1000,1000,0,0.994553,4.017,248942,4017,4514.28,8848,179040,423.131,3.66542,26.7275,1.17523
+Benchmark_4_4,LeL,-9223372036854775808,1000,1000,0,0.988421,4.012,249252,4012,4531.56,8810,165808,407.195,2.7048,16.1647,1.27595
+Benchmark_1_5,LeL,-9223372036854775808,1000,1000,0,0.994073,4.025,248447,4025,4510.73,10045,163256,404.05,3.84467,37.8085,1.20214
+Benchmark_1_5,BLL,-9223372036854775808,1000,1000,0,0.992838,4.02,248756,4020,4532.64,9424,196485,443.266,3.46434,25.6969,1.15651
+Benchmark_2_5,LeL,-9223372036854775808,1000,1000,0,0.992091,4.014,249128,4014,4511.51,9260,172976,415.904,3.11348,21.6504,1.19621
+Benchmark_2_5,BLL,-9223372036854775808,1000,1000,0,0.993327,4.019,248818,4019,4543.2,15067,300748,548.405,8.59639,141.039,0.955858
+Benchmark_3_5,LeL,-9223372036854775808,1000,1000,0,0.982068,3.998,250125,3998,4621.54,11850,424629,651.635,4.61907,36.3824,0.956883
+Benchmark_3_5,BLL,-9223372036854775808,1000,1000,0,0.991894,4.038,247647,4038,4524.37,8649,167425,409.176,2.45958,12.6976,1.18865
+Benchmark_4_5,LeL,-9223372036854775808,1000,1000,0,0.996535,4.026,248385,4026,4555.36,9747,212210,460.663,3.45769,24.6304,1.14912
+Benchmark_5_5,LeL,-9223372036854775808,1000,1000,0,0.986693,4.004,249750,4004,4512.1,8615,170660,413.11,2.90897,17.6705,1.22993
+Benchmark_1_6,LeL,-9223372036854775808,1000,1000,0,0.989635,4.01,249377,4010,4507.44,8062,154785,393.427,2.56078,13.0573,1.26437
+Benchmark_1_6,BLL,-9223372036854775808,1000,1000,0,0.985933,3.995,250313,3995,4499.38,6388,138056,371.559,1.57064,2.86386,1.35746
+Benchmark_2_6,LeL,-9223372036854775808,1000,1000,0,0.993582,4.025,248447,4025,4517.18,8219,153894,392.294,1.90391,8.56962,1.25462
+Benchmark_2_6,BLL,-9223372036854775808,1000,1000,0,0.992101,4.019,248818,4019,4517.56,6320,133220,364.993,1.35746,1.76946,1.36593
+Benchmark_3_6,LeL,-9223372036854775808,1000,1000,0,0.993078,4.017,248942,4017,4500.26,6722,141310,375.913,1.57451,3.1995,1.28556
+Benchmark_3_6,BLL,-9223372036854775808,1000,1000,0,0.988133,3.997,250188,3997,4501.5,6536,138145,371.679,1.57345,2.75714,1.35734
+Benchmark_4_6,LeL,-9223372036854775808,1000,1000,0,0.989393,4.011,249314,4011,4512.95,8082,135930,368.687,2.42029,12.7163,1.36145
+Benchmark_5_6,LeL,-9223372036854775808,1000,1000,0,1.00933,4.004,249750,4004,4510.86,6662,141170,375.726,1.63912,3.54982,1.349
+Benchmark_6_6,LeL,-9223372036854775808,1000,1000,0,1.14996,4.026,248385,4026,4540.48,8226,168396,410.361,2.16488,8.95635,1.25372
