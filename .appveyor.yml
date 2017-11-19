@@ -22,7 +22,7 @@ before_build:
 
 build_script:
   - cmd: cmake .. -DTESTS=ON
-  - cmd: cmake --build . --config $(configuration)
+  - cmd: cmake --build .
 
 test_script:
   - cmd: ctest -VV
