@@ -55,7 +55,7 @@ class Lambda<Context<Func, Views...>, Template::Box<IDT, IDs...>> {
   template <class... Values>
   constexpr decltype(auto) call(std::index_sequence<>,
                                 Values &&... values) const {
-    return Func()(std::forward<Values>(std::forward<Values>(values))...);
+    return Func()(std::forward<Values>(values)...);
   }
 
   template <std::size_t... Idx, class... Values>
