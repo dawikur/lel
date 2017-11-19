@@ -77,11 +77,16 @@ class Lambda<Context<Func, Views...>, Template::Box<IDT, IDs...>> {
   template <int... Indexes, class... Values>
   constexpr decltype(auto) select(Template::Box<int, Indexes...>,
                                   Values &&... values) const {
+    maybe_unused(std::forward<Values>(values)...);
+
     return operator()(Template::Variadic::Get<Indexes>::Value(
       std::forward<Values>(values)...)...);
   }
 
   constexpr decltype(auto) operator()(None const) const { return *this; }
+
+  template <class... Values>
+  constexpr static void maybe_unused(Values &&...) {}
 
   std::tuple<Views...> const views;
 
