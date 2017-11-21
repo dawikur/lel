@@ -42,7 +42,7 @@ matrix:
 
       after_success:
         - cd ..
-        - bash <(curl -s https://codecov.io/bash) -x /usr/bin/gcov-6
+        - bash <(curl -s https://codecov.io/bash) -X /usr/bin/gcov-6
 
     - env: CppCheck
       before_script: true
