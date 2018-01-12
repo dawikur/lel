@@ -131,7 +131,7 @@ format("sample %s with %d", "string", 5);
 
 **API** The only things that should be used are:
   * `lel::placeholder`            - template alias for placeholders creation
-  * `lel::peference`              - class for wrapping objects in a reference
+  * `lel::reference`              - class for wrapping objects in a reference
   * `namespace lel::placeholders` - with predefined placeholders
     * `_`                         - instance of `lel::reference` class
     * `_1` ... `_9`               / instances of `lel::placeholder` class
