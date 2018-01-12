@@ -14,27 +14,30 @@ template <class Compare, class Type, Type... Tokens>
 struct Box {
  private:
   template <Type... Values>
-  using Self = Sequence<Type, Values...>;
+  using Seq = Sequence<Type, Values...>;
+
+  template <Type... Values>
+  using Self = Box<Compare, Type, Values...>;
 
   template <class Merged, class Left, class Right>
   struct MergeImpl;
 
   // Finish: only left
   template <Type... Merged, Type HeadL, Type... TailL>
-  struct MergeImpl<Self<Merged...>, Self<HeadL, TailL...>, Self<>> {
-    using Result = Box<Compare, Type, Merged..., HeadL, TailL...>;
+  struct MergeImpl<Seq<Merged...>, Seq<HeadL, TailL...>, Seq<>> {
+    using Result = Self<Merged..., HeadL, TailL...>;
   };
 
   // Finish: only right
   template <Type... Merged, Type HeadR, Type... TailR>
-  struct MergeImpl<Self<Merged...>, Self<>, Self<HeadR, TailR...>> {
-    using Result = Box<Compare, Type, Merged..., HeadR, TailR...>;
+  struct MergeImpl<Seq<Merged...>, Seq<>, Seq<HeadR, TailR...>> {
+    using Result = Self<Merged..., HeadR, TailR...>;
   };
 
   // Finish: nothing left to do
   template <Type... Merged>
-  struct MergeImpl<Self<Merged...>, Self<>, Self<>> {
-    using Result = Box<Compare, Type, Merged...>;
+  struct MergeImpl<Seq<Merged...>, Seq<>, Seq<>> {
+    using Result = Self<Merged...>;
   };
 
   template <Type Left, Type Right>
@@ -46,43 +49,39 @@ struct Box {
             Type... TailL,
             Type HeadR,
             Type... TailR>
-  struct MergeImpl<Self<Merged...>,
-                   Self<HeadL, TailL...>,
-                   Self<HeadR, TailR...>>
-    : public MergeImpl<Self<Merged..., Lower<HeadL, HeadR>>,
-                       typename Self<HeadL, TailL...>::
-                         template PopFrontIf<!Compare()(HeadR, HeadL)>,
-                       typename Self<HeadR, TailR...>::
-                         template PopFrontIf<!Compare()(HeadL, HeadR)>> {};
+  struct MergeImpl<Seq<Merged...>, Seq<HeadL, TailL...>, Seq<HeadR, TailR...>>
+    : public MergeImpl<Seq<Merged..., Lower<HeadL, HeadR>>,
+                       typename Seq<HeadL, TailL...>::template PopFrontIf<
+                         !Compare()(HeadR, HeadL)>,
+                       typename Seq<HeadR, TailR...>::template PopFrontIf<
+                         !Compare()(HeadL, HeadR)>> {};
 
   template <std::size_t Size, Type... NewTokens>
   struct ExpandToImpl
-    : ExpandToImpl<Size - 1, NewTokens..., Self<NewTokens...>::Back()> {};
+    : ExpandToImpl<Size - 1, NewTokens..., Seq<NewTokens...>::Back()> {};
 
   template <Type... NewTokens>
   struct ExpandToImpl<0, NewTokens...> {
-    using Result = Box<Compare, Type, NewTokens...>;
+    using Result = Self<NewTokens...>;
   };
 
  public:
   template <class... Tail>
-  struct Merge : Merge<Self<>, Tail...> {};
+  struct Merge : Merge<Seq<>, Tail...> {};
 
   template <Type... NewTokens, Type... Head, class... Tail>
-  struct Merge<Self<NewTokens...>, Box<Compare, Type, Head...>, Tail...>
-    : Merge<Self<NewTokens..., Head...>, Tail...> {};
+  struct Merge<Seq<NewTokens...>, Self<Head...>, Tail...>
+    : Merge<Seq<NewTokens..., Head...>, Tail...> {};
 
   template <Type... NewTokens>
-  struct Merge<Self<NewTokens...>> {
+  struct Merge<Seq<NewTokens...>> {
     using Result =
-      typename MergeImpl<Self<>, Self<Tokens...>, Self<NewTokens...>>::Result;
+      typename MergeImpl<Seq<>, Seq<Tokens...>, Seq<NewTokens...>>::Result;
   };
 
   template <Type... NewTokens>
   using IndexesOf
-    = Box<Compare,
-          int,
-          (Sequence<Type, Tokens...>::template IndexOf<NewTokens>())...>;
+    = Box<Compare, int, (Seq<Tokens...>::template IndexOf<NewTokens>())...>;
 
   template <std::size_t Size>
   using ExpandTo =
@@ -91,7 +90,7 @@ struct Box {
                           Tokens...>::Result;
 };
 
-template <class Head, class ...Tail>
+template <class Head, class... Tail>
 using Merge = typename Head::template Merge<Tail...>::Result;
 
 }  // namespace Template
