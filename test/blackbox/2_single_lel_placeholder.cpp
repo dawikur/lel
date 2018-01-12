@@ -9,9 +9,9 @@
 
 class single_lel_placeholder_test : public ::testing::Test {
  protected:
-  LeL::Reference<char> _;
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
+  lel::reference _;
+  lel::placeholder<'x'> _x;
+  lel::placeholder<'y'> _y;
 };
 
 TEST_F(single_lel_placeholder_test, assign_simple_value) {

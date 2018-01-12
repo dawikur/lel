@@ -6,9 +6,9 @@
 
 class function_call_test : public ::testing::Test {
  protected:
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
-  LeL::Reference<char> _;
+  lel::reference _;
+  lel::placeholder<'x'> _x;
+  lel::placeholder<'y'> _y;
 };
 
 int free_func(int val) {

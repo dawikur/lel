@@ -9,7 +9,7 @@
 
 class nested_single_lel_placeholder_test : public ::testing::Test {
  protected:
-  LeL::Placeholder<'x'> _x;
+  lel::placeholder<'x'> _x;
 };
 
 TEST_F(nested_single_lel_placeholder_test, indirection_and_cmparition) {

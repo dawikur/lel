@@ -18,8 +18,8 @@
 
 class sizeof_lambdas_test : public ::testing::Test {
  protected:
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
+  lel::placeholder<'x'> _x;
+  lel::placeholder<'y'> _y;
 };
 
 TEST_F(sizeof_lambdas_test, base_placeholder_is_1) {

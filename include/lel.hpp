@@ -9,57 +9,61 @@
 #include "lel/operation/unary.hpp"
 #include "lel/reference.hpp"
 
-namespace LeL {
+template <class IDT>
+struct lel_t {
 
-using IDT = char;
+using reference = LeL::Reference<IDT>;
 
 template <IDT ID>
-using Placeholder = Lambda<Context<Identity>, Template::Box<IDT, ID>>;
+using placeholder = LeL::Lambda<LeL::Context<LeL::Identity>,
+                                LeL::Template::Box<IDT, ID>>;
 
-namespace Placeholders {
+struct placeholders {
 
-static constexpr Reference<IDT> const _{};
+static constexpr reference const _{};
 
-static constexpr Placeholder<'0'> const _0;
-static constexpr Placeholder<'1'> const _1;
-static constexpr Placeholder<'2'> const _2;
-static constexpr Placeholder<'3'> const _3;
-static constexpr Placeholder<'4'> const _4;
-static constexpr Placeholder<'5'> const _5;
-static constexpr Placeholder<'6'> const _6;
-static constexpr Placeholder<'7'> const _7;
-static constexpr Placeholder<'8'> const _8;
-static constexpr Placeholder<'9'> const _9;
+static constexpr placeholder<'0'> const _0{};
+static constexpr placeholder<'1'> const _1{};
+static constexpr placeholder<'2'> const _2{};
+static constexpr placeholder<'3'> const _3{};
+static constexpr placeholder<'4'> const _4{};
+static constexpr placeholder<'5'> const _5{};
+static constexpr placeholder<'6'> const _6{};
+static constexpr placeholder<'7'> const _7{};
+static constexpr placeholder<'8'> const _8{};
+static constexpr placeholder<'9'> const _9{};
 
-static constexpr Placeholder<'a'> const _a;
-static constexpr Placeholder<'b'> const _b;
-static constexpr Placeholder<'c'> const _c;
-static constexpr Placeholder<'d'> const _d;
-static constexpr Placeholder<'e'> const _e;
-static constexpr Placeholder<'f'> const _f;
-static constexpr Placeholder<'g'> const _g;
-static constexpr Placeholder<'h'> const _h;
-static constexpr Placeholder<'i'> const _i;
-static constexpr Placeholder<'j'> const _j;
-static constexpr Placeholder<'k'> const _k;
-static constexpr Placeholder<'l'> const _l;
-static constexpr Placeholder<'m'> const _m;
-static constexpr Placeholder<'n'> const _n;
-static constexpr Placeholder<'o'> const _o;
-static constexpr Placeholder<'p'> const _p;
-static constexpr Placeholder<'q'> const _q;
-static constexpr Placeholder<'r'> const _r;
-static constexpr Placeholder<'s'> const _s;
-static constexpr Placeholder<'t'> const _t;
-static constexpr Placeholder<'u'> const _u;
-static constexpr Placeholder<'v'> const _v;
-static constexpr Placeholder<'w'> const _w;
-static constexpr Placeholder<'x'> const _x;
-static constexpr Placeholder<'y'> const _y;
-static constexpr Placeholder<'z'> const _z;
+static constexpr placeholder<'a'> const _a{};
+static constexpr placeholder<'b'> const _b{};
+static constexpr placeholder<'c'> const _c{};
+static constexpr placeholder<'d'> const _d{};
+static constexpr placeholder<'e'> const _e{};
+static constexpr placeholder<'f'> const _f{};
+static constexpr placeholder<'g'> const _g{};
+static constexpr placeholder<'h'> const _h{};
+static constexpr placeholder<'i'> const _i{};
+static constexpr placeholder<'j'> const _j{};
+static constexpr placeholder<'k'> const _k{};
+static constexpr placeholder<'l'> const _l{};
+static constexpr placeholder<'m'> const _m{};
+static constexpr placeholder<'n'> const _n{};
+static constexpr placeholder<'o'> const _o{};
+static constexpr placeholder<'p'> const _p{};
+static constexpr placeholder<'q'> const _q{};
+static constexpr placeholder<'r'> const _r{};
+static constexpr placeholder<'s'> const _s{};
+static constexpr placeholder<'t'> const _t{};
+static constexpr placeholder<'u'> const _u{};
+static constexpr placeholder<'v'> const _v{};
+static constexpr placeholder<'w'> const _w{};
+static constexpr placeholder<'x'> const _x{};
+static constexpr placeholder<'y'> const _y{};
+static constexpr placeholder<'z'> const _z{};
 
-}  // namespace Placeholders
+};  // struct placeholders
 
-}  // namespace LeL
+};  // struct lel
+
+using lel = lel_t<char>;
 
 #endif  // INCLUDE_LEL_HPP_

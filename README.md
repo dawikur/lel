@@ -62,8 +62,8 @@ auto compute_something = 1 + _x * 3 - _y * _y + _x * _z;
 
 #### own placeholders
 ```cpp
-auto first_arg  = LeL::Placeholder<'1'>();
-auto second_arg = LeL::Placeholder<'2'>();
+auto first_arg  = lel::placeholder<'1'>();
+auto second_arg = lel::placeholder<'2'>();
 
 auto not_equal = first_arg != second_arg;
 ```
@@ -130,23 +130,23 @@ format("sample %s with %d", "string", 5);
 
 
 **API** The only things that should be used are:
-  * `LeL::Placeholder`            - template alias for placeholders creation
-  * `LeL::Reference`              - class for wrapping objects in a reference
-  * `namespace LeL::Placeholders` - with predefined placeholders
-    * `_`                         - instance of `LeL::Reference` class
-    * `_1` ... `_9`               / instances of `LeL::Placeholder` class
+  * `lel::placeholder`            - template alias for placeholders creation
+  * `lel::peference`              - class for wrapping objects in a reference
+  * `namespace lel::placeholders` - with predefined placeholders
+    * `_`                         - instance of `lel::reference` class
+    * `_1` ... `_9`               / instances of `lel::placeholder` class
     * `_A` ... `_Z`               |
     * `_a` ... `_z`               /
 
 ```cpp
 #include "lel.hpp"
 
-auto use_with_namespace = LeL::Placeholders::_x + 2;
+auto use_with_namespace = lel::placeholders::_x + 2;
 
-auto create_your_own    = LeL::Placeholder<'a'>();
+auto create_your_own    = lel::placeholder<'a'>();
 
 // or use namespace
-using namespace LeL::Placeholders;
+using namespace lel::placeholders;
 auto like_that          = 1 * _2;
 ```
 

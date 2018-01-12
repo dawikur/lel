@@ -6,9 +6,9 @@
 
 class curring_test : public ::testing::Test {
  protected:
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
-  LeL::Placeholder<'z'> _z;
+  lel::placeholder<'x'> _x;
+  lel::placeholder<'y'> _y;
+  lel::placeholder<'z'> _z;
 };
 
 TEST_F(curring_test, add_one) {

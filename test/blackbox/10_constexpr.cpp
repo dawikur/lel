@@ -5,13 +5,13 @@
 #include "gtest/gtest.h"
 
 TEST(constexpr_test, as_indentity_can_be_used_in_constexpr) {
-  LeL::Placeholder<'x'> _x;
+  lel::placeholder<'x'> _x;
 
   static_assert(_x(5) == 5, "");
 }
 
 TEST(constexpr_test, with_single_placeholder_can_be_used_in_constexpr) {
-  constexpr LeL::Placeholder<'x'> const _x;
+  constexpr lel::placeholder<'x'> const _x;
 
   constexpr auto const expr = _x * 2 + 1;
 
@@ -19,8 +19,8 @@ TEST(constexpr_test, with_single_placeholder_can_be_used_in_constexpr) {
 }
 
 TEST(constexpr_test, simple_with_multiple_placeholders_can_be_used_in_constexpr) {
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
+  lel::placeholder<'x'> _x;
+  lel::placeholder<'y'> _y;
 
   auto expr = _x + _y;
 
@@ -28,8 +28,8 @@ TEST(constexpr_test, simple_with_multiple_placeholders_can_be_used_in_constexpr)
 }
 
 TEST(constexpr_test, with_multiple_placehlders_can_be_used_in_constexpr) {
-  constexpr LeL::Placeholder<'x'> const _x;
-  constexpr LeL::Placeholder<'y'> const _y;
+  constexpr lel::placeholder<'x'> const _x;
+  constexpr lel::placeholder<'y'> const _y;
 
   constexpr auto const expr = _x * 2 + _y - 1;
 

@@ -6,9 +6,9 @@
 
 class nested_double_std_placeholder_test : public ::testing::Test {
  protected:
-  LeL::Placeholder<'x'> _x;
-  LeL::Placeholder<'y'> _y;
-  LeL::Placeholder<'z'> _z;
+  lel::placeholder<'x'> _x;
+  lel::placeholder<'y'> _y;
+  lel::placeholder<'z'> _z;
 };
 
 TEST_F(nested_double_std_placeholder_test, can_use_multiple_std_placeholders) {
