@@ -46,7 +46,7 @@ TEST_F(lambda_test, when_no_ids_and_view_doesnt_have_arguments_view_is_called) {
     .WillOnce(Return(5));
 
   LeL::Lambda<LeL::Context<LeL::Identity, decltype(mock)>,
-              LeL::Template::Box<char>>
+              LeL::Template::Box<std::less<>, char>>
     lambda(mock);
 
   auto result = lambda();
@@ -58,7 +58,7 @@ TEST_F(lambda_test, when_no_ids_view_can_be_called_with_arguments) {
     .WillOnce(Return(7));
 
   LeL::Lambda<LeL::Context<LeL::Identity, decltype(mock)>,
-              LeL::Template::Box<char, '0'>>
+              LeL::Template::Box<std::less<>, char, '0'>>
     lambda(mock);
 
   auto result = lambda(1);

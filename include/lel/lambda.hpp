@@ -15,9 +15,9 @@ namespace LeL {
 template <class Context, class IDs>
 class Lambda;
 
-template <class Func, class... Views, class IDT, IDT... IDs>
-class Lambda<Context<Func, Views...>, Template::Box<IDT, IDs...>> {
-  using ID    = Template::Box<IDT, IDs...>;
+template <class Func, class... Views, class Compare, class IDT, IDT... IDs>
+class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
+  using ID    = Template::Box<Compare, IDT, IDs...>;
   using Class = Lambda<Context<Func, Views...>, ID>;
 
  public:
@@ -75,7 +75,7 @@ class Lambda<Context<Func, Views...>, Template::Box<IDT, IDs...>> {
   }
 
   template <int... Indexes, class... Values>
-  constexpr decltype(auto) select(Template::Box<int, Indexes...>,
+  constexpr decltype(auto) select(Template::Box<Compare, int, Indexes...>,
                                   Values &&... values) const {
     maybe_unused(std::forward<Values>(values)...);
 

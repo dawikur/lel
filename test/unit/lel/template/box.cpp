@@ -9,7 +9,10 @@
 class box_test : public ::testing::Test {
  protected:
   template <int... Values>
-  using Box = LeL::Template::Box<int, Values...>;
+  using Box = LeL::Template::Box<std::less<>, int, Values...>;
+
+  template <int... Values>
+  using BoxGe = LeL::Template::Box<std::greater<>, int, Values...>;
 };
 
 TEST_F(box_test, indexes_of_returns_empty_list_on_empty_input) {
@@ -68,7 +71,8 @@ TEST_F(box_test, merge_same_boxes) {
 }
 
 TEST_F(box_test, merge_with_same_subsequences) {
-  ASSERT_TYPE((Box<1, 3, 5, 7, 9>()), (LeL::Template::Merge<Box<1, 5, 7>, Box<3, 5, 7, 9>>()));
+  ASSERT_TYPE((Box<1, 3, 5, 7, 9>()),
+              (LeL::Template::Merge<Box<1, 5, 7>, Box<3, 5, 7, 9>>()));
 }
 
 TEST_F(box_test, expand_to_the_same_size_does_nothing) {
@@ -82,3 +86,53 @@ TEST_F(box_test, expand_to_smaller_size_does_nothing) {
 TEST_F(box_test, expand_to_bigger_size_repeats_last_element) {
   ASSERT_TYPE((Box<1, 2, 3, 8, 8, 8>()), (Box<1, 2, 3, 8>::ExpandTo<6>()));
 }
+
+TEST_F(box_test, greater_order_non_empty_merge_empty_gives_non_empty) {
+  ASSERT_TYPE((BoxGe<2, 1>()), (LeL::Template::Merge<BoxGe<2, 1>, BoxGe<>>()));
+}
+
+TEST_F(box_test, greater_order_empty_merge_non_empty_gives_non_empty) {
+  ASSERT_TYPE((BoxGe<8, 4>()), (LeL::Template::Merge<BoxGe<>, BoxGe<8, 4>>()));
+}
+
+TEST_F(box_test, greater_order_merge_two_sequnces_of_one_element) {
+  ASSERT_TYPE((BoxGe<4, 1>()), (LeL::Template::Merge<BoxGe<1>, BoxGe<4>>()));
+  ASSERT_TYPE((BoxGe<4, 1>()), (LeL::Template::Merge<BoxGe<4>, BoxGe<1>>()));
+}
+
+TEST_F(box_test,
+       greater_order_non_empty_merge_with_bigger_separable_non_empty) {
+  ASSERT_TYPE((BoxGe<9, 8, 4, 1>()),
+              (LeL::Template::Merge<BoxGe<4, 1>, BoxGe<9, 8>>()));
+}
+
+TEST_F(box_test, merge_unique_greater_order_intersecting) {
+  ASSERT_TYPE((BoxGe<5, 4, 3, 2, 1>()),
+              (LeL::Template::Merge<BoxGe<3, 1>, BoxGe<5, 4, 2>>()));
+}
+
+TEST_F(box_test, greater_order_non_empty_merge_with_intersecting_non_empty) {
+  ASSERT_TYPE((BoxGe<11, 9, 4, 1>()),
+              (LeL::Template::Merge<BoxGe<9, 4, 1>, BoxGe<11, 9>>()));
+}
+
+TEST_F(box_test, greater_order_merge_will_remove_duplicate_enties) {
+  ASSERT_TYPE((BoxGe<11, 9, 8, 4>()),
+              (LeL::Template::Merge<BoxGe<9, 8, 4>, BoxGe<11, 9, 8>>()));
+}
+
+TEST_F(box_test, greater_order_merge_boxes_with_same_tails) {
+  ASSERT_TYPE((BoxGe<9, 8, 4, 1>()),
+              (LeL::Template::Merge<BoxGe<9, 8, 4>, BoxGe<9, 8, 1>>()));
+}
+
+TEST_F(box_test, greater_order_merge_same_boxes) {
+  ASSERT_TYPE((BoxGe<7, 3, 1>()),
+              (LeL::Template::Merge<BoxGe<7, 3, 1>, BoxGe<7, 3, 1>>()));
+}
+
+TEST_F(box_test, greater_order_merge_with_same_subsequences) {
+  ASSERT_TYPE((BoxGe<9, 7, 5, 3, 1>()),
+              (LeL::Template::Merge<BoxGe<7, 5, 1>, BoxGe<9, 7, 5, 3>>()));
+}
+

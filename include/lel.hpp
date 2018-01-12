@@ -9,14 +9,14 @@
 #include "lel/operation/unary.hpp"
 #include "lel/reference.hpp"
 
-template <class IDT>
+template <class IDT, class Compare = std::less<>>
 struct lel_t {
 
-using reference = LeL::Reference<IDT>;
+using reference = LeL::Reference<Compare, IDT>;
 
 template <IDT ID>
 using placeholder = LeL::Lambda<LeL::Context<LeL::Identity>,
-                                LeL::Template::Box<IDT, ID>>;
+                                LeL::Template::Box<Compare, IDT, ID>>;
 
 struct placeholders {
 

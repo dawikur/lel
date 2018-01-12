@@ -7,11 +7,11 @@
 
 namespace LeL {
 
-template <class ID>
+template <class Compare, class ID>
 struct Reference {
   template <class Value>
   constexpr decltype(auto) operator()(Value &&value) const {
-    return Lambda<Context<Identity, Wrap<Value &>>, Template::Box<ID>>(
+    return Lambda<Context<Identity, Wrap<Value &>>, Template::Box<Compare, ID>>(
       Wrap<Value &>(value));
   }
 };

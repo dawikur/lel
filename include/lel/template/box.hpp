@@ -10,7 +10,7 @@
 namespace LeL {
 namespace Template {
 
-template <class Type, Type... Tokens>
+template <class Compare, class Type, Type... Tokens>
 struct Box {
  private:
   template <Type... Values>
@@ -22,23 +22,23 @@ struct Box {
   // Finish: only left
   template <Type... Merged, Type HeadL, Type... TailL>
   struct MergeImpl<Self<Merged...>, Self<HeadL, TailL...>, Self<>> {
-    using Result = Box<Type, Merged..., HeadL, TailL...>;
+    using Result = Box<Compare, Type, Merged..., HeadL, TailL...>;
   };
 
   // Finish: only right
   template <Type... Merged, Type HeadR, Type... TailR>
   struct MergeImpl<Self<Merged...>, Self<>, Self<HeadR, TailR...>> {
-    using Result = Box<Type, Merged..., HeadR, TailR...>;
+    using Result = Box<Compare, Type, Merged..., HeadR, TailR...>;
   };
 
   // Finish: nothing left to do
   template <Type... Merged>
   struct MergeImpl<Self<Merged...>, Self<>, Self<>> {
-    using Result = Box<Type, Merged...>;
+    using Result = Box<Compare, Type, Merged...>;
   };
 
   template <Type Left, Type Right>
-  static constexpr Type const Lower = Left < Right ? Left : Right;
+  static constexpr Type const Lower = Compare()(Left, Right) ? Left : Right;
 
   // Compare first elements from Left and Right
   template <Type... Merged,
@@ -51,9 +51,9 @@ struct Box {
                    Self<HeadR, TailR...>>
     : public MergeImpl<Self<Merged..., Lower<HeadL, HeadR>>,
                        typename Self<HeadL, TailL...>::
-                         template PopFrontIf<HeadL <= HeadR>,
+                         template PopFrontIf<!Compare()(HeadR, HeadL)>,
                        typename Self<HeadR, TailR...>::
-                         template PopFrontIf<HeadR <= HeadL>> {};
+                         template PopFrontIf<!Compare()(HeadL, HeadR)>> {};
 
   template <std::size_t Size, Type... NewTokens>
   struct ExpandToImpl
@@ -61,7 +61,7 @@ struct Box {
 
   template <Type... NewTokens>
   struct ExpandToImpl<0, NewTokens...> {
-    using Result = Box<Type, NewTokens...>;
+    using Result = Box<Compare, Type, NewTokens...>;
   };
 
  public:
@@ -69,7 +69,7 @@ struct Box {
   struct Merge : Merge<Self<>, Tail...> {};
 
   template <Type... NewTokens, Type... Head, class... Tail>
-  struct Merge<Self<NewTokens...>, Box<Type, Head...>, Tail...>
+  struct Merge<Self<NewTokens...>, Box<Compare, Type, Head...>, Tail...>
     : Merge<Self<NewTokens..., Head...>, Tail...> {};
 
   template <Type... NewTokens>
@@ -80,7 +80,9 @@ struct Box {
 
   template <Type... NewTokens>
   using IndexesOf
-    = Box<int, (Sequence<Type, Tokens...>::template IndexOf<NewTokens>())...>;
+    = Box<Compare,
+          int,
+          (Sequence<Type, Tokens...>::template IndexOf<NewTokens>())...>;
 
   template <std::size_t Size>
   using ExpandTo =

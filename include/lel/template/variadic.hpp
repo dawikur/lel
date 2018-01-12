@@ -13,7 +13,7 @@ namespace Template {
 
 struct Variadic {
  template<int Num>
- using Int = Box<int, Num>;
+ using Int = Box<std::less<>, int, Num>;
 
  public:
   template <int Num>
