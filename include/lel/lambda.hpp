@@ -61,10 +61,8 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
   template <std::size_t... Idx, class... Values>
   constexpr decltype(auto) call(std::index_sequence<Idx...>,
                                 Values &&... values) const {
-    using Slice = typename ID::template ExpandTo<sizeof...(values)>;
-
     return Func()(
-      std::get<Idx>(views).slice(Slice(), std::forward<Values>(values)...)...);
+      std::get<Idx>(views).slice(ID(), std::forward<Values>(values)...)...);
   }
 
   template <class Slice, class... Values>
