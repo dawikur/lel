@@ -75,18 +75,6 @@ TEST_F(box_test, merge_with_same_subsequences) {
               (LeL::Template::Merge<Box<1, 5, 7>, Box<3, 5, 7, 9>>()));
 }
 
-TEST_F(box_test, expand_to_the_same_size_does_nothing) {
-  ASSERT_TYPE((Box<1, 2, 3, 8>()), (Box<1, 2, 3, 8>::ExpandTo<4>()));
-}
-
-TEST_F(box_test, expand_to_smaller_size_does_nothing) {
-  ASSERT_TYPE((Box<1, 2, 3, 8>()), (Box<1, 2, 3, 8>::ExpandTo<2>()));
-}
-
-TEST_F(box_test, expand_to_bigger_size_repeats_last_element) {
-  ASSERT_TYPE((Box<1, 2, 3, 8, 8, 8>()), (Box<1, 2, 3, 8>::ExpandTo<6>()));
-}
-
 TEST_F(box_test, greater_order_non_empty_merge_empty_gives_non_empty) {
   ASSERT_TYPE((BoxGe<2, 1>()), (LeL::Template::Merge<BoxGe<2, 1>, BoxGe<>>()));
 }

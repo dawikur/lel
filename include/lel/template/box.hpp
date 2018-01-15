@@ -82,12 +82,6 @@ struct Box {
   template <Type... NewTokens>
   using IndexesOf
     = Box<Compare, int, (Seq<Tokens...>::template IndexOf<NewTokens>())...>;
-
-  template <std::size_t Size>
-  using ExpandTo =
-    typename ExpandToImpl<Size <= sizeof...(Tokens) ? 0
-                                                    : Size - sizeof...(Tokens),
-                          Tokens...>::Result;
 };
 
 template <class Head, class... Tail>
