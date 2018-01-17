@@ -4,6 +4,7 @@
 #define INCLUDE_LEL_TEMPLATE_SEQUENCE_HPP_
 
 #include <type_traits>
+#include <utility>
 
 namespace LeL {
 namespace Template {
@@ -52,7 +53,7 @@ struct Sequence {
   };
 
  public:
-  template <Type       Token>
+  template <Type Token>
   static constexpr int IndexOf() noexcept {
     return IndexOfImpl<0, Token, Tokens...>::Result::value;
   }
@@ -64,7 +65,35 @@ struct Sequence {
   template <bool Condition>
   using PopFrontIf
     = typename PopFrontIfImpl<bool, Condition>::template Result<Tokens...>;
+
+  template <template<class T, T...> class Result>
+  using To = Result<Type, Tokens...>;
 };
+
+template <std::size_t Num, std::size_t Size>
+struct MakeSequenceImpl {
+ private:
+  template <std::size_t ID, std::size_t N, std::size_t... IDs>
+  struct MakeSeqExpand : MakeSeqExpand<ID, N-1, IDs..., ID> {};
+
+  template <std::size_t ID, std::size_t... IDs>
+  struct MakeSeqExpand<ID, 0, IDs...> {
+    using Result = std::index_sequence<IDs...>;
+  };
+
+  template <std::size_t ID, std::size_t N, std::size_t S, std::size_t... IDs>
+  struct MakeSeq : MakeSeq<ID + 1, N, S, IDs..., ID> {};
+
+  template <std::size_t N, std::size_t S, std::size_t... IDs>
+  struct MakeSeq<N, N, S, IDs...> : MakeSeqExpand<N - 1, S, IDs...> {};
+
+ public:
+  using Result =
+    typename MakeSeq<0, Num, (Num < Size ? Size - Num : 0)>::Result;
+};
+
+template <std::size_t Num, std::size_t Size = Num>
+using MakeSequence = typename MakeSequenceImpl<Num, Size>::Result;
 
 }  // namespace Template
 }  // namespace LeL

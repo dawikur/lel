@@ -10,6 +10,9 @@ class sequence_test : public ::testing::Test {
  protected:
   template <int... Values>
   using Sequence = LeL::Template::Sequence<int, Values...>;
+
+  template <std::size_t Num, std::size_t Size = Num>
+  using MakeSequence = LeL::Template::MakeSequence<Num, Size>;
 };
 
 TEST_F(sequence_test, index_of_can_be_used_in_constexpr) {
@@ -38,4 +41,20 @@ TEST_F(sequence_test, pop_front_id_removes_first_item_if_true) {
 
 TEST_F(sequence_test, pop_front_id_removes_first_item_if_false) {
   ASSERT_TYPE((Sequence<1, 2, 4>()), (Sequence<1, 2, 4>::PopFrontIf<false>()));
+}
+
+TEST_F(sequence_test, make_sequence_with_one_value) {
+  ASSERT_TYPE((std::index_sequence<0>()), (MakeSequence<1>()));
+}
+
+TEST_F(sequence_test, make_sequence_with_two_same_values) {
+  ASSERT_TYPE((std::index_sequence<0, 1, 2>()), (MakeSequence<3, 3>()));
+}
+
+TEST_F(sequence_test, make_sequence_with_size_less_than_number) {
+  ASSERT_TYPE((std::index_sequence<0, 1, 2, 3, 4>()), (MakeSequence<5, 3>()));
+}
+
+TEST_F(sequence_test, make_sequence_with_size_greater_than_number) {
+  ASSERT_TYPE((std::index_sequence<0, 1, 2, 2, 2>()), (MakeSequence<3, 5>()));
 }

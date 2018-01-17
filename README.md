@@ -130,23 +130,23 @@ format("sample %s with %d", "string", 5);
 
 
 **API** The only things that should be used are:
-  * `lel::placeholder`            - template alias for placeholders creation
-  * `lel::reference`              - class for wrapping objects in a reference
-  * `namespace lel::placeholders` - with predefined placeholders
-    * `_`                         - instance of `lel::reference` class
-    * `_1` ... `_9`               / instances of `lel::placeholder` class
-    * `_A` ... `_Z`               |
-    * `_a` ... `_z`               /
+  * `namespace lel`    - with predefined placeholders
+    * `_`              - instance of `lel::reference` class
+    * `_1` ... `_9`    / instances of `lel::placeholder` class
+    * `_A` ... `_Z`    |
+    * `_a` ... `_z`    /
+    * `placeholder`    - template alias for placeholders creation
+    * `reference`      - class for wrapping objects in a reference
 
 ```cpp
 #include "lel.hpp"
 
-auto use_with_namespace = lel::placeholders::_x + 2;
+auto use_with_namespace = lel::_x + 2;
 
 auto create_your_own    = lel::placeholder<'a'>();
 
 // or use namespace
-using namespace lel::placeholders;
+using namespace lel;
 auto like_that          = 1 * _2;
 ```
 

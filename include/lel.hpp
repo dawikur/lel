@@ -3,6 +3,8 @@
 #ifndef INCLUDE_LEL_HPP_
 #define INCLUDE_LEL_HPP_
 
+#include <functional>
+
 #include "lel/lambda.hpp"
 #include "lel/operation/binary.hpp"
 #include "lel/operation/increment_decrement.hpp"
@@ -67,6 +69,6 @@ static constexpr placeholder<'x'> const _x{};
 static constexpr placeholder<'y'> const _y{};
 static constexpr placeholder<'z'> const _z{};
 
-}  // struct lel
+}  // namespace lel
 
 #endif  // INCLUDE_LEL_HPP_

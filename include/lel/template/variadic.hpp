@@ -3,6 +3,7 @@
 #ifndef INCLUDE_LEL_TEMPLATE_VARIADIC_HPP_
 #define INCLUDE_LEL_TEMPLATE_VARIADIC_HPP_
 
+#include <functional>
 #include <utility>
 
 #include "lel/template/box.hpp"
@@ -12,8 +13,8 @@ namespace LeL {
 namespace Template {
 
 struct Variadic {
- template<int Num>
- using Int = Box<std::less<>, int, Num>;
+  template<int Num>
+  using Int = Box<std::less<>, int, Num>;
 
  public:
   template <int Num>

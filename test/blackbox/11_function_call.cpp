@@ -99,15 +99,21 @@ TEST_F(function_call_test, works_with_multiple_number_of_parameters) {
 }
 
 struct VariadicCallable {
-  template <class ...T>
-  int operator()(T...) { return sizeof...(T); }
+  template <class Head, class... Tail>
+  int operator()(Head head, Tail... tail) {
+    return head + operator()(tail...);
+  }
+
+  int operator()() { return 0; }
 };
 
-TEST_F(function_call_test, DISABLED_works_with_variadic_number_of_parameters) {
+TEST_F(function_call_test, works_with_variadic_number_of_parameters) {
   VariadicCallable callable;
 
   auto count = _(callable)._(_x);
 
-  ASSERT_EQ(2, count(1, 2));
-  ASSERT_EQ(3, count(1, 2, 3));
+  ASSERT_EQ(9, count(9));
+  ASSERT_EQ(3, count(1, 2));
+  ASSERT_EQ(6, count(1, 2, 3));
+  ASSERT_EQ(16, count(1, 2, 9, 4));
 }
