@@ -6,11 +6,10 @@
 
 #include "lel.hpp"
 
-using namespace LeL::Placeholders;
-
 int main() {
-  // simple
+  using namespace lel;
 
+  // simple
   auto plus_one = _x + 1;
   auto multiply = _x * _y;
   auto is_less  = _1 < _2;
@@ -24,9 +23,9 @@ int main() {
 
   compute_something(1, 2, 3);
 
-  //# own placeholders
-  auto first_arg  = LeL::Placeholder<'1'>();
-  auto second_arg = LeL::Placeholder<'2'>();
+  // own placeholders
+  auto first_arg  = lel::placeholder<'1'>();
+  auto second_arg = lel::placeholder<'2'>();
 
   auto not_equal = first_arg != second_arg;
 
