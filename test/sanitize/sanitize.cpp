@@ -33,6 +33,23 @@ int main() {
 
   assert(not_equal(2, 3));
 
+  // more complex
+  auto add_of_vectors = *((*_x)[_1]) + **(_y[_2]);
+
+  auto x_vec = std::make_unique<std::vector<std::unique_ptr<int>>>();
+  x_vec->push_back(std::make_unique<int>(1));
+  x_vec->push_back(std::make_unique<int>(2));
+  x_vec->push_back(std::make_unique<int>(3));
+  x_vec->push_back(std::make_unique<int>(4));
+
+  auto y_vec = std::vector<std::unique_ptr<std::unique_ptr<int>>>();
+  y_vec.push_back(std::make_unique<std::unique_ptr<int>>(std::make_unique<int>(6)));
+  y_vec.push_back(std::make_unique<std::unique_ptr<int>>(std::make_unique<int>(7)));
+  y_vec.push_back(std::make_unique<std::unique_ptr<int>>(std::make_unique<int>(8)));
+  y_vec.push_back(std::make_unique<std::unique_ptr<int>>(std::make_unique<int>(9)));
+
+  assert((4+7) == (add_of_vectors(3, 1, x_vec, y_vec)));
+
   // references
   int x = 5;
 

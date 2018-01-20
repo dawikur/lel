@@ -55,7 +55,7 @@ def load_examples(filename):
 
             return _end
 
-        context.current.append(line)
+        context.current.append(line.strip())
         return _example
 
     def _end(*_):
@@ -112,15 +112,19 @@ def parse(examples):
         return "### {}". format(key)
 
     def _lines(lines):
-        return "\n```cpp\n{}```\n\n".format(
+        return "```cpp\n{}```".format(
             "\n".join(lines)
         )
 
     result = ""
 
     for key, lines in examples.items():
+        result += "\n"
         result += _key(key)
+        result += "\n"
+        result += "\n"
         result += _lines(lines)
+        result += "\n"
 
     return result
 
@@ -129,6 +133,7 @@ def save(readme, before, result, after):
     with open(readme, "w") as readme:
         readme.write(before)
         readme.write(result)
+        readme.write("\n")
         readme.write(after)
 
 
