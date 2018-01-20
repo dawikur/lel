@@ -50,14 +50,14 @@ int main() {
 
   // function call
   auto call_with = _x._(_y);
-  call_with(printf, "str");
+  call_with(printf, "call with\n");
 
-  auto do_with_str = _x._("str");
+  auto do_with_str = _x._("do with string\n");
   do_with_str(printf);
 
   auto print = _(printf)._(_y);
-  print("str");
+  print("print\n");
 
-  auto format = _(printf)._(_1, _2, _3);
-  format("sample %s with %d", "string", 5);
+  auto format = _(printf)._(_1, _2, _3, _4, _5, _6);
+  format("format %s with %s %d %d %s", "string", "argument", 1, 2, "\n");
 }

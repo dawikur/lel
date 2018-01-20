@@ -46,6 +46,8 @@ Shorted, right? And, for me, much cleaner.
 
 ## Examples
 
+[//]:#(EXAMPLES)
+
 ### simple
 
 ```cpp
@@ -60,7 +62,7 @@ auto is_less  = _1 < _2;
 auto compute_something = 1 + _x * 3 - _y * _y + _x * _z;
 ```
 
-#### own placeholders
+### own placeholders
 ```cpp
 auto first_arg  = lel::placeholder<'1'>();
 auto second_arg = lel::placeholder<'2'>();
@@ -117,6 +119,8 @@ print("str");
 auto format = _(printf)._(_1, _2, _3);
 format("sample %s with %d", "string", 5);
 ```
+
+[//]:#(EXAMPLES_END)
 
 # Usage
 
