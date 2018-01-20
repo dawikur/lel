@@ -4,4 +4,144 @@
 
 from __future__ import print_function
 
+import argparse
 
+EXAMPLE_BEGIN = r'///'
+EXAMPLE_NEXT = r'// '
+EXAMPLE_END = r'///'
+
+EXAMPLES_BEGIN = r'[//]:#(EXAMPLES_BEGIN)'
+EXAMPLES_END = r'[//]:#(EXAMPLES_END)'
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description='Use one file to update README')
+    parser.add_argument('-r', '--readme',
+                        default='README.md',
+                        help='Destination README filename')
+    parser.add_argument('-e', '--examples',
+                        default='test/sanitize/sanitize.cpp',
+                        help='File with examples')
+
+    return parser.parse_args()
+
+
+def load_examples(filename):
+    class Context:
+        def __init__(self):
+            self.result = {}
+            self.name = ""
+            self.current = []
+
+    def _wait_for(line, context):
+        if EXAMPLE_BEGIN in line:
+            context.name = line.replace(EXAMPLE_BEGIN, "").strip()
+
+            return _example
+
+        return _wait_for
+
+    def _example(line, context):
+        if EXAMPLE_NEXT in line:
+            context.result[context.name] = context.current
+            context.name = line.replace(EXAMPLE_NEXT, "").strip()
+            context.current = []
+
+            return _example
+
+        if EXAMPLE_END in line:
+            context.result[context.name] = context.current
+
+            return _end
+
+        context.current.append(line)
+        return _example
+
+    def _end(*_):
+        return _end
+
+    context = Context()
+    with open(filename, "r") as examples:
+        state = _wait_for
+        for line in examples:
+            state = state(line, context)
+
+    return context.result
+
+
+def load_readme(filename):
+    class Context(object):
+        def __init__(self):
+            self.before = []
+            self.after = []
+
+    def _before(line, context):
+        context.before.append(line)
+
+        if EXAMPLES_BEGIN in line:
+            return _in
+
+        return _before
+
+    def _in(line, context):
+        if EXAMPLES_END in line:
+            context.after.append(line)
+            return _after
+
+        return _in
+
+    def _after(line, context):
+        context.after.append(line)
+        return _after
+
+    context = Context()
+    with open(filename, "r") as readme:
+        state = _before
+        for line in readme:
+            state = state(line, context)
+
+    return [
+        "".join(context.before),
+        "".join(context.after)
+    ]
+
+
+def parse(examples):
+    def _key(key):
+        return "### {}". format(key)
+
+    def _lines(lines):
+        return "\n```cpp\n{}```\n\n".format(
+            "\n".join(lines)
+        )
+
+    result = ""
+
+    for key, lines in examples.items():
+        result += _key(key)
+        result += _lines(lines)
+
+    return result
+
+
+def save(readme, before, result, after):
+    with open(readme, "w") as readme:
+        readme.write(before)
+        readme.write(result)
+        readme.write(after)
+
+
+def main():
+    args = parse_args()
+
+    examples = load_examples(args.examples)
+    readme = load_readme(args.readme)
+
+    result = parse(examples)
+
+    save(args.readme, readme[0], result, readme[1])
+
+
+if __name__ == '__main__':
+    main()

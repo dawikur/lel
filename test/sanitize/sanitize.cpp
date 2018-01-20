@@ -1,3 +1,4 @@
+// Copyright 2018, Dawid Kurek, <dawikur@gmail.com>
 
 #include <memory>
 #include <vector>
@@ -7,6 +8,7 @@
 #include "lel.hpp"
 
 int main() {
+  ///
   using namespace lel;
 
   // simple
@@ -60,4 +62,6 @@ int main() {
 
   auto format = _(printf)._(_1, _2, _3, _4, _5, _6);
   format("format %s with %s %d %d %s", "string", "argument", 1, 2, "\n");
+
+  ///
 }
