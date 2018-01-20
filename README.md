@@ -46,7 +46,7 @@ Shorted, right? And, for me, much cleaner.
 
 ## Examples
 
-[//]:#(EXAMPLES)
+[//]:#(EXAMPLES_BEGIN)
 
 ### simple
 
