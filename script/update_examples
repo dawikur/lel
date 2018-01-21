@@ -55,7 +55,7 @@ def load_examples(filename):
 
             return _end
 
-        context.current.append(line.strip())
+        context.current.append(line.strip("\r\n"))
         return _example
 
     def _end(*_):
