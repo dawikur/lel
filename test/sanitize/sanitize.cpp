@@ -8,7 +8,7 @@
 #include "lel.hpp"
 
 int main() {
-  ///
+  /// BEGIN
   using namespace lel;
 
   // simple
@@ -68,17 +68,25 @@ int main() {
   assert(6 == sum(1)(2)(3));
 
   // function call
+  auto duplicate = [](int i) {
+    return i * 2;
+  };
+
   auto call_with = _x._(_y);
-  call_with(printf, "call with\n");
+  assert(8 == call_with(duplicate, 4));
 
-  auto do_with_str = _x._("do with string\n");
-  do_with_str(printf);
+  auto do_with_three = _x._(3);
+  assert(6 == do_with_three(duplicate));
 
-  auto print = _(printf)._(_y);
-  print("print\n");
+  auto times_two = _(duplicate)._(_y);
+  assert(10 == times_two(5));
 
-  auto format = _(printf)._(_1, _2, _3, _4, _5, _6);
-  format("format %s with %s %d %d %s", "string", "argument", 1, 2, "\n");
+  auto agregate = [](int a, int b, int c, int d) {
+    return a + b + c + d;
+  };
 
-  ///
+  auto reduce = _(agregate)._(_a, _b, _c, _d);
+  assert(20 == reduce(2, 4, 6, 8));
+
+  /// END
 }
