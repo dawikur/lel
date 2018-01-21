@@ -71,7 +71,7 @@ assert(is_less(2, 5));
 ```cpp
 auto compute_something = 1 + _x * 3 - _y * _y + _x * _z;
 
-compute_something(1, 2, 3);
+assert(3 == compute_something(1, 2, 3));
 ```
 
 ### own placeholders
@@ -122,10 +122,10 @@ assert(x == 13);
 ```cpp
 auto sum = _x + _y + _z;
 
-sum(1, 2, 3);
-sum(1)(2, 3);
-sum(1, 2)(3);
-sum(1)(2)(3);
+assert(6 == sum(1, 2, 3));
+assert(6 == sum(1)(2, 3));
+assert(6 == sum(1, 2)(3));
+assert(6 == sum(1)(2)(3));
 ```
 
 ### function call

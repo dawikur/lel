@@ -23,7 +23,7 @@ int main() {
   // more arguments
   auto compute_something = 1 + _x * 3 - _y * _y + _x * _z;
 
-  compute_something(1, 2, 3);
+  assert(3 == compute_something(1, 2, 3));
 
   // own placeholders
   auto first_arg  = lel::placeholder<'1'>();
@@ -62,10 +62,10 @@ int main() {
   // currying
   auto sum = _x + _y + _z;
 
-  sum(1, 2, 3);
-  sum(1)(2, 3);
-  sum(1, 2)(3);
-  sum(1)(2)(3);
+  assert(6 == sum(1, 2, 3));
+  assert(6 == sum(1)(2, 3));
+  assert(6 == sum(1, 2)(3));
+  assert(6 == sum(1)(2)(3));
 
   // function call
   auto call_with = _x._(_y);
