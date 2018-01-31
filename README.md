@@ -19,11 +19,6 @@ is_right_triangle(3, 4, 5);
 [![MasterCoverage][MasterCoverage-img]][MasterCoverage-url]
 [![MasterCodeClimate][MasterCodeClimate-img]][MasterCodeClimate-url]
 
-[![Develop][Develop-img]][Develop-url]
-[![DevelopLinuxBuild][DevelopLinuxBuild-img]][DevelopLinuxBuild-url]
-[![DevelopWindowsBuild][DevelopWindowsBuild-img]][DevelopWindowsBuild-url]
-[![DevelopCoverage][DevelopCoverage-img]][DevelopCoverage-url]
-
 ---
 
 # About
