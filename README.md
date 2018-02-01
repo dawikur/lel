@@ -21,7 +21,7 @@ is_right_triangle(3, 4, 5);
 
 ---
 
-# About
+## About
 
 Lambda functions in c++ are cool, very cool. But they give quite some overhead
 in syntax requirements, which obscures very little functions. Consider:
@@ -43,7 +43,7 @@ Shorted, right? And, for me, much cleaner.
 
 [//]:#(EXAMPLES_BEGIN)
 
-### 
+###
 
 ```cpp
   using namespace lel;
@@ -149,18 +149,19 @@ Shorted, right? And, for me, much cleaner.
 
 [//]:#(EXAMPLES_END)
 
-# Usage
+## Usage
 
 **Files** There are two ways of including **LeL**:
- * in multiple headers, as it is in repository;
 
+ * in multiple headers, as it is in repository;
    everything is in `include` directory
+
  * in one fused-header;
 
    `script/fuse` will fuse all into `build/lel.hpp`
 
-
 **API** The only things that should be used are:
+
   * `namespace lel`    - with predefined placeholders
     * `_`              - instance of `lel::reference` class
     * `_1` ... `_9`    / instances of `lel::placeholder` class
@@ -192,6 +193,7 @@ etc) in any order or degree. The important thing is the arguments during
 evaluation will be assigned with alphabetic (ASCII alphabetic) order.
 
 So:
+
 ```cpp
 auto expr = _1 - _x;
 
@@ -199,7 +201,7 @@ assert(-1 == expr(2, 3));
 assert( 1 == expr(3, 2));
 ```
 
-# Tests
+## Tests
 
 There is a bunch of tests but they are not needed for normal usage. You can run
 all of them with **cmake**:
@@ -212,7 +214,7 @@ cmake --build .
 ctest -VV
 ```
 
-# Benchmarks
+## Benchmarks
 
 ![Simple Expression In Loop](res/benchmark/simple_expression_in_loop.png "chart")
 
@@ -265,7 +267,7 @@ for (int i = 0; i < 1000; ++i) {
 }
 ```
 
-# BLL - Boost Lambda Library?
+## BLL - Boost Lambda Library
 
 Yes, the same concept but this one uses a little bit newer C++.
 However the idea for this library came out independently.
