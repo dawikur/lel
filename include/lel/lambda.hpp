@@ -26,8 +26,10 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
   template <class... Values>
   constexpr decltype(auto) operator()(Values &&... values) const {
     return call(Template::MakeSequence<sizeof...(Views),
-                                       sizeof...(Values) - sizeof...(IDs)
-                                         + sizeof...(Views)>(),
+                                       sizeof...(Values)
+                                         + sizeof...(Views)
+                                         - sizeof...(IDs)
+                                       >(),
                 std::forward<Values>(values)...);
   }
 
