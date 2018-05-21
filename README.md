@@ -177,8 +177,7 @@ auto use_with_namespace = lel::_x + 2;
 
 auto create_your_own    = lel::placeholder<'a'>();
 
-// or use namespace
-using namespace lel;
+/* or */ using namespace lel;
 auto like_that          = 1 * _2;
 ```
 
