@@ -28,6 +28,7 @@ if(UNIX)
   endif()
 else()
   add_compile_options(/W4 /WX)
+  add_definitions(-D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING)
 endif()
 
 add_subdirectory(include)
