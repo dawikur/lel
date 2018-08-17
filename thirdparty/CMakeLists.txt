@@ -5,6 +5,7 @@ if(ENABLE_TESTING OR COVERAGE)
 endif()
 
 if(BENCHMARK)
-  set(CELERO_ENABLE_EXPERIMENTS OFF)
+  option(CELERO_ENABLE_EXPERIMENTS "Override Celero option" OFF)
+
   add_subdirectory(Celero)
 endif()
