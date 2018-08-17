@@ -1,4 +1,4 @@
-set(blackbox_test_SOURCES
+add_executable(blackbox_test
   0_sizeof_lambdas.cpp
   1_single_std_placeholder.cpp
   2_single_lel_placeholder.cpp
@@ -12,12 +12,6 @@ set(blackbox_test_SOURCES
   10_constexpr.cpp
   11_function_call.cpp
 )
-
-add_executable(blackbox_test ${blackbox_test_SOURCES})
-target_link_libraries(blackbox_test gtest)
-
-if(UNIX)
-  target_link_libraries(blackbox_test pthread gcov)
-endif()
+target_link_libraries(blackbox_test testing)
 
 add_test(blackbox blackbox_test --gtest_color=yes)

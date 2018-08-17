@@ -1,17 +1,11 @@
-set(lel_test_SOURCES
+add_executable(lel_test
   context.cpp
   functor.cpp
   lambda.cpp
   reference.cpp
   wrap.cpp
 )
-
-add_executable(lel_test ${lel_test_SOURCES})
-target_link_libraries(lel_test gtest)
-
-if(UNIX)
-  target_link_libraries(lel_test pthread gcov)
-endif()
+target_link_libraries(lel_test testing)
 
 add_test(lel lel_test --gtest_color=yes)
 

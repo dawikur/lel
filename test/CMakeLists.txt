@@ -1,24 +1,27 @@
+
+add_library(testing INTERFACE)
+
+target_link_libraries(testing INTERFACE
+  gtest
+  lel
+  settings
+  thirdparty
+)
+
 if(UNIX)
   find_package(Boost)
 
   if(Boost_FOUND)
-    add_definitions(-DLEL_HAS_BOOST)
+    target_compile_definitions(testing INTERFACE -DLEL_HAS_BOOST)
   endif()
 endif()
 
-if (BENCHMARK)
+if(ENABLE_BENCHMARK)
   add_subdirectory(benchmark)
-endif()
-
-if(COVERAGE)
-  add_subdirectory(unit)
-endif()
-
-if(SANITIZE)
-  add_subdirectory(sanitize)
 endif()
 
 if(ENABLE_TESTING)
   add_subdirectory(blackbox)
+  add_subdirectory(sanitize)
   add_subdirectory(unit)
 endif()

@@ -1,7 +1,6 @@
-set(lel_sanitize_SOURCES
+add_executable(sanitize_test
   sanitize.cpp
 )
+target_link_libraries(sanitize_test testing)
 
-add_executable(lel_sanitize ${lel_sanitize_SOURCES})
-
-target_link_libraries(lel_sanitize pthread)
+add_test(sanitize sanitize_test --gtest_color=yes)

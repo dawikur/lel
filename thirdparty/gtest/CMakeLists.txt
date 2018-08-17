@@ -4,3 +4,4 @@ set(gtest_SOURCES
 )
 
 add_library(gtest STATIC ${gtest_SOURCES})
+target_link_libraries(gtest thirdparty)
