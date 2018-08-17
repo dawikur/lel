@@ -17,18 +17,15 @@ echo "[ Building..."; (
   cd build || exit 1
   cmake .. -DCMAKE_BUILD_TYPE=Release -DBENCHMARK=ON || exit 1
   cmake --build . || exit 1
-) || exit 1; echo "Builded ]"
+) || exit 1; echo "Building done ]"
 
-echo "[ Running..."
+echo "[ Testing..."
   ./build/test/benchmark/lel_benchmark --outputTable "${fileCsv}"
-echo "Tests done ]"
+echo "Testing done ]"
 
-echo "[ Parsing Csv"
+echo "[ Parsing Csv..."
   tokens=$(./script/benchmark/parse "${fileCsv}")
-echo "Csv Parsed ]"
-
-echo "[ Copy csv file ]"
-cp "${fileCsv}" "res/benchmark/dataRaw"
+echo "Parsing done ]"
 
 echo "[ Stop ]"
 

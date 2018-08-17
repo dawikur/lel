@@ -1,6 +1,6 @@
 include_directories(SYSTEM .)
 
-if(TESTS OR COVERAGE)
+if(ENABLE_TESTING OR COVERAGE)
   add_subdirectory(gtest)
 endif()
 

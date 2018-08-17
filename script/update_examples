@@ -129,8 +129,8 @@ def parse(examples):
     return result
 
 
-def save(readme, before, result, after):
-    with open(readme, "w") as readme:
+def save(in_readme, before, result, after):
+    with open(in_readme, "w") as readme:
         readme.write(before)
         readme.write(result)
         readme.write("\n")

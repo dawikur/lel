@@ -30,7 +30,7 @@ TEST(BASELINE, 5, 6, Lambda, [](auto a, auto b, auto c, auto d, auto e)         
 TEST(BASELINE, 6, 6, Lambda, [](auto a, auto b, auto c, auto d, auto e, auto f) { return, ; },  a,  b,  c,  d,  e,  f, 19, 23, 29, 31, 37, 43)
 
 namespace LeL {
-  using namespace Placeholders;
+  using namespace lel;
 
   TEST(BENCHMARK, 1, 1, LeL, , , _a, 23, 29, 31, 37, 43, 19)
 

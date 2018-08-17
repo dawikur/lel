@@ -183,8 +183,8 @@ class Processor(object):
             namespace_end = NAMESPACE_END_REGEX.match(result[-1])
 
             if (namespace_begin
-                and namespace_end
-                and namespace_begin.group(1) == namespace_end.group(1)):
+                    and namespace_end
+                    and namespace_begin.group(1) == namespace_end.group(1)):
                 result.pop()
                 is_empty = False
                 continue

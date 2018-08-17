@@ -18,7 +18,7 @@ if(SANITIZE)
   add_subdirectory(sanitize)
 endif()
 
-if(TESTS)
+if(ENABLE_TESTING)
   add_subdirectory(blackbox)
   add_subdirectory(unit)
 endif()

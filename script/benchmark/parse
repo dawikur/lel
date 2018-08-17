@@ -1,29 +1,31 @@
 #!/usr/bin/python
 
+# Copyright 2018, Dawid Kurek, <dawikur@gmail.com>
+
 import csv
 import sys
 
 
-class flow(object):
+class Flow(object):
     def __init__(self, val):
         self._val = val
 
     def __or__(self, func):
-        return flow(func(self._val))
+        return Flow(func(self._val))
 
 
-class multimap(object):
-    def __init__(self, map, *keys):
-        self._map, self._key = multimap._ensure_keys_exists(map, keys)
+class Multimap(object):
+    def __init__(self, dictionary, *keys):
+        self._map, self._key = Multimap._ensure_exists(dictionary, keys)
 
     @staticmethod
-    def _ensure_keys_exists(map, keys):
+    def _ensure_exists(dictionary, keys):
         for key in keys[:-1]:
-            if not key in map:
-                map[key] = {}
-            map = map[key]
+            if key not in dictionary:
+                dictionary[key] = {}
+            dictionary = dictionary[key]
 
-        return map, keys[-1]
+        return dictionary, keys[-1]
 
     def __le__(self, val):
         self._map[self._key] = val
@@ -46,16 +48,16 @@ def parse(benchmarks):
         _, arguments, variables = benchmark["Group"].split("_")
         value = benchmark["Min (us)"]
 
-        multimap(parsed, experiment, arguments, variables) <= value
+        Multimap(parsed, experiment, arguments, variables) <= value
 
     return parsed
 
 
-def format(parsed):
+def reformat(parsed):
     result = ""
 
-    for type, data in sorted(parsed.items()):
-        result += type + '\n'
+    for index, data in sorted(parsed.items()):
+        result += index + '\n'
 
         variables_printed = False
         for arguments, entry in sorted(data.items()):
@@ -67,7 +69,7 @@ def format(parsed):
                 variables_printed = True
 
             result += arguments + '\t'
-            for variables, value in sorted(entry.items()):
+            for _, value in sorted(entry.items()):
                 result += value + '\t'
             result += '\n'
         result += '\n'
@@ -76,10 +78,10 @@ def format(parsed):
 
 
 def main():
-    flow(sys.argv[1])   \
+    Flow(sys.argv[1])   \
         | load          \
         | parse         \
-        | format        \
+        | reformat      \
         | print
 
 

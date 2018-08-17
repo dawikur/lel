@@ -3,14 +3,14 @@ cmake_minimum_required(VERSION 3.2)
 option(BENCHMARK "Build benchmarks"         OFF)
 option(COVERAGE  "Build coverage"           OFF)
 option(SANITIZE  "Build with sanitizers on" OFF)
-option(TESTS     "Build tests"              OFF)
+option(ENABLE_TESTING     "Build tests"              OFF)
 
 project(LeL C CXX)
 
 if(UNIX)
   add_compile_options(-std=c++14 -Wall -Wextra -Werror -Wpedantic)
 
-  if(COVERAGE OR SANITIZE OR TESTS)
+  if(COVERAGE OR SANITIZE OR ENABLE_TESTING)
     set(CMAKE_BUILD_TYPE Debug)
     add_compile_options(-g -O0 -DDEBUG)
   else()
@@ -31,14 +31,13 @@ else()
   add_definitions(-D_SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING)
 endif()
 
-add_subdirectory(include)
 include_directories(include)
 
 add_subdirectory(thirdparty)
 include_directories(SYSTEM thirdparty)
 include_directories(SYSTEM thirdparty/Celero/include)
 
-if(BENCHMARK OR COVERAGE OR SANITIZE OR TESTS)
+if(BENCHMARK OR COVERAGE OR SANITIZE OR ENABLE_TESTING)
   enable_testing()
   add_subdirectory(test)
 endif()
