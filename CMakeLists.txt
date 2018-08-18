@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 
-option(ENABLE_BENCHMARK "Build benchmarks" OFF)
-option(ENABLE_TESTING   "Build tests"      OFF)
-option(ENABLE_COVERAGE  "Build tests"      OFF)
+option(ENABLE_BENCHMARK "Build benchmarks"     OFF)
+option(ENABLE_TESTING   "Build tests"          OFF)
+option(ENABLE_COVERAGE  "Build coverage tests" OFF)
 
 project(LeL C CXX)
 
@@ -44,7 +44,7 @@ target_link_libraries(lel INTERFACE settings)
 
 add_subdirectory(thirdparty)
 
-if(ENABLE_BENCHMARK OR ENABLE_TESTING)
+if(ENABLE_BENCHMARK OR ENABLE_COVERAG OR ENABLE_TESTING)
   enable_testing()
 
   add_subdirectory(test)

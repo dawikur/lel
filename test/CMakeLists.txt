@@ -20,6 +20,10 @@ if(ENABLE_BENCHMARK)
   add_subdirectory(benchmark)
 endif()
 
+if(ENABLE_COVERAGE)
+  add_subdirectory(unit)
+endif()
+
 if(ENABLE_TESTING)
   add_subdirectory(blackbox)
   add_subdirectory(sanitize)
