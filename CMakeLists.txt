@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.8)
 
 option(ENABLE_BENCHMARK "Build benchmarks" OFF)
 option(ENABLE_TESTING   "Build tests"      OFF)
+option(ENABLE_COVERAGE  "Build tests"      OFF)
 
 project(LeL C CXX)
 
@@ -15,16 +16,23 @@ else()
     -Wextra
     -Werror
     -Wpedantic
-
-    --coverage
   )
+
+  if(ENABLE_COVERAGE)
+    target_compile_options(settings INTERFACE
+      --coverage
+    )
+
+    target_link_libraries(settings INTERFACE
+      gcov
+    )
+  endif()
 
   target_compile_features(settings INTERFACE
     cxx_std_14
   )
 
   target_link_libraries(settings INTERFACE
-    gcov
     pthread
   )
 endif()
