@@ -55,7 +55,7 @@ before_script:
 
 script:
   - cmake .. -DENABLE_TESTING=ON
-  - cmake --build . -- -j2
+  - cmake --build . -- -j2 VERBOSE=1
   - ctest -VV -- -j2
 
 notifications:
