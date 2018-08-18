@@ -31,7 +31,7 @@ env:
 
 matrix:
   include:
-    - env: Coverage CC=gcc-7 CXX=g++-7
+    - env: Coverage CC=gcc-6 CXX=g++-6
       install:
         - pip install --user codecov
 
@@ -42,7 +42,7 @@ matrix:
 
       after_success:
         - cd ..
-        - bash <(curl -s https://codecov.io/bash) -X /usr/bin/gcov-7
+        - bash <(curl -s https://codecov.io/bash) -X /usr/bin/gcov-6
 
     - env: CppCheck
       before_script: true
