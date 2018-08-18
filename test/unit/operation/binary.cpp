@@ -15,3 +15,4 @@ TEST(binary_test, shiftleft_can_be_used_in_constexpr) {
 
   static_assert(shift_left(1, 3) == 8, "");
 }
+

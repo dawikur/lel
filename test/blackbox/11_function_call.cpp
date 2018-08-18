@@ -15,6 +15,15 @@ int free_func(int val) {
   return val + 2;
 }
 
+struct VariadicCallable {
+  template <class Head, class... Tail>
+  int operator()(Head head, Tail... tail) {
+    return head + operator()(tail...);
+  }
+
+  int operator()() { return 0; }
+};
+
 TEST_F(function_call_test, works_with_lambda) {
   auto add_one = _x + 1;
 
@@ -97,15 +106,6 @@ TEST_F(function_call_test, works_with_multiple_number_of_parameters) {
   ASSERT_EQ(2, count2(1, 2));
   ASSERT_EQ(3, count3(1));
 }
-
-struct VariadicCallable {
-  template <class Head, class... Tail>
-  int operator()(Head head, Tail... tail) {
-    return head + operator()(tail...);
-  }
-
-  int operator()() { return 0; }
-};
 
 TEST_F(function_call_test, DISABLED_works_with_variadic_number_of_parameters) {
   VariadicCallable callable;

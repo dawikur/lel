@@ -11,6 +11,7 @@ add_executable(blackbox_test
   9_curring.cpp
   10_constexpr.cpp
   11_function_call.cpp
+  12_pointer_to_member.cpp
 )
 target_link_libraries(blackbox_test testing)
 
