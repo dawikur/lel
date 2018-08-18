@@ -109,7 +109,7 @@ def load_readme(filename):
 
 def parse(examples):
     def _key(key):
-        return "### {}". format(key)
+        return "### {}". format(key).strip(" ")
 
     def _lines(lines):
         return "```cpp\n{}```".format(

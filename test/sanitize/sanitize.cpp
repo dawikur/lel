@@ -88,5 +88,21 @@ int main() {
   auto reduce = _(agregate)._(_a, _b, _c, _d);
   assert(20 == reduce(2, 4, 6, 8));
 
+  // objects
+  struct Object {
+    Object(int value) : value(value) {}
+
+    int Method(int arg) { return value * arg; }
+
+    int value;
+  };
+
+  auto _ptr = &_x;
+  auto get_value = (_ptr->*_y);
+
+  Object object(5);
+
+  assert(get_value(object, &Object::value) == 5);
+
   /// END
 }
