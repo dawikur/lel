@@ -160,10 +160,12 @@ Shorted, right? And, for me, much cleaner.
 
   auto _ptr = &_x;
   auto get_value = (_ptr->*_y);
+  auto set_value = get_value = _z;
 
   Object object(5);
 
-  assert(get_value(object, &Object::value) == 5);
+  set_value(object, &Object::value) = 8;
+  assert(get_value(object, &Object::value) == 8);
 ```
 
 [//]:#(EXAMPLES_END)

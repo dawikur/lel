@@ -28,15 +28,28 @@ def parse_args():
 
 
 def load_examples(filename):
-    class Context:
+    class Result(object):
+        def __init__(self, name, lines):
+            self.name = name
+            self.lines = lines
+
+    class Context(object):
         def __init__(self):
-            self.result = {}
+            self.result = []
             self.name = ""
             self.current = []
 
+    def _reset(context, line, tag):
+        context.name = line.replace(tag, "").strip()
+        context.current = []
+
+    def _store(context):
+        context.result.append(Result(context.name, context.current))
+        _reset(context, line, EXAMPLE_NEXT)
+
     def _wait_for(line, context):
         if EXAMPLE_BEGIN in line:
-            context.name = line.replace(EXAMPLE_BEGIN, "").strip()
+            _reset(context, line, EXAMPLE_BEGIN)
 
             return _example
 
@@ -44,14 +57,12 @@ def load_examples(filename):
 
     def _example(line, context):
         if EXAMPLE_NEXT in line:
-            context.result[context.name] = context.current
-            context.name = line.replace(EXAMPLE_NEXT, "").strip()
-            context.current = []
+            _store(context)
 
             return _example
 
         if EXAMPLE_END in line:
-            context.result[context.name] = context.current
+            _store(context)
 
             return _end
 
@@ -108,7 +119,7 @@ def load_readme(filename):
 
 
 def parse(examples):
-    def _key(key):
+    def _name(key):
         return "### {}". format(key).strip(" ")
 
     def _lines(lines):
@@ -118,12 +129,12 @@ def parse(examples):
 
     result = ""
 
-    for key, lines in examples.items():
+    for example in examples:
         result += "\n"
-        result += _key(key)
+        result += _name(example.name)
         result += "\n"
         result += "\n"
-        result += _lines(lines)
+        result += _lines(example.lines)
         result += "\n"
 
     return result
@@ -141,9 +152,8 @@ def main():
     args = parse_args()
 
     examples = load_examples(args.examples)
-    readme = load_readme(args.readme)
-
     result = parse(examples)
+    readme = load_readme(args.readme)
 
     save(args.readme, readme[0], result, readme[1])
 
