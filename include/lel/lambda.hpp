@@ -17,8 +17,8 @@ class Lambda;
 
 template <class Func, class... Views, class Compare, class IDT, IDT... IDs>
 class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
-  using ID    = Template::Box<Compare, IDT, IDs...>;
-  using Class = Lambda<Context<Func, Views...>, ID>;
+  using ID   = Template::Box<Compare, IDT, IDs...>;
+  using This = Lambda<Context<Func, Views...>, ID>;
 
  public:
   constexpr Lambda(Views... views) : views(std::move(views)...) {}
@@ -36,17 +36,17 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
 #define OPERATION(MARK, FUNC)                                                  \
   template <class... Value>                                                    \
   constexpr decltype(auto) MARK(Value &&... value) const {                     \
-    return Lambda<Context<FUNC, Class, Wrap<Value const>...>, ID>{             \
+    return Lambda<Context<FUNC, This, Wrap<Value const>...>, ID>{              \
       *this, std::forward<Value>(value)...};                                   \
   }                                                                            \
   template <class... RestV, class... IDV>                                      \
   constexpr decltype(auto) MARK(Lambda<RestV, IDV>... view) const {            \
-    return Lambda<Context<FUNC, Class, Lambda<RestV, IDV>...>,                 \
+    return Lambda<Context<FUNC, This, Lambda<RestV, IDV>...>,                  \
                   Template::Merge<ID, IDV...>>{*this, std::move(view)...};     \
   }
 
   constexpr decltype(auto) _() const {
-    return Lambda<Context<Call, Class>, ID>{*this};
+    return Lambda<Context<Call, This>, ID>{*this};
   }
 
   OPERATION(_, Call)
