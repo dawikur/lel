@@ -1,11 +1,11 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#include "lel/operation/increment_decrement.hpp"
+#include "lel/operator/increment_decrement.hpp"
 
 #include "gtest/gtest.h"
 
 TEST(increment_decrement_test, preincrement) {
-  LeL::Operation::__PreIncrement pre_increment;
+  LeL::Operator::__PreIncrement pre_increment;
 
   int i = 5;
 
@@ -13,7 +13,7 @@ TEST(increment_decrement_test, preincrement) {
 }
 
 TEST(increment_decrement_test, postincrement) {
-  LeL::Operation::__PostIncrement post_increment;
+  LeL::Operator::__PostIncrement post_increment;
 
   int i = 5;
 
@@ -21,7 +21,7 @@ TEST(increment_decrement_test, postincrement) {
 }
 
 TEST(increment_decrement_test, predecrement) {
-  LeL::Operation::__PreDecrement pre_decrement;
+  LeL::Operator::__PreDecrement pre_decrement;
 
   int i = 5;
 
@@ -29,7 +29,7 @@ TEST(increment_decrement_test, predecrement) {
 }
 
 TEST(increment_decrement_test, postdecrement) {
-  LeL::Operation::__PostDecrement post_decrement;
+  LeL::Operator::__PostDecrement post_decrement;
 
   int i = 5;
 

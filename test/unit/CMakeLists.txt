@@ -2,9 +2,9 @@ add_executable(lel_test
   context.cpp
   functor.cpp
   lambda.cpp
-  operation/binary.cpp
-  operation/increment_decrement.cpp
-  operation/unary.cpp
+  operator/binary.cpp
+  operator/increment_decrement.cpp
+  operator/unary.cpp
   reference.cpp
   template/box.cpp
   template/sequence.cpp

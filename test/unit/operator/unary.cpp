@@ -1,6 +1,6 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#include "lel/operation/unary.hpp"
+#include "lel/operator/unary.hpp"
 
 #include "gtest/gtest.h"
 

@@ -1,7 +1,7 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_LEL_OPERATION_UNARY_HPP_
-#define INCLUDE_LEL_OPERATION_UNARY_HPP_
+#ifndef INCLUDE_LEL_OPERATOR_UNARY_HPP_
+#define INCLUDE_LEL_OPERATOR_UNARY_HPP_
 
 #include <functional>
 
@@ -9,9 +9,9 @@
 
 namespace LeL {
 
-#define OPERATION_STD(MARK, FUNC) OPERATION(MARK, std::FUNC<>)
-#define OPERATION_LEL(MARK, FUNC)                                              \
-  namespace Operation {                                                        \
+#define OPERATOR_STD(MARK, FUNC) OPERATOR(MARK, std::FUNC<>)
+#define OPERATOR_LEL(MARK, FUNC)                                               \
+  namespace Operator {                                                         \
   struct __##FUNC {                                                            \
     template <class Value>                                                     \
     constexpr decltype(auto) operator()(Value &&value) const {                 \
@@ -19,27 +19,27 @@ namespace LeL {
     }                                                                          \
   };                                                                           \
   }                                                                            \
-  OPERATION(MARK, Operation::__##FUNC)
+  OPERATOR(MARK, Operator::__##FUNC)
 
-#define OPERATION(MARK, FUNC)                                                  \
+#define OPERATOR(MARK, FUNC)                                                   \
   template <class Rest, class IDs>                                             \
   constexpr decltype(auto) operator MARK(Lambda<Rest, IDs> view) {             \
     return Lambda<Context<FUNC, Lambda<Rest, IDs>>, IDs>{std::move(view)};     \
   }
 
-OPERATION_STD( - , negate      )
-OPERATION_STD( ! , logical_not )
-OPERATION_STD( ~ , bit_not     )
+OPERATOR_STD( - , negate      )
+OPERATOR_STD( ! , logical_not )
+OPERATOR_STD( ~ , bit_not     )
 
-OPERATION    ( + , Identity    )
+OPERATOR    ( + , Identity    )
 
-OPERATION_LEL( * , Indirection )
-OPERATION_LEL( & , AddressOf   )
+OPERATOR_LEL( * , Indirection )
+OPERATOR_LEL( & , AddressOf   )
 
-#undef OPERATION
-#undef OPERATION_LEL
-#undef OPERATION_STD
+#undef OPERATOR
+#undef OPERATOR_LEL
+#undef OPERATOR_STD
 
 }  // namespace LeL
 
-#endif  // INCLUDE_LEL_OPERATION_UNARY_HPP_
+#endif  // INCLUDE_LEL_OPERATOR_UNARY_HPP_

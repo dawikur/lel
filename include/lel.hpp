@@ -6,9 +6,9 @@
 #include <functional>
 
 #include "lel/lambda.hpp"
-#include "lel/operation/binary.hpp"
-#include "lel/operation/increment_decrement.hpp"
-#include "lel/operation/unary.hpp"
+#include "lel/operator/binary.hpp"
+#include "lel/operator/increment_decrement.hpp"
+#include "lel/operator/unary.hpp"
 #include "lel/reference.hpp"
 
 template <class IDT, class Compare = std::less<>>
