@@ -103,7 +103,7 @@ int main() {
 
   Object object(5);
 
-  set_value(object, &Object::value) = 8;
+  set_value(object, &Object::value, 8);
   assert(get_value(object, &Object::value) == 8);
 
   /// END

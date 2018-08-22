@@ -164,7 +164,7 @@ Shorted, right? And, for me, much cleaner.
 
   Object object(5);
 
-  set_value(object, &Object::value) = 8;
+  set_value(object, &Object::value, 8);
   assert(get_value(object, &Object::value) == 8);
 ```
 
