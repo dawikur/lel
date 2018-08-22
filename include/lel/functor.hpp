@@ -36,6 +36,16 @@ struct Call {
   }
 };
 
+struct PointerToMemberCall {
+  template <class Pointer, class Member, class... Args>
+  constexpr decltype(auto) operator()(Pointer &&pointer,
+                                      Member && member,
+                                      Args &&... args) const {
+    return (std::forward<Pointer>(pointer)->*std::forward<Member>(member))(
+      std::forward<Args>(args)...);
+    }
+};
+
 }  // namespace LeL
 
 #endif  // INCLUDE_LEL_FUNCTOR_HPP_

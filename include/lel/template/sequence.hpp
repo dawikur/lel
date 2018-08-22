@@ -23,7 +23,7 @@ struct Sequence {
 
   template <int Index, Type Token, Type... Tail>
   struct IndexOfImpl<Index, Token, Token, Tail...> {
-    using Result = std::integral_constant<int, Index>;
+    using type = std::integral_constant<int, Index>;
   };
 
   template <Type...>
@@ -34,7 +34,7 @@ struct Sequence {
 
   template <Type Last>
   struct BackImpl<Last> {
-    using Result = std::integral_constant<Type, Last>;
+    using type = std::integral_constant<Type, Last>;
   };
 
   template <class, bool>
@@ -43,28 +43,28 @@ struct Sequence {
   template <class Dummy>
   struct PopFrontIfImpl<Dummy, true> {
     template <Type, Type... Tail>
-    using Result = Sequence<Type, Tail...>;
+    using type = Sequence<Type, Tail...>;
   };
 
   template <class Dummy>
   struct PopFrontIfImpl<Dummy, false> {
     template <Type... Types>
-    using Result = Sequence<Type, Types...>;
+    using type = Sequence<Type, Types...>;
   };
 
  public:
   template <Type Token>
   static constexpr int IndexOf() noexcept {
-    return IndexOfImpl<0, Token, Tokens...>::Result::value;
+    return IndexOfImpl<0, Token, Tokens...>::type::value;
   }
 
   static constexpr Type Back() noexcept {
-    return BackImpl<Tokens...>::Result::value;
+    return BackImpl<Tokens...>::type::value;
   }
 
   template <bool Condition>
   using PopFrontIf
-    = typename PopFrontIfImpl<bool, Condition>::template Result<Tokens...>;
+    = typename PopFrontIfImpl<bool, Condition>::template type<Tokens...>;
 
   template <template<class T, T...> class Result>
   using To = Result<Type, Tokens...>;
@@ -78,7 +78,7 @@ struct MakeSequenceImpl {
 
   template <std::size_t ID, std::size_t... IDs>
   struct MakeSeqExpand<ID, 0, IDs...> {
-    using Result = std::index_sequence<IDs...>;
+    using type = std::index_sequence<IDs...>;
   };
 
   template <std::size_t ID, std::size_t N, std::size_t S, std::size_t... IDs>
@@ -88,12 +88,12 @@ struct MakeSequenceImpl {
   struct MakeSeq<N, N, S, IDs...> : MakeSeqExpand<N - 1, S, IDs...> {};
 
  public:
-  using Result =
-    typename MakeSeq<0, Num, (Num < Size ? Size - Num : 0)>::Result;
+  using type =
+    typename MakeSeq<0, Num, (Num < Size ? Size - Num : 0)>::type;
 };
 
 template <std::size_t Num, std::size_t Size = Num>
-using MakeSequence = typename MakeSequenceImpl<Num, Size>::Result;
+using MakeSequence = typename MakeSequenceImpl<Num, Size>::type;
 
 }  // namespace Template
 }  // namespace LeL

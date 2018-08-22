@@ -25,19 +25,19 @@ struct Box {
   // Finish: only left
   template <Type... Merged, Type HeadL, Type... TailL>
   struct MergeImpl<Seq<Merged...>, Seq<HeadL, TailL...>, Seq<>> {
-    using Result = Self<Merged..., HeadL, TailL...>;
+    using type = Self<Merged..., HeadL, TailL...>;
   };
 
   // Finish: only right
   template <Type... Merged, Type HeadR, Type... TailR>
   struct MergeImpl<Seq<Merged...>, Seq<>, Seq<HeadR, TailR...>> {
-    using Result = Self<Merged..., HeadR, TailR...>;
+    using type = Self<Merged..., HeadR, TailR...>;
   };
 
   // Finish: nothing left to do
   template <Type... Merged>
   struct MergeImpl<Seq<Merged...>, Seq<>, Seq<>> {
-    using Result = Self<Merged...>;
+    using type = Self<Merged...>;
   };
 
   template <Type Left, Type Right>
@@ -62,7 +62,7 @@ struct Box {
 
   template <Type... NewTokens>
   struct ExpandToImpl<0, NewTokens...> {
-    using Result = Self<NewTokens...>;
+    using type = Self<NewTokens...>;
   };
 
  public:
@@ -75,8 +75,8 @@ struct Box {
 
   template <Type... NewTokens>
   struct Merge<Seq<NewTokens...>> {
-    using Result =
-      typename MergeImpl<Seq<>, Seq<Tokens...>, Seq<NewTokens...>>::Result;
+    using type =
+      typename MergeImpl<Seq<>, Seq<Tokens...>, Seq<NewTokens...>>::type;
   };
 
   template <Type... NewTokens>
@@ -85,7 +85,7 @@ struct Box {
 };
 
 template <class Head, class... Tail>
-using Merge = typename Head::template Merge<Tail...>::Result;
+using Merge = typename Head::template Merge<Tail...>::type;
 
 }  // namespace Template
 }  // namespace LeL
