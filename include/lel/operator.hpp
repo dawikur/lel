@@ -1,11 +1,12 @@
 // Copyright 2017, Dawid Kurek, <dawikur@gmail.com>
 
-#ifndef INCLUDE_LEL_FUNCTOR_HPP_
-#define INCLUDE_LEL_FUNCTOR_HPP_
+#ifndef INCLUDE_LEL_OPERATOR_HPP_
+#define INCLUDE_LEL_OPERATOR_HPP_
 
 #include <utility>
 
 namespace LeL {
+namespace Operator {
 
 struct Identity {
   template <class Value>
@@ -46,6 +47,7 @@ struct PointerToMemberCall {
     }
 };
 
+}  // namespace Opeator
 }  // namespace LeL
 
-#endif  // INCLUDE_LEL_FUNCTOR_HPP_
+#endif  // INCLUDE_LEL_OPERATOR_HPP_

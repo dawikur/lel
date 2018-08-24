@@ -17,7 +17,7 @@ struct lel_t {
 using reference = LeL::Reference<Compare, IDT>;
 
 template <IDT ID>
-using placeholder = LeL::Lambda<LeL::Context<LeL::Identity>,
+using placeholder = LeL::Lambda<LeL::Context<LeL::Operator::Identity>,
                                 LeL::Template::Box<Compare, IDT, ID>>;
 
 };

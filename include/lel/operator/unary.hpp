@@ -27,14 +27,14 @@ namespace LeL {
     return Lambda<Context<FUNC, Lambda<Rest, IDs>>, IDs>{std::move(view)};     \
   }
 
-OPERATOR_STD( - , negate      )
-OPERATOR_STD( ! , logical_not )
-OPERATOR_STD( ~ , bit_not     )
+OPERATOR_STD( - , negate             )
+OPERATOR_STD( ! , logical_not        )
+OPERATOR_STD( ~ , bit_not            )
 
-OPERATOR    ( + , Identity    )
+OPERATOR    ( + , Operator::Identity )
 
-OPERATOR_LEL( * , Indirection )
-OPERATOR_LEL( & , AddressOf   )
+OPERATOR_LEL( * , Indirection        )
+OPERATOR_LEL( & , AddressOf          )
 
 #undef OPERATOR
 #undef OPERATOR_LEL

@@ -6,7 +6,7 @@
 #include <tuple>
 
 #include "lel/context.hpp"
-#include "lel/functor.hpp"
+#include "lel/operator.hpp"
 #include "lel/rebind.hpp"
 #include "lel/template/variadic.hpp"
 #include "lel/wrap.hpp"
@@ -35,14 +35,14 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
   }
 
   constexpr decltype(auto) _() const {
-    return Lambda<Context<Call, This>, ID>{*this};
+    return Lambda<Context<Operator::Call, This>, ID>{*this};
   }
 
 #define OPERATION(MARK, FUNC)                                                  \
  public:                                                                       \
   template <class... Value>                                                    \
   constexpr decltype(auto) MARK(Value &&... value) const {                     \
-    return __##FUNC(typename Rebind<Func, FUNC>::value{},                      \
+    return __##FUNC(typename Rebind<Func, Operator::FUNC>::value{},            \
                     std::forward<Value>(value)...);                            \
   }                                                                            \
                                                                                \
@@ -50,12 +50,12 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
   template <class... Value>                                                    \
   constexpr decltype(auto) __##FUNC(std::false_type, Value &&... value)        \
     const {                                                                    \
-    return Lambda<Context<FUNC, This, Wrap<Value const>...>, ID>{              \
+    return Lambda<Context<Operator::FUNC, This, Wrap<Value const>...>, ID>{    \
       *this, std::forward<Value>(value)...};                                   \
   }                                                                            \
   template <class... Value>                                                    \
   constexpr decltype(auto) __##FUNC(std::true_type, Value &&... value) const { \
-    return Lambda<Context<typename Rebind<Func, FUNC>::type,                   \
+    return Lambda<Context<typename Rebind<Func, Operator::FUNC>::type,         \
                           Views...,                                            \
                           Wrap<Value const>...>,                               \
                   ID>{                                                         \
@@ -65,13 +65,13 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
   template <class... RestV, class... IDV>                                      \
   constexpr decltype(auto) __##FUNC(std::false_type,                           \
                                     Lambda<RestV, IDV>... view) const {        \
-    return Lambda<Context<FUNC, This, Lambda<RestV, IDV>...>,                  \
+    return Lambda<Context<Operator::FUNC, This, Lambda<RestV, IDV>...>,        \
                   Template::Merge<ID, IDV...>>{*this, std::move(view)...};     \
   }                                                                            \
   template <class... RestV, class... IDV>                                      \
   constexpr decltype(auto) __##FUNC(std::true_type,                            \
                                     Lambda<RestV, IDV>... view) const {        \
-    return Lambda<Context<typename Rebind<Func, FUNC>::type,                   \
+    return Lambda<Context<typename Rebind<Func, Operator::FUNC>::type,         \
                           Views...,                                            \
                           Lambda<RestV, IDV>...>,                              \
                   Template::Merge<ID, IDV...>>{                                \

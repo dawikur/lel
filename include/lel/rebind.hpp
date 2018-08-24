@@ -5,14 +5,13 @@
 
 #include <type_traits>
 
-#include "lel/functor.hpp"
+#include "lel/operator.hpp"
 
 namespace LeL {
 
-struct Call;
-
 namespace Operator {
 
+struct Call;
 struct PointerToMember;
 
 }  // namespacce Operator
@@ -23,9 +22,9 @@ struct Rebind {
 };
 
 template <>
-struct Rebind<Operator::PointerToMember, Call> {
+struct Rebind<Operator::PointerToMember, Operator::Call> {
   using value = std::true_type;
-  using type = PointerToMemberCall;
+  using type = Operator::PointerToMemberCall;
 };
 
 }  // namespace LeL
