@@ -13,6 +13,6 @@ add_executable(blackbox_test
   11_function_call.cpp
   12_pointer_to_member.cpp
 )
-target_link_libraries(blackbox_test testing)
+target_link_libraries(blackbox_test tests)
 
 add_test(blackbox blackbox_test --gtest_color=yes)

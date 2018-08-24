@@ -6,47 +6,17 @@ option(ENABLE_COVERAGE  "Build coverage tests" OFF)
 
 project(LeL C CXX)
 
-add_library(settings INTERFACE)
-
-if(MSVC)
-  target_compile_options(settings INTERFACE /W4 /WX)
-else()
-  target_compile_options(settings INTERFACE
-    -Wall
-    -Wextra
-    -Werror
-    -Wpedantic
-  )
-
-  if(ENABLE_COVERAGE)
-    target_compile_options(settings INTERFACE
-      --coverage
-    )
-
-    target_link_libraries(settings INTERFACE
-      gcov
-    )
-  endif()
-
-  target_compile_features(settings INTERFACE
-    cxx_std_14
-  )
-
-  target_link_libraries(settings INTERFACE
-    pthread
-  )
-endif()
-
 add_library(lel INTERFACE)
 
 target_include_directories(lel INTERFACE include)
-target_link_libraries(lel INTERFACE settings)
-
-add_subdirectory(thirdparty)
+target_compile_features(lel INTERFACE
+  cxx_std_14
+)
 
 if(ENABLE_BENCHMARK OR ENABLE_COVERAG OR ENABLE_TESTING)
   enable_testing()
 
+  add_subdirectory(thirdparty)
   add_subdirectory(test)
 endif()
 

@@ -11,7 +11,7 @@ add_executable(lel_test
   template/variadic.cpp
   wrap.cpp
 )
-target_link_libraries(lel_test testing)
+target_link_libraries(lel_test tests)
 target_include_directories(lel_test PRIVATE .)
 
 add_test(lel lel_test --gtest_color=yes)
