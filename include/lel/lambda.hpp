@@ -5,9 +5,10 @@
 
 #include <tuple>
 
-#include "lel/template/variadic.hpp"
 #include "lel/context.hpp"
 #include "lel/functor.hpp"
+#include "lel/rebind.hpp"
+#include "lel/template/variadic.hpp"
 #include "lel/wrap.hpp"
 
 namespace LeL {
@@ -33,20 +34,48 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
                 std::forward<Values>(values)...);
   }
 
+  constexpr decltype(auto) _() const {
+    return Lambda<Context<Call, This>, ID>{*this};
+  }
+
 #define OPERATION(MARK, FUNC)                                                  \
+ public:                                                                       \
   template <class... Value>                                                    \
   constexpr decltype(auto) MARK(Value &&... value) const {                     \
+    return __##FUNC(typename Rebind<Func, FUNC>::value{},                      \
+                    std::forward<Value>(value)...);                            \
+  }                                                                            \
+                                                                               \
+ private:                                                                      \
+  template <class... Value>                                                    \
+  constexpr decltype(auto) __##FUNC(std::false_type, Value &&... value)        \
+    const {                                                                    \
     return Lambda<Context<FUNC, This, Wrap<Value const>...>, ID>{              \
       *this, std::forward<Value>(value)...};                                   \
   }                                                                            \
+  template <class... Value>                                                    \
+  constexpr decltype(auto) __##FUNC(std::true_type, Value &&... value) const { \
+    return Lambda<Context<typename Rebind<Func, FUNC>::type,                   \
+                          Views...,                                            \
+                          Wrap<Value const>...>,                               \
+                  ID>{                                                         \
+      std::get<0>(views), std::get<1>(views), std::forward<Value>(value)...};  \
+  }                                                                            \
+                                                                               \
   template <class... RestV, class... IDV>                                      \
-  constexpr decltype(auto) MARK(Lambda<RestV, IDV>... view) const {            \
+  constexpr decltype(auto) __##FUNC(std::false_type,                           \
+                                    Lambda<RestV, IDV>... view) const {        \
     return Lambda<Context<FUNC, This, Lambda<RestV, IDV>...>,                  \
                   Template::Merge<ID, IDV...>>{*this, std::move(view)...};     \
-  }
-
-  constexpr decltype(auto) _() const {
-    return Lambda<Context<Call, This>, ID>{*this};
+  }                                                                            \
+  template <class... RestV, class... IDV>                                      \
+  constexpr decltype(auto) __##FUNC(std::true_type,                            \
+                                    Lambda<RestV, IDV>... view) const {        \
+    return Lambda<Context<typename Rebind<Func, FUNC>::type,                   \
+                          Views...,                                            \
+                          Lambda<RestV, IDV>...>,                              \
+                  Template::Merge<ID, IDV...>>{                                \
+      std::get<0>(views), std::get<1>(views), std::move(view)...};             \
   }
 
   OPERATION(_, Call)
