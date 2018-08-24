@@ -58,8 +58,10 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
   template <class Idx, class... Value>                                         \
   constexpr decltype(auto) __##FUNC(std::false_type, Idx, Value &&... value)   \
     const REF {                                                                \
-    return Lambda<Context<Operator::FUNC, This, Wrap<Value const>...>, ID>{    \
-      MOVE(*this), std::forward<Value>(value)...};                             \
+    return Lambda<Context<typename Rebind<Func, Operator::FUNC>::type,         \
+                          This,                                                \
+                          Wrap<Value const>...>,                               \
+                  ID>{MOVE(*this), std::forward<Value>(value)...};             \
   }                                                                            \
   /*    rebind    value    */                                                  \
   template <std::size_t... Idx, class... Value>                                \
@@ -72,6 +74,16 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
                   ID>{MOVE(std::get<Idx>(views))...,                           \
                       std::forward<Value>(value)...};                          \
   }                                                                            \
+  /* no_rebind    lambda   */                                                  \
+  template <class Idx, class... RestV, class... IDV>                           \
+  constexpr decltype(auto) __##FUNC(                                           \
+    std::false_type, Idx, Lambda<RestV, IDV>... view) const REF {              \
+    return Lambda<Context<typename Rebind<Func, Operator::FUNC>::type,         \
+                          This,                                                \
+                          Lambda<RestV, IDV>...>,                              \
+                  Template::Merge<ID, IDV...>>{MOVE(*this),                    \
+                                               std::move(view)...};            \
+  }                                                                            \
   /*    rebind    lambda   */                                                  \
   template <std::size_t... Idx, class... RestV, class... IDV>                  \
   constexpr decltype(auto) __##FUNC(                                           \
@@ -81,14 +93,6 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
                           Views...,                                            \
                           Lambda<RestV, IDV>...>,                              \
                   Template::Merge<ID, IDV...>>{MOVE(std::get<Idx>(views))...,  \
-                                               std::move(view)...};            \
-  }                                                                            \
-  /* no_rebind    lambda   */                                                  \
-  template <class Idx, class... RestV, class... IDV>                           \
-  constexpr decltype(auto) __##FUNC(                                           \
-    std::false_type, Idx, Lambda<RestV, IDV>... view) const REF {              \
-    return Lambda<Context<Operator::FUNC, This, Lambda<RestV, IDV>...>,        \
-                  Template::Merge<ID, IDV...>>{MOVE(*this),                    \
                                                std::move(view)...};            \
   }
 

@@ -10,9 +10,10 @@
 
 namespace LeL {
 
-template <class, class>
+template <class From, class To>
 struct Rebind {
   using value = std::false_type;
+  using type = To;
 };
 
 template <>
