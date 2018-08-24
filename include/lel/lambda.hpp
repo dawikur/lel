@@ -50,12 +50,12 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
   }                                                                            \
                                                                                \
  private:                                                                      \
-  OPERATION_IMPL(MARK, FUNC, & ,          (*this)                  , false)    \
-  OPERATION_IMPL(MARK, FUNC, &&, std::move(*this)                  , false)    \
-  OPERATION_IMPL(MARK, FUNC, & ,          (std::get<Idx>(views))..., true )    \
-  OPERATION_IMPL(MARK, FUNC, &&, std::move(std::get<Idx>(views))..., true )
+  OPERATION_IMPL(MARK, FUNC, & , false,          (*this)                  )    \
+  OPERATION_IMPL(MARK, FUNC, &&, false, std::move(*this)                  )    \
+  OPERATION_IMPL(MARK, FUNC, & , true ,          (std::get<Idx>(views))...)    \
+  OPERATION_IMPL(MARK, FUNC, &&, true , std::move(std::get<Idx>(views))...)
 
-#define OPERATION_IMPL(MARK, FUNC, REF, MOVE, REBIND)                          \
+#define OPERATION_IMPL(MARK, FUNC, REF, REBIND, MOVE)                          \
   template <std::size_t... Idx, class... Value>                                \
   constexpr decltype(auto) __##FUNC(                                           \
     std::REBIND##_type, std::index_sequence<Idx...>, Value &&... value)        \
