@@ -88,7 +88,7 @@ int main() {
   auto reduce = _(agregate)._(_a, _b, _c, _d);
   assert(20 == reduce(2, 4, 6, 8));
 
-  //
+  // objects
   struct Object {
     Object(int value) : value(value) {}
 
@@ -99,7 +99,7 @@ int main() {
 
   Object object(5);
 
-  // struct field
+  // field
   auto get_value = (&_x->*_y);
   auto set_value = get_value = _z;
 

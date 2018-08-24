@@ -147,7 +147,7 @@ Shorted, right? And, for me, much cleaner.
   assert(20 == reduce(2, 4, 6, 8));
 ```
 
-###
+### objects
 
 ```cpp
   struct Object {
@@ -161,7 +161,7 @@ Shorted, right? And, for me, much cleaner.
   Object object(5);
 ```
 
-### struct field
+### field
 
 ```cpp
   auto get_value = (&_x->*_y);
