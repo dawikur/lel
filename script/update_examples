@@ -7,7 +7,7 @@ from __future__ import print_function
 import argparse
 
 EXAMPLE_BEGIN = r'/// BEGIN'
-EXAMPLE_NEXT = r'// '
+EXAMPLE_NEXT = r'//'
 EXAMPLE_END = r'/// END'
 
 EXAMPLES_BEGIN = r'[//]:#(EXAMPLES_BEGIN)'
