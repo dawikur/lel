@@ -3,18 +3,12 @@
 #ifndef INCLUDE_LEL_REBIND_HPP_
 #define INCLUDE_LEL_REBIND_HPP_
 
-#include <type_traits>
-
 #include "lel/operator.hpp"
+#include "lel/operator/binary.hpp"
+#include "lel/operator/increment_decrement.hpp"
+#include "lel/operator/unary.hpp"
 
 namespace LeL {
-
-namespace Operator {
-
-struct Call;
-struct PointerToMember;
-
-}  // namespacce Operator
 
 template <class, class>
 struct Rebind {

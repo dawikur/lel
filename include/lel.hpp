@@ -9,6 +9,7 @@
 #include "lel/operator/binary.hpp"
 #include "lel/operator/increment_decrement.hpp"
 #include "lel/operator/unary.hpp"
+#include "lel/rebind.hpp"
 #include "lel/reference.hpp"
 
 template <class IDT, class Compare = std::less<>>

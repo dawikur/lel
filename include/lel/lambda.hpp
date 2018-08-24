@@ -7,11 +7,13 @@
 
 #include "lel/context.hpp"
 #include "lel/operator.hpp"
-#include "lel/rebind.hpp"
 #include "lel/template/variadic.hpp"
 #include "lel/wrap.hpp"
 
 namespace LeL {
+
+template <class From, class To>
+class Rebind;
 
 template <class Context, class IDs>
 class Lambda;
