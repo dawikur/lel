@@ -50,51 +50,30 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
   }                                                                            \
                                                                                \
  private:                                                                      \
-  OPERATION_IMPL( MARK , FUNC , &  ,           )                               \
-  OPERATION_IMPL( MARK , FUNC , && , std::move )
+  OPERATION_IMPL( MARK , FUNC , &  ,          (*this)                   , false , This    ) \
+  OPERATION_IMPL( MARK , FUNC , && , std::move(*this)                   , false , This    ) \
+  OPERATION_IMPL( MARK , FUNC ,  & ,          (std::get<Idx>(views))... , true  , Views...) \
+  OPERATION_IMPL( MARK , FUNC , && , std::move(std::get<Idx>(views))... , true  , Views...)
 
-#define OPERATION_IMPL(MARK, FUNC, REF, MOVE)                                  \
-  /* no_rebind    value    */                                                  \
-  template <class Idx, class... Value>                                         \
-  constexpr decltype(auto) __##FUNC(std::false_type, Idx, Value &&... value)   \
-    const REF {                                                                \
-    return Lambda<Context<typename Rebind<Func, Operator::FUNC>::type,         \
-                          This,                                                \
-                          Wrap<Value const>...>,                               \
-                  ID>{MOVE(*this), std::forward<Value>(value)...};             \
-  }                                                                            \
-  /*    rebind    value    */                                                  \
+#define OPERATION_IMPL(MARK, FUNC, REF, MOVE, REBIND, THIS )                   \
   template <std::size_t... Idx, class... Value>                                \
   constexpr decltype(auto) __##FUNC(                                           \
-    std::true_type, std::index_sequence<Idx...>, Value &&... value)            \
+    std::REBIND##_type, std::index_sequence<Idx...>, Value &&... value)        \
     const REF {                                                                \
     return Lambda<Context<typename Rebind<Func, Operator::FUNC>::type,         \
-                          Views...,                                            \
+                          THIS,                                                \
                           Wrap<Value const>...>,                               \
-                  ID>{MOVE(std::get<Idx>(views))...,                           \
-                      std::forward<Value>(value)...};                          \
+                  ID>{MOVE, std::forward<Value>(value)...};                    \
   }                                                                            \
-  /* no_rebind    lambda   */                                                  \
-  template <class Idx, class... RestV, class... IDV>                           \
-  constexpr decltype(auto) __##FUNC(                                           \
-    std::false_type, Idx, Lambda<RestV, IDV>... view) const REF {              \
-    return Lambda<Context<typename Rebind<Func, Operator::FUNC>::type,         \
-                          This,                                                \
-                          Lambda<RestV, IDV>...>,                              \
-                  Template::Merge<ID, IDV...>>{MOVE(*this),                    \
-                                               std::move(view)...};            \
-  }                                                                            \
-  /*    rebind    lambda   */                                                  \
   template <std::size_t... Idx, class... RestV, class... IDV>                  \
-  constexpr decltype(auto) __##FUNC(                                           \
-    std::true_type, std::index_sequence<Idx...>, Lambda<RestV, IDV>... view)   \
-    const REF {                                                                \
+  constexpr decltype(auto) __##FUNC(std::REBIND##_type,                        \
+                                    std::index_sequence<Idx...>,               \
+                                    Lambda<RestV, IDV>... view) const REF {    \
     return Lambda<Context<typename Rebind<Func, Operator::FUNC>::type,         \
-                          Views...,                                            \
+                          THIS,                                                \
                           Lambda<RestV, IDV>...>,                              \
-                  Template::Merge<ID, IDV...>>{MOVE(std::get<Idx>(views))...,  \
-                                               std::move(view)...};            \
-  }
+                  Template::Merge<ID, IDV...>>{MOVE, std::move(view)...};      \
+  }                                                                            \
 
   OPERATION( _          , Call      )
   OPERATION( operator=  , Assign    )
