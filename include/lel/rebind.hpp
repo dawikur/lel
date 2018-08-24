@@ -3,6 +3,7 @@
 #ifndef INCLUDE_LEL_REBIND_HPP_
 #define INCLUDE_LEL_REBIND_HPP_
 
+#include "lel/context.hpp"
 #include "lel/operator.hpp"
 #include "lel/operator/binary.hpp"
 #include "lel/operator/increment_decrement.hpp"
@@ -13,13 +14,23 @@ namespace LeL {
 template <class From, class To>
 struct Rebind {
   using value = std::false_type;
-  using type = To;
+
+  template <class This, class... View>
+  struct context {
+    template <class... NewView>
+    using with = Context<To, This, NewView...>;
+  };
 };
 
 template <>
 struct Rebind<Operator::PointerToMember, Operator::Call> {
   using value = std::true_type;
-  using type = Operator::PointerToMemberCall;
+
+  template <class This, class... View>
+  struct context {
+    template <class... NewView>
+    using with = Context<Operator::PointerToMemberCall, View..., NewView...>;
+  };
 };
 
 }  // namespace LeL
