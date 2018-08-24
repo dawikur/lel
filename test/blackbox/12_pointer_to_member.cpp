@@ -41,10 +41,6 @@ TEST_F(pointer_to_member_test, calls_method_of_an_object) {
   auto call_object_with = (&_x ->* &Struct::Method)._(_z);
 
   ASSERT_EQ(21, call_method_of_an_struct(s, &Struct::Method, 3));
-  ASSERT_EQ(21, call_method_of_an_struct(s)(&Struct::Method, 3));
-  ASSERT_EQ(21, call_method_of_an_struct(s)(&Struct::Method)(3));
   ASSERT_EQ(14, call_method(&Struct::Method, 2));
-  ASSERT_EQ(14, call_method(&Struct::Method)(2));
   ASSERT_EQ(28, call_object_with(s, 4));
-  ASSERT_EQ(28, call_object_with(s)(4));
 }

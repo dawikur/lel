@@ -11,7 +11,7 @@ TEST(binary_test, operator_plus_can_be_used_in_constexpr) {
 }
 
 TEST(binary_test, shiftleft_can_be_used_in_constexpr) {
-  LeL::Operator::__ShiftLeft shift_left;
+  LeL::Operator::ShiftLeft shift_left;
 
   static_assert(shift_left(1, 3) == 8, "");
 }

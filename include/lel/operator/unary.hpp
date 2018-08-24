@@ -12,14 +12,14 @@ namespace LeL {
 #define OPERATOR_STD(MARK, FUNC) OPERATOR(MARK, std::FUNC<>)
 #define OPERATOR_LEL(MARK, FUNC)                                               \
   namespace Operator {                                                         \
-  struct __##FUNC {                                                            \
+  struct FUNC {                                                                \
     template <class Value>                                                     \
     constexpr decltype(auto) operator()(Value &&value) const {                 \
       return (MARK std::forward<Value>(value));                                \
     }                                                                          \
   };                                                                           \
   }                                                                            \
-  OPERATOR(MARK, Operator::__##FUNC)
+  OPERATOR(MARK, Operator::FUNC)
 
 #define OPERATOR(MARK, FUNC)                                                   \
   template <class Rest, class IDs>                                             \

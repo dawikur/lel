@@ -13,7 +13,7 @@ struct Call;
 
 namespace Operator {
 
-struct __PointerToMember;
+struct PointerToMember;
 
 }  // namespacce Operator
 
@@ -23,7 +23,7 @@ struct Rebind {
 };
 
 template <>
-struct Rebind<Operator::__PointerToMember, Call> {
+struct Rebind<Operator::PointerToMember, Call> {
   using value = std::true_type;
   using type = PointerToMemberCall;
 };

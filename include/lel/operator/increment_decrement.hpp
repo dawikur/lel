@@ -9,7 +9,7 @@ namespace LeL {
 
 #define OPERATOR(MARK, FUNC, PRE, POST, INT)                                   \
   namespace Operator {                                                         \
-  struct __##FUNC {                                                            \
+  struct FUNC {                                                                \
     template <class Value>                                                     \
     constexpr decltype(auto) operator()(Value &&value) const {                 \
       return (PRE value POST);                                                 \
@@ -18,7 +18,7 @@ namespace LeL {
   }                                                                            \
   template <class Rest, class IDs>                                             \
   constexpr decltype(auto) operator MARK(Lambda<Rest, IDs> view INT) {         \
-    return Lambda<Context<Operator::__##FUNC, Lambda<Rest, IDs>>, IDs>{        \
+    return Lambda<Context<Operator::FUNC, Lambda<Rest, IDs>>, IDs>{            \
       std::move(view)};                                                        \
   }
 

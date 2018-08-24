@@ -5,6 +5,7 @@ add_executable(lel_test
   operator/binary.cpp
   operator/increment_decrement.cpp
   operator/unary.cpp
+  rebind.cpp
   reference.cpp
   template/box.cpp
   template/sequence.cpp

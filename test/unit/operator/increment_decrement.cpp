@@ -5,7 +5,7 @@
 #include "gtest/gtest.h"
 
 TEST(increment_decrement_test, preincrement) {
-  LeL::Operator::__PreIncrement pre_increment;
+  LeL::Operator::PreIncrement pre_increment;
 
   int i = 5;
 
@@ -13,7 +13,7 @@ TEST(increment_decrement_test, preincrement) {
 }
 
 TEST(increment_decrement_test, postincrement) {
-  LeL::Operator::__PostIncrement post_increment;
+  LeL::Operator::PostIncrement post_increment;
 
   int i = 5;
 
@@ -21,7 +21,7 @@ TEST(increment_decrement_test, postincrement) {
 }
 
 TEST(increment_decrement_test, predecrement) {
-  LeL::Operator::__PreDecrement pre_decrement;
+  LeL::Operator::PreDecrement pre_decrement;
 
   int i = 5;
 
@@ -29,7 +29,7 @@ TEST(increment_decrement_test, predecrement) {
 }
 
 TEST(increment_decrement_test, postdecrement) {
-  LeL::Operator::__PostDecrement post_decrement;
+  LeL::Operator::PostDecrement post_decrement;
 
   int i = 5;
 
