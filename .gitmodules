@@ -2,6 +2,3 @@
 	path = thirdparty/Celero
 	url = https://github.com/DigitalInBlue/Celero
 	branch = v2.3.0
-[submodule "thirdparty/pycelerograph"]
-	path = thirdparty/pycelerograph
-	url = https://github.com/mloskot/pycelerograph
