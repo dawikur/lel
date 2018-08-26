@@ -15,17 +15,13 @@ echo "[ Mkdir ]"
 
 echo "[ Building..."; (
   cd build || exit 1
-  cmake .. -DCMAKE_BUILD_TYPE=Release -DBENCHMARK=ON || exit 1
+  cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_BENCHMARK=ON || exit 1
   cmake --build . || exit 1
 ) || exit 1; echo "Building done ]"
 
 echo "[ Testing..."
   ./build/test/benchmark/lel_benchmark --outputTable "${fileCsv}"
 echo "Testing done ]"
-
-echo "[ Parsing Csv..."
-  tokens=$(./script/benchmark/parse "${fileCsv}")
-echo "Parsing done ]"
 
 echo "[ Stop ]"
 
