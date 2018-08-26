@@ -247,56 +247,7 @@ ctest -VV
 
 ## Benchmarks
 
-![Simple Expression In Loop](res/benchmark/simple_expression_in_loop.png "chart")
-
-```
-expression == x * x + 3
-```
-
-```cpp
-std::vector<int> vec(100);
-std::generate(vec.begin(), vec.end(), std::rand);
-
-while (state.KeepRunning()) {
-  for (int i = 0; i <= count; ++i) {
-    std::transform(vec.begin(), vec.end(), vec.begin(), expression);
-  }
-}
-```
-
-![Increasing Complexity Of Expressions](res/benchmark/increasing_complexity_of_expressions.png "chart")
-
-```
-0 == ax
-1 == ax + x
-2 == ax - (a+x)
-3 == (ax - (a+x))(a+x)
-4 == ((ax) - (a+x))(bx - (b+x))(ax - (b+x))(bx - (a+x))
-```
-
-```cpp
-std::vector<double> vec(100);
-std::generate(vec.begin(), vec.end(), std::rand);
-
-while (state.KeepRunning()) {
-  std::transform(vec.begin(), vec.end(), vec.begin(), expression);
-}
-```
-
-![Increasing Number of Arguments](res/benchmark/increasing_number_of_arguments.png "chart")
-
-```
-((ax) - (a+x))(bx - (b+x))(ax - (b+x))(bx - (a+x))
-```
-
-```cpp
-std::vector<double> vec(100);
-std::generate(vec.begin(), vec.end(), std::rand);
-
-for (int i = 0; i < 1000; ++i) {
-  expression(vec[args]...);
-}
-```
+TBD
 
 ## BLL - Boost Lambda Library
 
