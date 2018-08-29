@@ -1,7 +1,7 @@
 add_executable(lel_test
   context.cpp
-  functor.cpp
   lambda.cpp
+  operator.cpp
   operator/binary.cpp
   operator/increment_decrement.cpp
   operator/unary.cpp
