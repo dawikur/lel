@@ -240,7 +240,7 @@ all of them with **cmake**:
 ```bash
 mkdir build
 cd build
-cmake .. -DTESTS=ON
+cmake .. -DENABLE_TESTING=ON
 cmake --build .
 ctest -VV
 ```
