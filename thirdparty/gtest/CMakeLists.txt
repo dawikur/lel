@@ -1,7 +1,5 @@
-set(gtest_SOURCES
+add_library(gtest STATIC
   gtest-all.cc
   gtest_main.cc
 )
-
-add_library(gtest STATIC ${gtest_SOURCES})
-target_link_libraries(gtest thirdparty)
+target_include_directories(gtest SYSTEM PUBLIC ../)

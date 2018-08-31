@@ -13,10 +13,11 @@ target_compile_features(lel INTERFACE
   cxx_std_14
 )
 
+add_subdirectory(thirdparty)
+
 if(ENABLE_BENCHMARK OR ENABLE_COVERAG OR ENABLE_TESTING)
   enable_testing()
 
-  add_subdirectory(thirdparty)
   add_subdirectory(test)
 endif()
 

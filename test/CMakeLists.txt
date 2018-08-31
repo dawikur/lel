@@ -4,7 +4,6 @@ add_library(tests INTERFACE)
 target_link_libraries(tests INTERFACE
   gtest
   lel
-  thirdparty
 )
 
 if(MSVC)
