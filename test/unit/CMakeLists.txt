@@ -1,4 +1,4 @@
-add_executable(lel_test
+add_executable(unit_test
   context.cpp
   lambda.cpp
   operator.cpp
@@ -12,7 +12,20 @@ add_executable(lel_test
   template/variadic.cpp
   wrap.cpp
 )
-target_link_libraries(lel_test tests)
-target_include_directories(lel_test PRIVATE .)
+target_link_libraries(unit_test tests)
 
-add_test(lel lel_test --gtest_color=yes)
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  target_compile_options(unit_test PRIVATE
+    -Wno-exit-time-destructors
+    -Wno-global-constructors
+    -Wno-padded
+    -Wno-weak-vtables
+  )
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  target_compile_options(unit_test PRIVATE
+  )
+endif()
+
+target_include_directories(unit_test PRIVATE .)
+
+add_test(unit unit_test --gtest_color=yes)

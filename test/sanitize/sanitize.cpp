@@ -90,7 +90,7 @@ int main() {
 
   // objects
   struct Object {
-    Object(int value) : value(value) {}
+    Object(int arg) : value(arg) {}
 
     int Method(int arg) { return value * arg; }
 

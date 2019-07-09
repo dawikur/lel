@@ -11,7 +11,7 @@ class function_call_test : public ::testing::Test {
   lel::placeholder<'y'> _y;
 };
 
-int free_func(int val) {
+static int free_func(int val) {
   return val + 2;
 }
 

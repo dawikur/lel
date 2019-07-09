@@ -20,7 +20,7 @@ echo "[ Building..."; (
 ) || exit 1; echo "Building done ]"
 
 echo "[ Testing..."
-  ./build/test/benchmark/lel_benchmark --outputTable "${fileCsv}"
+  ./build/test/benchmark/benchmark_test --outputTable "${fileCsv}"
 echo "Testing done ]"
 
 echo "[ Stop ]"

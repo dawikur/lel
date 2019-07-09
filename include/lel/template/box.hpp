@@ -19,6 +19,9 @@ struct Box {
   template <Type... Values>
   using Self = Box<Compare, Type, Values...>;
 
+  template <Type Left, Type Right>
+  static constexpr Type const Lower = Compare()(Left, Right) ? Left : Right;
+
   template <class Merged, class Left, class Right>
   struct MergeImpl;
 
@@ -40,9 +43,6 @@ struct Box {
     using type = Self<Merged...>;
   };
 
-  template <Type Left, Type Right>
-  static constexpr Type const Lower = Compare()(Left, Right) ? Left : Right;
-
   // Compare first elements from Left and Right
   template <Type... Merged,
             Type HeadL,
@@ -55,6 +55,16 @@ struct Box {
                          !Compare()(HeadR, HeadL)>,
                        typename Seq<HeadR, TailR...>::template PopFrontIf<
                          !Compare()(HeadL, HeadR)>> {};
+
+  // First elements from Left and Right are the same
+  template <Type... Merged,
+            Type Head,
+            Type... TailL,
+            Type... TailR>
+  struct MergeImpl<Seq<Merged...>, Seq<Head, TailL...>, Seq<Head, TailR...>>
+    : public MergeImpl<Seq<Merged..., Head>,
+                       Seq<TailL...>,
+                       Seq<TailR...>> {};
 
   template <std::size_t Size, Type... NewTokens>
   struct ExpandToImpl

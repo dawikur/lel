@@ -11,9 +11,45 @@ if(MSVC)
 else()
   target_compile_options(tests INTERFACE
     -Wall
-    -Wextra
     -Werror
+    -Wextra
     -Wpedantic
+    -pedantic
+  )
+
+  if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    target_compile_options(tests INTERFACE
+      -Weverything
+      -Wno-c++98-compat
+      -Wno-c++98-compat-pedantic
+    )
+  elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    target_compile_options(tests INTERFACE
+      -Wall
+      -Wcast-align
+      -Wconversion
+      -Wdouble-promotion
+      -Wduplicated-branches
+      -Wduplicated-cond
+      -Wextra
+      -Wformat=2
+      -Wlogical-op
+      -Wmisleading-indentation
+      -Wnon-virtual-dtor
+      -Wnull-dereference
+      -Wold-style-cast
+      -Woverloaded-virtual
+      -Wpedantic
+      -Wshadow
+      -Wsign-conversion
+      -Wunused
+      -Wuseless-cast
+      -pedantic
+    )
+  endif()
+
+  target_compile_options(tests INTERFACE
+    -Wno-sign-conversion # FIXME
   )
 
   if(ENABLE_COVERAGE)
@@ -34,7 +70,8 @@ else()
   find_package(Boost)
 
   if(Boost_FOUND)
-    target_compile_definitions(tests INTERFACE -DLEL_HAS_BOOST)
+    add_definitions(-DLEL_HAS_BOOST=1)
+    target_compile_definitions(tests INTERFACE LEL_HAS_BOOST=1)
   endif()
 endif()
 

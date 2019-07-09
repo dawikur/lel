@@ -11,7 +11,7 @@ template <class Value>
 class Wrap {
  public:
   template <class Type>
-  constexpr Wrap(Type &&value) : value(std::forward<Type>(value)) {}
+  constexpr Wrap(Type &&arg) : value(std::forward<Type>(arg)) {}
 
   template <class... Types>
   constexpr decltype(auto) operator()(Types &&...) const {
@@ -33,7 +33,7 @@ class Wrap {
 template <class Value>
 class Wrap<Value&> {
  public:
-  constexpr Wrap(Value &value) : value(value) {}
+  constexpr Wrap(Value &arg) : value(arg) {}
 
   template <class... Types>
   constexpr decltype(auto) operator()(Types &&...) const {

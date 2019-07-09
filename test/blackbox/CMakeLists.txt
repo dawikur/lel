@@ -14,5 +14,16 @@ add_executable(blackbox_test
   12_pointer_to_member.cpp
 )
 target_link_libraries(blackbox_test tests)
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+  target_compile_options(blackbox_test PRIVATE
+    -Wno-exit-time-destructors
+    -Wno-global-constructors
+    -Wno-padded
+    -Wno-weak-vtables
+  )
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  target_compile_options(blackbox_test PRIVATE
+  )
+endif()
 
 add_test(blackbox blackbox_test --gtest_color=yes)

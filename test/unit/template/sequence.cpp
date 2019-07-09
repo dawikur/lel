@@ -20,7 +20,9 @@ TEST_F(sequence_test, index_of_can_be_used_in_constexpr) {
 }
 
 TEST_F(sequence_test, index_of_first_value) {
-  ASSERT_EQ(0, (Sequence<2, 4, 6>::IndexOf<2>()));
+  // '0' is treated by GTEST as 'NULL_POINTER_LITERAL'
+  // and ASSERT expects nullptr, thus '0.0' as a workaround
+  ASSERT_EQ(0.0, (Sequence<2, 4, 6>::IndexOf<2>()));
 }
 
 TEST_F(sequence_test, index_of_not_first_value) {

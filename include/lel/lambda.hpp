@@ -24,7 +24,7 @@ class Lambda<Context<Func, Views...>, Template::Box<Compare, IDT, IDs...>> {
   using This = Lambda<Context<Func, Views...>, ID>;
 
  public:
-  constexpr Lambda(Views... views) : views(std::move(views)...) {}
+  constexpr Lambda(Views... args) : views(std::move(args)...) {}
 
   template <class... Values>
   constexpr decltype(auto) operator()(Values &&... values) const {
