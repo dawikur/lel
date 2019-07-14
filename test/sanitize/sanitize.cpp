@@ -48,7 +48,7 @@ int main() {
   y_vec.push_back(std::make_unique<std::unique_ptr<int>>(std::make_unique<int>(8)));
   y_vec.push_back(std::make_unique<std::unique_ptr<int>>(std::make_unique<int>(9)));
 
-  assert((4+7) == (add_of_vectors(3, 1, x_vec, y_vec)));
+  assert((4+7) == (add_of_vectors(3u, 1u, x_vec, y_vec)));
 
   // references
   int x = 5;

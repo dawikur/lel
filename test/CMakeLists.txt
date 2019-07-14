@@ -48,10 +48,6 @@ else()
     )
   endif()
 
-  target_compile_options(tests INTERFACE
-    -Wno-sign-conversion # FIXME
-  )
-
   if(ENABLE_COVERAGE)
     target_compile_options(tests INTERFACE
       --coverage

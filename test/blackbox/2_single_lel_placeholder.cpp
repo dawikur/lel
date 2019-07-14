@@ -35,7 +35,7 @@ TEST_F(single_lel_placeholder_test, assign_simple_value) {
 }
 
 TEST_F(single_lel_placeholder_test, subscription_on_array) {
-  auto value = _x[3];
+  auto value = _x[3u];
 
   int array[5] = {2, 4, 5, 7, 3};
 
@@ -43,11 +43,11 @@ TEST_F(single_lel_placeholder_test, subscription_on_array) {
 }
 
 TEST_F(single_lel_placeholder_test, subscriptino_on_vector) {
-  auto value = _x[4];
+  auto value = _x[4u];
 
   std::vector<int> vec{0, 3, 6, 9, 12, 15};
 
-  ASSERT_EQ(vec[4], value(vec));
+  ASSERT_EQ(vec[4u], value(vec));
 }
 
 TEST_F(single_lel_placeholder_test, shift_left) {

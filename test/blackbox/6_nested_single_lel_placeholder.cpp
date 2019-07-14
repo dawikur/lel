@@ -21,7 +21,7 @@ TEST_F(nested_single_lel_placeholder_test, indirection_and_cmparition) {
 }
 
 TEST_F(nested_single_lel_placeholder_test, indirection_and_subscription) {
-  auto  get_second = (*_x)[2];
+  auto  get_second = (*_x)[2u];
 
   auto ptr = std::make_unique<std::vector<int>>();
   ptr->push_back(1);
@@ -33,7 +33,7 @@ TEST_F(nested_single_lel_placeholder_test, indirection_and_subscription) {
 }
 
 TEST_F(nested_single_lel_placeholder_test, indirection_subscription_indirection) {
-  auto get_get = *((*_x)[1]);
+  auto get_get = *((*_x)[1u]);
 
   auto ptr = std::make_unique<std::vector<std::unique_ptr<int>>>();
   ptr->push_back(std::make_unique<int>(1));

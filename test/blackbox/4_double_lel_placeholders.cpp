@@ -53,8 +53,8 @@ TEST_F(double_lel_placeholders_test, both_array_and_index_with_vector) {
   vec.push_back(4);
   vec.push_back(1);
 
-  ASSERT_EQ(4, arr1(vec, 3));
-  ASSERT_EQ(5, arr2(2, vec));
+  ASSERT_EQ(4, arr1(vec, 3u));
+  ASSERT_EQ(5, arr2(2u, vec));
 }
 
 TEST_F(double_lel_placeholders_test, double_index_vector_of_unique_ptr) {
@@ -65,8 +65,8 @@ TEST_F(double_lel_placeholders_test, double_index_vector_of_unique_ptr) {
   vec.push_back(std::make_unique<int>(5));
   vec.push_back(std::make_unique<int>(4));
 
-  ASSERT_EQ(5, arr1(vec, 0));
-  ASSERT_EQ(4, arr2(1, vec));
+  ASSERT_EQ(5, arr1(vec, 0u));
+  ASSERT_EQ(4, arr2(1u, vec));
 }
 
 TEST_F(double_lel_placeholders_test, double_index_unique_ptr_of_vector) {
@@ -77,8 +77,8 @@ TEST_F(double_lel_placeholders_test, double_index_unique_ptr_of_vector) {
   ptr->push_back(5);
   ptr->push_back(4);
 
-  ASSERT_EQ(5, arr1(ptr, 0));
-  ASSERT_EQ(4, arr2(1, ptr));
+  ASSERT_EQ(5, arr1(ptr, 0u));
+  ASSERT_EQ(4, arr2(1u, ptr));
 }
 
 TEST_F(double_lel_placeholders_test, combine_indirection_and_address_of) {
