@@ -29,14 +29,14 @@ else()
       -Wcast-align
       -Wconversion
       -Wdouble-promotion
-      -Wduplicated-branches
-      -Wduplicated-cond
+      #-Wduplicated-branches
+      #-Wduplicated-cond
       -Wextra
       -Wformat=2
       -Wlogical-op
-      -Wmisleading-indentation
+      #-Wmisleading-indentation
       -Wnon-virtual-dtor
-      -Wnull-dereference
+      #-Wnull-dereference
       -Wold-style-cast
       -Woverloaded-virtual
       -Wpedantic
