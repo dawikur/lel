@@ -248,7 +248,7 @@ class Writer(object):
         self.output.write('\n')
 
     def _header_guard_end(self, header_guard):
-        self.output.write('#endif  // {}'.format(header_guard))
+        self.output.write('#endif  // {}\n'.format(header_guard))
 
     def _includes(self, includes):
         for include in includes:
