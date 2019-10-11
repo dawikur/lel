@@ -10,7 +10,7 @@ is_right_triangle(3, 4, 5);
 ```
 
 [![Language][Language-img]][Language-url]
-[![Release][Release-img]][Release-url]
+<!--[![Release][Release-img]][Release-url]-->
 [![License][License-img]][License-url]
 
 [![Master][Master-img]][Master-url]
