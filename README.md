@@ -17,7 +17,6 @@ is_right_triangle(3, 4, 5);
 [![MasterLinuxBuild][MasterLinuxBuild-img]][MasterLinuxBuild-url]
 [![MasterWindowsBuild][MasterWindowsBuild-img]][MasterWindowsBuild-url]
 [![MasterCoverage][MasterCoverage-img]][MasterCoverage-url]
-[![MasterCodeClimate][MasterCodeClimate-img]][MasterCodeClimate-url]
 
 ---
 
@@ -271,8 +270,6 @@ However the idea for this library came out independently.
 [MasterWindowsBuild-url]: https://ci.appveyor.com/project/dawikur/lel
 [MasterCoverage-img]: https://img.shields.io/codecov/c/github/dawikur/lel/master.svg?label=coverage&style=flat-square
 [MasterCoverage-url]: https://codecov.io/gh/dawikur/lel
-[MasterCodeClimate-img]: https://img.shields.io/codeclimate/issues/github/dawikur/lel.svg?style=flat-square
-[MasterCodeClimate-url]: https://codeclimate.com/github/dawikur/lel/
 
 [Develop-img]: https://img.shields.io/badge/-develop-lightgrey.svg?style=flat-square
 [Develop-url]: https://github.com/dawikur/lel/tree/develop
